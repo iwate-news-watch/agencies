@@ -25,7 +25,7 @@
 分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは各機関のトップです。取得方法は `sources.yaml` を見てください。
 
 - 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
-- 準備中（ページ下部にホームページへのリンクだけ表示）: 北上川ダム統合管理事務所・釜石海上保安部・東北農政局・三陸国道事務所・南三陸沿岸国道事務所・岩手県立大学（取得方法を再調査中）
+- 準備中（ページ下部にホームページへのリンクだけ表示）: 北上川ダム統合管理事務所・東北農政局・三陸国道事務所・南三陸沿岸国道事務所・岩手県立大学（取得方法を再調査中）
 
 
 | 分類 | 名称 | URL |
@@ -36,7 +36,6 @@
 | 国の機関 | 三陸国道事務所 | https://www.thr.mlit.go.jp/sanriku/ |
 | 国の機関 | 南三陸沿岸国道事務所 | https://www.thr.mlit.go.jp/minamisanriku/ |
 | 国の機関 | 北上川ダム統合管理事務所 | https://www.thr.mlit.go.jp/kitakato/ |
-| 国の機関 | 釜石海上保安部 | https://www.kaiho.mlit.go.jp/02kanku/kamaishi/ |
 | 国の機関 | 盛岡財務事務所 | https://lfb.mof.go.jp/tohoku/morioka/ |
 | 国の機関 | 日本銀行盛岡事務所 | https://www3.boj.or.jp/morioka/ |
 | 国の機関 | 東北農政局 | https://www.maff.go.jp/tohoku/ |
@@ -84,10 +83,10 @@
 output: reports/survey_agencies_2.csv
 targets:
   - category: 国の機関
-    name: 釜石海上保安部
-    urls: ["https://www.kaiho.mlit.go.jp/02kanku/kamaishi/", "https://www.kaiho.mlit.go.jp/02kanku/"]
-    hints: ["https://www.kaiho.mlit.go.jp/02kanku/xxxx/"]   # （任意）一覧ページがありそうな場所
-    keywords: [釜石, 宮古, 岩手]                              # （任意）絞り込みのキーワード
+    name: 東北農政局
+    urls: ["https://www.maff.go.jp/tohoku/stinfo/index.html", "https://www.maff.go.jp/tohoku/press/houdou.html"]
+    hints: ["https://www.maff.go.jp/tohoku/xxxx/"]   # （任意）一覧ページがありそうな場所
+    keywords: [岩手]                                 # （任意）絞り込みのキーワード
 ```
 
 **実行方法**

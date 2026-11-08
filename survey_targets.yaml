@@ -28,10 +28,6 @@ targets:
     name: 東北農政局
     urls: ["https://www.maff.go.jp/tohoku/stinfo/index.html", "https://www.maff.go.jp/tohoku/press/houdou.html"]
     keywords: [岩手]
-  - category: 国の機関
-    name: 釜石海上保安部
-    urls: ["https://www.kaiho.mlit.go.jp/02kanku/kamaishi/", "https://www.kaiho.mlit.go.jp/02kanku/"]
-    keywords: [釜石, 宮古, 岩手]
   - category: 大学・研究機関
     name: 岩手県立大学
     urls: ["https://www.iwate-pu.ac.jp/"]
