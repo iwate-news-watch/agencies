@@ -13,6 +13,7 @@
 # これまでの調査結果:
 #   reports/survey_agencies.csv   … 1回目（20サイト）
 #   reports/survey_agencies_2.csv … 2回目（準備中だった北上川ダム・三陸国道・南三陸沿岸国道・東北農政局・岩手県立大学）
+#   reports/survey_agencies_3.csv … 3回目（岩手県立大学を Worker 経由で）
 
 output: reports/survey_agencies_3.csv
 

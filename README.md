@@ -24,8 +24,9 @@
 
 分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは各機関のトップです。取得方法は `sources.yaml` を見てください。
 
-- 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・北上川ダム統合管理事務所・三陸国道事務所・南三陸沿岸国道事務所・東北農政局（東北6県）・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
-- 準備中（ページ下部にホームページへのリンクだけ表示）: 岩手県立大学（GitHub Actions からは HTTP 403。Cloudflare Worker 経由での取得を調査中）
+- 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・北上川ダム統合管理事務所・三陸国道事務所・南三陸沿岸国道事務所・東北農政局（東北6県）・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手県立大学（Worker 経由）・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
+- 準備中: なし（新しく機関を追加して取得方法が決まるまでは、`preparing: true` でページ下部にホームページへのリンクだけ表示できます）
+- 岩手県立大学は GitHub Actions からの直接の取得が HTTP 403（CloudFront で遮断）のため、Cloudflare Worker の `/proxy` 経由で Atom フィードを取得しています。
 - 東北農政局は東北6県まとめての発表にも岩手の情報が含まれるため、キーワードで絞らずに報道発表をすべて拾います。
 
 
@@ -57,7 +58,9 @@
 ├── scripts/inspect_sources.py # 取得元ごとに拾える記事の確認
 ├── requirements.txt
 ├── reports/survey_agencies.csv  # 1回目の調査結果（20サイト）
-├── reports/survey_agencies_2.csv  # 2回目の調査結果（準備中の機関の再調査。調査用ワークフローが更新）
+├── reports/survey_agencies_2.csv  # 2回目の調査結果（準備中の機関の再調査）
+├── reports/survey_agencies_3.csv  # 3回目の調査結果（岩手県立大学を Worker 経由で）
+├── reports/diagnose/          # ページの診断結果（Inspect sources の URL 指定）
 ├── reports/inspect_sources.csv  # 取得元の確認結果（確認用ワークフローが更新）
 ├── state/
 │   ├── seen.json              # 既出記事のURL（90日より古い記録は自動削除）

@@ -108,6 +108,14 @@ organizations:
     sources:
       - type: rss
         url: https://www.iwate-u.ac.jp/atom.xml
+  - name: 岩手県立大学
+    homepage: https://www.iwate-pu.ac.jp/
+    sources:
+      # GitHub Actions からの直接の取得は HTTP 403（CloudFront で遮断）のため Worker 経由で取得する。
+      # 新着情報一覧（/news）と同じ記事の Atom フィード（トップページの link rel=alternate）
+      - type: rss
+        url: https://www.iwate-pu.ac.jp/feeds/feed-page.xml
+        via_proxy: true
   - name: 岩手医科大学
     homepage: https://www.iwate-med.ac.jp/
     sources:
@@ -152,8 +160,3 @@ organizations:
         date_format: kanji
         selector: "article.sub dl.topics"  # 本文のお知らせ一覧だけ（左メニューを除く）
         title_from: text                   # 「詳細はこちら」形式なので本文をタイトルにする
-
-  # ---- 準備中（取得せず、ページ下部にホームページへのリンクだけ表示） ----
-  - name: 岩手県立大学
-    homepage: https://www.iwate-pu.ac.jp/
-    preparing: true
