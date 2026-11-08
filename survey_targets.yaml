@@ -12,15 +12,12 @@ targets:
   - {category: 国の機関, name: 盛岡財務事務所, url: "https://lfb.mof.go.jp/tohoku/morioka/"}
   - {category: 国の機関, name: 日本銀行盛岡事務所, url: "https://www3.boj.or.jp/morioka/"}
   - {category: 国の機関, name: 東北農政局, url: "https://www.maff.go.jp/tohoku/"}
-  - {category: 国の機関, name: 盛岡地方裁判所, url: "https://www.courts.go.jp/morioka/"}
-  - {category: 国の機関, name: 盛岡地方検察庁, url: "https://www.kensatsu.go.jp/kakuchou/morioka/"}
   - {category: 国の機関, name: 岩手復興局, url: "https://www.reconstruction.go.jp/"}
   # ---- 大学・研究機関 ----
   - {category: 大学・研究機関, name: 岩手大学, url: "https://www.iwate-u.ac.jp/"}
   - {category: 大学・研究機関, name: 岩手県立大学, url: "https://www.iwate-pu.ac.jp/"}
   - {category: 大学・研究機関, name: 岩手医科大学, url: "https://www.iwate-med.ac.jp/"}
   - {category: 大学・研究機関, name: 盛岡大学, url: "https://morioka-u.ac.jp/"}
-  - {category: 大学・研究機関, name: 富士大学, url: "https://www.fuji-u.ac.jp/"}
-  - {category: 大学・研究機関, name: 一関工業高等専門学校, url: "https://www.ichinoseki.ac.jp/"}
+  - {category: 大学・研究機関, name: いわて富士大学, url: "https://www.fuji-u.ac.jp/"}
   - {category: 大学・研究機関, name: 国立天文台 水沢VLBI観測所, url: "https://www.miz.nao.ac.jp/"}
   - {category: 大学・研究機関, name: 東京大学 国際沿岸海洋研究センター, url: "https://www.icrc.aori.u-tokyo.ac.jp/"}

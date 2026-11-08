@@ -12,19 +12,23 @@
 
 ## 現在の状況と今後の手順
 
-いまは取得元が未設定なので、公開ページには「まだ取得していません」とだけ表示されます。次の順に進めます。
+次の順に進めています（1・2は完了）。
 
-1. **取得元を調査する** … 「Survey agencies」ワークフローを実行し、`reports/survey_agencies.csv` で各サイトのフィードと新着一覧ページを確認します（下記「取得元の調査」）。
-2. **取得元を設定する** … 調査結果をもとに `sources.yaml` に取得元を書きます（下記「取得元の追加・変更方法」）。
+1. ✅ **取得元を調査する** … 「Survey agencies」ワークフローを実行し、`reports/survey_agencies.csv` で各サイトのフィードと新着一覧ページを確認します（下記「取得元の調査」）。
+2. ✅ **取得元を設定する** … 調査結果をもとに `sources.yaml` に取得元を書きます（下記「取得元の追加・変更方法」）。
 3. **取得する** … 「Iwate agencies news」ワークフローを実行します。初回は記録のみで、2回目以降に増えた記事が新着として表示されます。
 4. （後で）更新ボタン用の中継サーバーを用意し、`docs/config.json` の `trigger_url` に設定します。
 5. （後で）新しいロゴを用意し、`scripts/build.py` の `LOGO_FILE` に設定します。
 
 ## 対象の機関
 
-分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは調査対象の候補（`survey_targets.yaml`）です。
+分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは各機関のトップ（`survey_targets.yaml` の調査対象）です。取得方法は `sources.yaml` を見てください。
 
-| 分類 | 名称 | URL（候補） |
+- 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
+- 準備中（ページ下部にホームページへのリンクだけ表示）: 北上川ダム統合管理事務所・釜石海上保安部・東北農政局・岩手復興局・三陸国道事務所・岩手県立大学
+
+
+| 分類 | 名称 | URL |
 |---|---|---|
 | 国の機関 | 盛岡地方気象台 | https://www.data.jma.go.jp/morioka/ |
 | 国の機関 | 岩手労働局 | https://jsite.mhlw.go.jp/iwate-roudoukyoku/ |
@@ -35,15 +39,12 @@
 | 国の機関 | 盛岡財務事務所 | https://lfb.mof.go.jp/tohoku/morioka/ |
 | 国の機関 | 日本銀行盛岡事務所 | https://www3.boj.or.jp/morioka/ |
 | 国の機関 | 東北農政局 | https://www.maff.go.jp/tohoku/ |
-| 国の機関 | 盛岡地方裁判所 | https://www.courts.go.jp/morioka/ |
-| 国の機関 | 盛岡地方検察庁 | https://www.kensatsu.go.jp/kakuchou/morioka/ |
 | 国の機関 | 岩手復興局 | https://www.reconstruction.go.jp/ |
 | 大学・研究機関 | 岩手大学 | https://www.iwate-u.ac.jp/ |
 | 大学・研究機関 | 岩手県立大学 | https://www.iwate-pu.ac.jp/ |
 | 大学・研究機関 | 岩手医科大学 | https://www.iwate-med.ac.jp/ |
 | 大学・研究機関 | 盛岡大学 | https://morioka-u.ac.jp/ |
-| 大学・研究機関 | 富士大学 | https://www.fuji-u.ac.jp/ |
-| 大学・研究機関 | 一関工業高等専門学校 | https://www.ichinoseki.ac.jp/ |
+| 大学・研究機関 | いわて富士大学 | https://www.fuji-u.ac.jp/ |
 | 大学・研究機関 | 国立天文台 水沢VLBI観測所 | https://www.miz.nao.ac.jp/ |
 | 大学・研究機関 | 東京大学 国際沿岸海洋研究センター | https://www.icrc.aori.u-tokyo.ac.jp/ |
 
@@ -110,10 +111,9 @@ CSV の主な列: `status`（ok/error）、`http_status`、`final_url`（転送�
 
 **RSS / Atom フィードの場合**
 
-いまは `organizations: []`（空）です。`[]` を消して、次のように機関を並べます（URLは例です）。
+次のように機関を並べます（URLは例です）。
 
 ```yaml
-organizations:
   - name: 岩手大学
     homepage: https://www.iwate-u.ac.jp/
     sources:
@@ -141,6 +141,8 @@ organizations:
 | `date_format` | 日付の書式 | 例 |
 |---|---|---|
 | `dotted` | 西暦をドットで区切る | `2026.10.15` |
+| `slash` | 西暦をスラッシュで区切る | `2026/10/16` |
+| `kanji` | 西暦を年月日で書く | `2026年11月5日`（空白入り・全角数字も可） |
 | `reiwa` | 令和（令和N年 = 西暦 2018+N 年） | `令和8年 10月15日`（空白入り・全角数字も可） |
 
 - メニューやバナーのリンクまで拾ってしまう場合は、`selector` で記事一覧の部分を指定してください。
@@ -148,7 +150,19 @@ organizations:
 
 **取得元をやめる・一時的に止める場合**
 
-その機関の `sources:` を `sources: []` にすると、ページに「取得元未設定」と表示されます。
+その機関に `preparing: true` を書くと、取得せずにページ下部の「準備中」にホームページへのリンクだけを表示します（パネルにも並びません）。
+
+```yaml
+  - name: 岩手県立大学
+    homepage: https://www.iwate-pu.ac.jp/
+    preparing: true
+```
+
+`sources: []`（`preparing` なし）にすると、ページに「取得元未設定」と表示されます。
+
+**機関を対象から外す場合**
+
+`sources.yaml` から削除し、`scripts/build.py` の `CATEGORIES` と `survey_targets.yaml` からも削除します。
 
 **ローカルで試す場合**
 

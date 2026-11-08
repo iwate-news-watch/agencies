@@ -4,23 +4,116 @@
 #   type: rss     … RSS / Atom フィード
 #   type: scrape  … RSSのないサイト。ページ内の日付の直後にある最初のリンクを記事とみなす
 #     date_format: dotted  … 「2026.10.15」形式
+#     date_format: slash   … 「2026/10/16」形式
+#     date_format: kanji   … 「2026年11月5日」形式
 #     date_format: reiwa   … 「令和8年 10月15日」形式
 #     selector: (任意) 記事一覧部分のCSSセレクタ。指定するとその範囲だけを走査
 #
-# sources が空の機関はページに「取得元未設定」と表示されます。
-#
-# homepage: (任意) ページで機関名からリンクする公式ホームページのURL。
+# homepage: ページで機関名からリンクする公式ホームページのURL（各機関のトップ）。
 #   省略すると、最初の取得元URLのドメインのトップ（https://ドメイン/）にリンクします。
-#   出先機関はドメインのトップが本省になることが多いので、homepage の指定を推奨します。
+#
+# preparing: true … 準備中。取得はせず、ページ下部の「準備中」に homepage へのリンクだけ表示します。
+#
+# sources が空（preparing でもない）の機関はページに「取得元未設定」と表示されます。
 #
 # 分類（国の機関／大学・研究機関）と読みは scripts/build.py の CATEGORIES にあります。
 # 取得元の候補は「Survey agencies」ワークフローの結果（reports/survey_agencies.csv）を参考にしてください。
-#
-# 例:
-#   - name: 岩手大学
-#     homepage: https://www.iwate-u.ac.jp/
-#     sources:
-#       - type: rss
-#         url: https://www.iwate-u.ac.jp/xxxx.rss
 
-organizations: []
+organizations:
+  # ---- 国の機関 ----
+  - name: 盛岡地方気象台
+    homepage: https://www.data.jma.go.jp/morioka/
+    sources:
+      - type: scrape
+        url: https://www.data.jma.go.jp/morioka/
+        date_format: reiwa
+  - name: 岩手労働局
+    homepage: https://jsite.mhlw.go.jp/iwate-roudoukyoku/
+    sources:
+      - type: rss
+        url: https://jsite.mhlw.go.jp/iwate-roudoukyoku/rss/iwate-roudoukyoku-news.xml
+      - type: rss
+        url: https://jsite.mhlw.go.jp/iwate-roudoukyoku/rss/iwate-roudoukyoku-event.xml
+      - type: scrape
+        url: https://jsite.mhlw.go.jp/iwate-roudoukyoku/news_topics/houdou.html
+        date_format: kanji
+  - name: 岩手河川国道事務所
+    homepage: https://www.thr.mlit.go.jp/iwate/
+    sources:
+      - type: scrape
+        url: https://www.thr.mlit.go.jp/iwate/
+        date_format: dotted
+  - name: 盛岡財務事務所
+    homepage: https://lfb.mof.go.jp/tohoku/morioka/
+    sources:
+      - type: scrape
+        url: https://lfb.mof.go.jp/tohoku/morioka/soumu/pagethkhp04500008.html
+        date_format: reiwa
+  - name: 日本銀行盛岡事務所
+    homepage: https://www3.boj.or.jp/morioka/
+    sources:
+      - type: scrape
+        url: https://www3.boj.or.jp/morioka/
+        date_format: kanji
+
+  # ---- 大学・研究機関 ----
+  - name: 岩手大学
+    homepage: https://www.iwate-u.ac.jp/
+    sources:
+      - type: rss
+        url: https://www.iwate-u.ac.jp/atom.xml
+  - name: 岩手医科大学
+    homepage: https://www.iwate-med.ac.jp/
+    sources:
+      - type: scrape
+        url: https://www.iwate-med.ac.jp/category/news/
+        date_format: dotted
+      - type: scrape
+        url: https://www.iwate-med.ac.jp/category/topics/
+        date_format: dotted
+  - name: 盛岡大学
+    homepage: https://morioka-u.ac.jp/
+    sources:
+      - type: scrape
+        url: https://morioka-u.ac.jp/
+        date_format: slash
+  - name: いわて富士大学
+    homepage: https://www.fuji-u.ac.jp/
+    sources:
+      - type: rss
+        url: https://www.fuji-u.ac.jp/feed/
+  - name: 国立天文台 水沢VLBI観測所
+    homepage: https://www.miz.nao.ac.jp/
+    sources:
+      - type: scrape
+        url: https://www.miz.nao.ac.jp/content/news/topics.html
+        date_format: dotted
+      - type: scrape
+        url: https://www.miz.nao.ac.jp/content/news/announce.1.html
+        date_format: dotted
+  - name: 東京大学 国際沿岸海洋研究センター
+    homepage: https://www.icrc.aori.u-tokyo.ac.jp/
+    sources:
+      - type: scrape
+        url: https://www.icrc.aori.u-tokyo.ac.jp/archive.html
+        date_format: kanji
+
+  # ---- 準備中（取得せず、ページ下部にホームページへのリンクだけ表示） ----
+  - name: 北上川ダム統合管理事務所
+    homepage: https://www.thr.mlit.go.jp/kitakami-dam/
+    preparing: true
+  - name: 釜石海上保安部
+    homepage: https://www.kaiho.mlit.go.jp/02kanku/kamaishi/
+    preparing: true
+  - name: 東北農政局
+    homepage: https://www.maff.go.jp/tohoku/
+    preparing: true
+  - name: 岩手復興局
+    homepage: https://www.reconstruction.go.jp/
+    preparing: true
+  - name: 三陸国道事務所
+    homepage: https://www.thr.mlit.go.jp/sanriku/
+    preparing: true
+  - name: 岩手県立大学
+    homepage: https://www.iwate-pu.ac.jp/
+    preparing: true

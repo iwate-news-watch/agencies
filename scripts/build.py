@@ -109,6 +109,10 @@ def parse_feed(content: bytes, base_url: str) -> list[dict]:
 DATE_PATTERNS = {
     # 2026.10.15
     "dotted": re.compile(r"(\d{4})\s*\.\s*(\d{1,2})\s*\.\s*(\d{1,2})"),
+    # 2026/10/16
+    "slash": re.compile(r"(\d{4})\s*/\s*(\d{1,2})\s*/\s*(\d{1,2})"),
+    # 2026年11月5日 / 2026年 11月 5日
+    "kanji": re.compile(r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日"),
     # 令和8年 10月15日 / 令和 8年10月 15日 / 令和元年...
     "reiwa": re.compile(r"令和\s*(\d{1,2}|元)\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日"),
 }
@@ -201,8 +205,10 @@ def collect(source: dict) -> list[dict]:
         charset = requests.utils.get_encoding_from_headers(resp.headers)
         if charset == "ISO-8859-1":  # requests の text/* 既定値。宣言なしとみなす
             charset = None
-        return scrape_dated_links(decode_html(resp.content, charset), url,
-                                  source.get("date_format", "dotted"), source.get("selector"))
+        fmt = source.get("date_format", "dotted")
+        if fmt not in DATE_PATTERNS:
+            raise ValueError(f"不明な date_format: {fmt}（{', '.join(DATE_PATTERNS)} のいずれか）")
+        return scrape_dated_links(decode_html(resp.content, charset), url, fmt, source.get("selector"))
     raise ValueError(f"不明な type: {kind}")
 
 
@@ -252,6 +258,10 @@ def run(now: datetime) -> dict:
         name = muni["name"]
         sources = muni.get("sources") or []
         result = {"name": name, "status": "ok", "errors": [], "new": [], "record_only": False}
+        if muni.get("preparing"):  # 準備中。取得せず、ページ下部にホームページへのリンクだけ出す
+            result["status"] = "preparing"
+            results.append(result)
+            continue
         if not sources:
             result["status"] = "unconfigured"
             results.append(result)
@@ -484,8 +494,6 @@ CATEGORIES = [
         ("盛岡財務事務所", "もりおかざいむじむしょ"),
         ("日本銀行盛岡事務所", "にっぽんぎんこうもりおかじむしょ"),
         ("東北農政局", "とうほくのうせいきょく"),
-        ("盛岡地方裁判所", "もりおかちほうさいばんしょ"),
-        ("盛岡地方検察庁", "もりおかちほうけんさつちょう"),
         ("岩手復興局", "いわてふっこうきょく"),
     ]),
     ("大学・研究機関", [
@@ -493,8 +501,7 @@ CATEGORIES = [
         ("岩手県立大学", "いわてけんりつだいがく"),
         ("岩手医科大学", "いわていかだいがく"),
         ("盛岡大学", "もりおかだいがく"),
-        ("富士大学", "ふじだいがく"),
-        ("一関工業高等専門学校", "いちのせきこうぎょうこうとうせんもんがっこう"),
+        ("いわて富士大学", "いわてふじだいがく"),
         ("国立天文台 水沢VLBI観測所", "こくりつてんもんだい みずさわぶいえるびーあいかんそくじょ"),
         ("東京大学 国際沿岸海洋研究センター", "とうきょうだいがく こくさいえんがんかいようけんきゅうせんたー"),
     ]),
@@ -515,6 +522,13 @@ def configured_names() -> list[str]:
     """sources.yaml に載っている機関名。"""
     config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
     return [o["name"] for o in config.get("organizations") or []]
+
+
+@cache
+def preparing_names() -> list[str]:
+    """sources.yaml で preparing: true の機関名（パネルには並べない）。"""
+    config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
+    return [o["name"] for o in config.get("organizations") or [] if o.get("preparing")]
 
 
 @cache
@@ -618,6 +632,7 @@ def render_day(day: dict, split_latest: bool = False) -> str:
     record_only = [m for m in munis if m["record_only"] and not m["new"] and m["status"] != "error"]
     no_update = [m for m in munis if m["status"] == "ok" and not m["new"] and not m["record_only"]]
     unconfigured = [m for m in munis if m["status"] == "unconfigured"]
+    preparing = [m for m in munis if m["status"] == "preparing"]
 
     body = []
     if day.get("first_run") and not any(m["new"] for m in munis):
@@ -646,8 +661,9 @@ def render_day(day: dict, split_latest: bool = False) -> str:
     body.append(render_mlist(others))
 
     for label, group in (("初回のため記録のみ", record_only), ("更新なし", no_update),
-                         ("取得元未設定", unconfigured)):
+                         ("取得元未設定", unconfigured), ("準備中", preparing)):
         if group:
+            group = by_region(group)
             body.append(f"<h4>{label}</h4>")
             body.append(f'<p class="names">{"、".join(muni_link(m["name"]) for m in group)}</p>')
     return "\n".join(body)
@@ -656,7 +672,8 @@ def render_day(day: dict, split_latest: bool = False) -> str:
 def render_panel(day: dict, prefix: str) -> str:
     """記事検索と機関の並び替え・絞り込みのパネル。JavaScript が使えるときだけ表示する。"""
     # 分類ごとにまとめる。sources.yaml に載っている機関と、その日の一覧にある機関だけを並べる
-    present = set(configured_names()) | {m["name"] for m in day["organizations"]}
+    present = (set(configured_names()) | {m["name"] for m in day["organizations"]
+                                          if m["status"] != "preparing"}) - set(preparing_names())
     groups = [(r, [n for n, _ in ms if n in present]) for r, ms in CATEGORIES]
     groups = [(r, names) for r, names in groups if names]
     extra = sorted(present - set(MUNI_INFO))
