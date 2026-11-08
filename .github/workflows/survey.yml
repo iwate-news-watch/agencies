@@ -1,0 +1,56 @@
+name: Survey agencies
+
+# 取得元の調査用。手動実行（Actions 画面の Run workflow）のときだけ動く
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: survey-agencies
+  cancel-in-progress: false
+
+jobs:
+  survey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 結果は reports/survey_agencies.csv に保存し、要約をこの実行結果画面（Summary）に表示する
+      - name: Survey sites
+        env:
+          TZ: Asia/Tokyo
+        run: python scripts/survey.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "Survey agencies: $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M')"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "push に失敗しました。$((i * 10)) 秒後に再試行します（${i}/5）"
+            sleep $((i * 10))
+          done
+          echo "push に5回失敗しました"
+          exit 1

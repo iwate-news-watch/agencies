@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""岩手県内市町村の新着行政情報を取得し、GitHub Pages 用の HTML を生成する。
+"""岩手県内の国の出先機関・大学の新着情報を取得し、GitHub Pages 用の HTML を生成する。
 
     python scripts/build.py
 
@@ -38,16 +38,18 @@ SEARCH_FILE = DOCS_DIR / "search.json"
 
 JST = timezone(timedelta(hours=9))
 USER_AGENT = (
-    "Mozilla/5.0 (compatible; iwate-gyosei-news/1.0; "
-    "+https://github.com/nowakinowaki/test)"
+    "Mozilla/5.0 (compatible; iwate-agencies-news/1.0; "
+    "+https://github.com/iwate-news-watch/agencies)"
 )
 TIMEOUT = 20
 RETRY_WAIT = 3
 SITE_INTERVAL = 1
 SEEN_RETENTION_DAYS = 90
 ARCHIVE_DAYS = 30
-SITE_NAME = "NAMBU 岩手県市町村新着情報"
-LOGO_FILE = "nambu-logo.svg"  # docs/ に置くロゴ
+SITE_NAME = "岩手県 国の機関・大学 新着情報"
+# docs/ に置くロゴのファイル名。空文字のあいだはロゴを表示しない
+# （新しいロゴを用意したら docs/ に置き、ここにファイル名を書く）
+LOGO_FILE = ""
 
 
 # ---------------------------------------------------------------------------
@@ -240,13 +242,13 @@ def prune_seen(seen: dict, today: date) -> None:
 # ---------------------------------------------------------------------------
 
 def run(now: datetime) -> dict:
-    config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8"))
+    config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
     seen = load_seen()
     first_run = not seen["sources"]
     today = now.date().isoformat()
     results = []
 
-    for muni in config["municipalities"]:
+    for muni in config.get("organizations") or []:
         name = muni["name"]
         sources = muni.get("sources") or []
         result = {"name": name, "status": "ok", "errors": [], "new": [], "record_only": False}
@@ -270,7 +272,7 @@ def run(now: datetime) -> dict:
             if is_fresh:
                 fresh_sources.append(url)
             for item in fetched:
-                # 同じ自治体の複数フィードはURLで重複を除く
+                # 同じ機関の複数フィードはURLで重複を除く
                 existing = items.get(item["url"])
                 if existing is None:
                     items[item["url"]] = {**item, "_record_only": is_fresh}
@@ -294,11 +296,11 @@ def run(now: datetime) -> dict:
 
     prune_seen(seen, now.date())
     save_json(SEEN_FILE, seen)
-    return {"fetched_at": now.strftime("%H:%M"), "first_run": first_run, "municipalities": results}
+    return {"fetched_at": now.strftime("%H:%M"), "first_run": first_run, "organizations": results}
 
 
 def empty_day(day: str) -> dict:
-    return {"date": day, "last_fetched": "", "first_run": False, "municipalities": []}
+    return {"date": day, "last_fetched": "", "first_run": False, "organizations": []}
 
 
 def load_daily(path: Path, day: str) -> dict:
@@ -310,34 +312,34 @@ def load_daily(path: Path, day: str) -> dict:
         merged = empty_day(data["date"])
         for r in sorted(data["runs"], key=lambda r: r.get("updated_at", "")):
             add_fetch(merged, {"fetched_at": r.get("updated_at", ""), "first_run": r.get("first_run", False),
-                               "municipalities": r["municipalities"]})
+                               "organizations": r["organizations"]})
         return merged
     if "last_fetched" not in data:  # 1日1回だった頃の形式
         merged = empty_day(data["date"])
         add_fetch(merged, {"fetched_at": data.get("updated_at", ""), "first_run": data.get("first_run", False),
-                           "municipalities": data["municipalities"]})
+                           "organizations": data["organizations"]})
         return merged
     return data
 
 
 def add_fetch(daily: dict, fetch_result: dict) -> dict:
-    """今回の取得で増えた記事を、その日の一覧に自治体ごとに追加する。
+    """今回の取得で増えた記事を、その日の一覧に機関ごとに追加する。
 
     新しく取得したものほど上に並ぶ。取得エラー・初回記録のみの表示は今回の取得結果に合わせる。
     各記事には見つけた取得の時刻（fetched_at）を付け、最新の取得分を区別できるようにする。
     """
-    prev_by_name = {m["name"]: m for m in daily["municipalities"]}
+    prev_by_name = {m["name"]: m for m in daily["organizations"]}
     merged = []
-    for muni in fetch_result["municipalities"]:
+    for muni in fetch_result["organizations"]:
         prev = prev_by_name.pop(muni["name"], None)
         items = [{**i, "fetched_at": fetch_result["fetched_at"]} for i in muni["new"]]
         if prev:
             urls = {i["url"] for i in items}
             items += [i for i in prev["new"] if i["url"] not in urls]
         merged.append({**muni, "new": items})
-    # sources.yaml から外れた自治体も、その日にすでに載せた記事は残す
+    # sources.yaml から外れた機関も、その日にすでに載せた記事は残す
     merged += [m for m in prev_by_name.values() if m["new"]]
-    daily["municipalities"] = merged
+    daily["organizations"] = merged
     daily["last_fetched"] = fetch_result["fetched_at"]
     daily["first_run"] = daily.get("first_run", False) or fetch_result["first_run"]
     return daily
@@ -469,41 +471,61 @@ z-index:auto;border:0;border-right:1px solid var(--line);background:transparent;
 """
 
 
-# 並び替え・絞り込みパネル用の地域区分（並び順＝地域順）と読み（五十音順用）
-REGIONS = [
-    ("県央", [("盛岡市", "もりおかし"), ("八幡平市", "はちまんたいし"), ("滝沢市", "たきざわし"),
-             ("雫石町", "しずくいしちょう"), ("葛巻町", "くずまきまち"), ("岩手町", "いわてまち"),
-             ("紫波町", "しわちょう"), ("矢巾町", "やはばちょう")]),
-    ("県南", [("花巻市", "はなまきし"), ("北上市", "きたかみし"), ("遠野市", "とおのし"),
-             ("一関市", "いちのせきし"), ("奥州市", "おうしゅうし"), ("西和賀町", "にしわがまち"),
-             ("金ケ崎町", "かねがさきちょう"), ("平泉町", "ひらいずみちょう")]),
-    ("沿岸", [("宮古市", "みやこし"), ("大船渡市", "おおふなとし"), ("陸前高田市", "りくぜんたかたし"),
-             ("釜石市", "かまいしし"), ("住田町", "すみたちょう"), ("大槌町", "おおつちちょう"),
-             ("山田町", "やまだまち"), ("岩泉町", "いわいずみちょう"), ("田野畑村", "たのはたむら")]),
-    ("県北", [("久慈市", "くじし"), ("二戸市", "にのへし"), ("普代村", "ふだいむら"),
-             ("軽米町", "かるまいまち"), ("野田村", "のだむら"), ("九戸村", "くのへむら"),
-             ("洋野町", "ひろのちょう"), ("一戸町", "いちのへまち")]),
+# 並び替え・絞り込みパネル用の分類（並び順＝分類順）と読み（五十音順用）。
+# sources.yaml に機関を追加したら、ここにも分類と読みを追加する（ない機関は「その他」に入る）
+CATEGORIES = [
+    ("国の機関", [
+        ("盛岡地方気象台", "もりおかちほうきしょうだい"),
+        ("岩手労働局", "いわてろうどうきょく"),
+        ("岩手河川国道事務所", "いわてかせんこくどうじむしょ"),
+        ("三陸国道事務所", "さんりくこくどうじむしょ"),
+        ("北上川ダム統合管理事務所", "きたかみがわだむとうごうかんりじむしょ"),
+        ("釜石海上保安部", "かまいしかいじょうほあんぶ"),
+        ("盛岡財務事務所", "もりおかざいむじむしょ"),
+        ("日本銀行盛岡事務所", "にっぽんぎんこうもりおかじむしょ"),
+        ("東北農政局", "とうほくのうせいきょく"),
+        ("盛岡地方裁判所", "もりおかちほうさいばんしょ"),
+        ("盛岡地方検察庁", "もりおかちほうけんさつちょう"),
+        ("岩手復興局", "いわてふっこうきょく"),
+    ]),
+    ("大学・研究機関", [
+        ("岩手大学", "いわてだいがく"),
+        ("岩手県立大学", "いわてけんりつだいがく"),
+        ("岩手医科大学", "いわていかだいがく"),
+        ("盛岡大学", "もりおかだいがく"),
+        ("富士大学", "ふじだいがく"),
+        ("一関工業高等専門学校", "いちのせきこうぎょうこうとうせんもんがっこう"),
+        ("国立天文台 水沢VLBI観測所", "こくりつてんもんだい みずさわぶいえるびーあいかんそくじょ"),
+        ("東京大学 国際沿岸海洋研究センター", "とうきょうだいがく こくさいえんがんかいようけんきゅうせんたー"),
+    ]),
 ]
 OTHER_REGION = "その他"
 MUNI_INFO = {name: (region, order, kana)
              for order, (region, name, kana) in enumerate(
-                 (r, n, k) for r, ms in REGIONS for n, k in ms)}
+                 (r, n, k) for r, ms in CATEGORIES for n, k in ms)}
 
 
 def muni_info(name: str) -> tuple[str, int, str]:
-    """(地域, 地域順の順位, 読み)。区分にない自治体は「その他」として最後に並べる。"""
+    """(分類, 分類順の順位, 読み)。分類にない機関は「その他」として最後に並べる。"""
     return MUNI_INFO.get(name, (OTHER_REGION, len(MUNI_INFO), name))
 
 
 @cache
+def configured_names() -> list[str]:
+    """sources.yaml に載っている機関名。"""
+    config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
+    return [o["name"] for o in config.get("organizations") or []]
+
+
+@cache
 def homepages() -> dict[str, str]:
-    """自治体名 → 公式ホームページのURL。
+    """機関名 → 公式ホームページのURL。
 
     sources.yaml の homepage を優先し、なければ最初の取得元URLのドメインのトップ（https://ドメイン/）。
     """
-    config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8"))
+    config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
     out = {}
-    for muni in config["municipalities"]:
+    for muni in config.get("organizations") or []:
         url = str(muni.get("homepage") or "").strip()
         if not url:
             for source in muni.get("sources") or []:
@@ -517,7 +539,7 @@ def homepages() -> dict[str, str]:
 
 
 def muni_link(name: str) -> str:
-    """自治体名。ホームページがわかればそこへのリンク（別タブ）にする。"""
+    """機関名。ホームページがわかればそこへのリンク（別タブ）にする。"""
     url = homepages().get(name)
     if not url:
         return esc(name)
@@ -559,7 +581,7 @@ def render_mlist(cards: list[str], empty_msg: bool = True) -> str:
         return ""
     out = '<div class="mlist">' + "\n".join(cards) + "</div>"
     if empty_msg:
-        out += '<p class="msg fmsg" hidden>選択中の自治体の記事はありません</p>'
+        out += '<p class="msg fmsg" hidden>選択中の機関の記事はありません</p>'
     return out
 
 
@@ -574,8 +596,8 @@ def render_muni_cards(munis: list[dict]) -> list[str]:
 
 
 def render_latest(day: dict) -> str:
-    """直近1回の取得で新しく見つかった記事を自治体ごとにまとめた枠。"""
-    munis = [{**m, "new": [i for i in m["new"] if is_latest(i, day)]} for m in day["municipalities"]]
+    """直近1回の取得で新しく見つかった記事を機関ごとにまとめた枠。"""
+    munis = [{**m, "new": [i for i in m["new"] if is_latest(i, day)]} for m in day["organizations"]]
     count = sum(len(m["new"]) for m in munis)
     parts = ['<div class="latest">',
              f'<h2>最新の取得で増えた記事<span class="meta">{esc(day.get("last_fetched", ""))} 取得 ・ '
@@ -590,7 +612,7 @@ def render_latest(day: dict) -> str:
 
 def render_day(day: dict, split_latest: bool = False) -> str:
     """その日の一覧。split_latest なら最新の取得分を先頭の枠に分け、残りを下に並べる。"""
-    munis = day["municipalities"]
+    munis = day["organizations"]
     errors = [m for m in munis if m["status"] == "error"]
     with_new = [m for m in munis if m["new"] and m["status"] != "error"]
     record_only = [m for m in munis if m["record_only"] and not m["new"] and m["status"] != "error"]
@@ -632,12 +654,15 @@ def render_day(day: dict, split_latest: bool = False) -> str:
 
 
 def render_panel(day: dict, prefix: str) -> str:
-    """記事検索と自治体の並び替え・絞り込みのパネル。JavaScript が使えるときだけ表示する。"""
-    groups = [(r, [n for n, _ in ms]) for r, ms in REGIONS]
-    extra = sorted({m["name"] for m in day["municipalities"]} - set(MUNI_INFO))
+    """記事検索と機関の並び替え・絞り込みのパネル。JavaScript が使えるときだけ表示する。"""
+    # 分類ごとにまとめる。sources.yaml に載っている機関と、その日の一覧にある機関だけを並べる
+    present = set(configured_names()) | {m["name"] for m in day["organizations"]}
+    groups = [(r, [n for n, _ in ms if n in present]) for r, ms in CATEGORIES]
+    groups = [(r, names) for r, names in groups if names]
+    extra = sorted(present - set(MUNI_INFO))
     if extra:
         groups.append((OTHER_REGION, extra))
-    sorts = (("region", "地域順"), ("count", "新着件数順"), ("kana", "五十音順"))
+    sorts = (("region", "分類順"), ("count", "新着件数順"), ("kana", "五十音順"))
     parts = [f'<aside class="panel" id="panel" aria-label="検索・並び替え・絞り込み" data-base="{esc(prefix)}" hidden>',
              '<div class="phead"><h2>検索・並び替え・絞り込み</h2>'
              '<button type="button" class="pclose" id="panel-close">閉じる</button></div>',
@@ -652,7 +677,7 @@ def render_panel(day: dict, prefix: str) -> str:
     parts += [f'<label><input type="radio" name="sort" value="{v}"{" checked" if v == "region" else ""}> {t}</label>'
               for v, t in sorts]
     parts.append('</fieldset><div class="pfilter"><p class="plabel">絞り込み</p>'
-                 '<div class="pbtns pall" role="group" aria-label="全自治体">'
+                 '<div class="pbtns pall" role="group" aria-label="全機関">'
                  '<button type="button" data-act="on">すべて選択</button>'
                  '<button type="button" data-act="off">すべて解除</button></div>')
     for region, names in groups:
@@ -671,7 +696,7 @@ def render_panel(day: dict, prefix: str) -> str:
 # 記事検索と並び替え・絞り込み。並び替え・絞り込みの設定は localStorage に保存（使えない環境では保存せずに動く）
 PANEL_JS = """
 (function () {
-  var KEY = "iwate-news-panel";
+  var KEY = "iwate-agencies-panel";  // 同じ github.io の別サイトと設定が混ざらないよう固有の名前にする
   var LIMIT = 200;
   var panel = document.getElementById("panel");
   var toggle = document.getElementById("panel-toggle");
@@ -690,7 +715,7 @@ PANEL_JS = """
   var muniMeta = {};
   boxes.forEach(function (b) { muniMeta[b.value] = {order: Number(b.dataset.order), kana: b.dataset.kana}; });
 
-  // 保存するのは並び替えと自治体の絞り込みだけ（検索語は保存しない）
+  // 保存するのは並び替えと機関の絞り込みだけ（検索語は保存しない）
   var state = {sort: "region", off: []};
   try {
     var saved = JSON.parse(window.localStorage.getItem(KEY) || "null");
@@ -833,7 +858,7 @@ PANEL_JS = """
       var msg = list.nextElementSibling;
       if (msg && msg.classList.contains("fmsg")) {
         msg.hidden = shown > 0;
-        msg.textContent = ts.length ? "検索語に一致する記事はありません" : "選択中の自治体の記事はありません";
+        msg.textContent = ts.length ? "検索語に一致する記事はありません" : "選択中の機関の記事はありません";
       }
       var meta = list.parentNode.querySelector(".shown");
       if (meta) meta.textContent = state.off.length || ts.length ? "（表示中 " + count + "件）" : "";
@@ -925,7 +950,7 @@ PANEL_JS = """
       save(); apply();
     });
   });
-  // 「すべて選択／解除」。地域のボタンはその地域、絞り込み欄の先頭のボタンは全自治体が対象
+  // 「すべて選択／解除」。分類のボタンはその分類、絞り込み欄の先頭のボタンは全機関が対象
   each(panel.querySelectorAll("button[data-act]"), function (btn) {
     btn.addEventListener("click", function () {
       var scope = btn.closest(".pregion") || panel;
@@ -1057,15 +1082,18 @@ def md(iso: str) -> str:
 
 
 def render_page(day: dict, archive_dates: list[str], prefix: str, is_index: bool) -> str:
-    total = sum(len(m["new"]) for m in day["municipalities"])
+    total = sum(len(m["new"]) for m in day["organizations"])
 
     # ロゴは幅の広い画面では右の余白に固定表示、狭い画面では見出しの横に小さく出す。
     # ファイルが読めないときは枠ごと隠す
-    logo = f'{prefix}{LOGO_FILE}'
+    # LOGO_FILE が空ならロゴは出さない
+    logo = f'{prefix}{LOGO_FILE}' if LOGO_FILE else ""
+    logo_sm = (f'<img class="logo-sm" src="{esc(logo)}" alt="{esc(SITE_NAME)}" onerror="this.hidden=true">'
+               if logo else "")
     body = ['<header class="masthead"><div class="mtext">'
             f'<p class="site">{esc(SITE_NAME)}</p>'
             f"<h1>{esc(jp_date(day['date']))}の更新</h1></div>"
-            f'<img class="logo-sm" src="{esc(logo)}" alt="NAMBU" onerror="this.hidden=true"></header>']
+            f'{logo_sm}</header>']
     body.append(f'<p class="sub">最終取得 {esc(day.get("last_fetched", ""))}（日本時間） ・ 新着 {total} 件</p>')
     body.append(render_daynav(day["date"], archive_dates, prefix))
     if is_index:
@@ -1082,7 +1110,7 @@ def render_page(day: dict, archive_dates: list[str], prefix: str, is_index: bool
         f'<li><a href="{prefix}archive/{d}.html">{esc(jp_date(d))}</a></li>' for d in archive_dates
     )
     body.append(f'<ul class="archive">{links}</ul>')
-    body.append("<footer>各記事の内容は各自治体の公式サイトでご確認ください。</footer>")
+    body.append("<footer>各記事の内容は各機関の公式サイトでご確認ください。</footer>")
 
     title = f"{jp_date(day['date'])}の更新"
     return (
@@ -1095,10 +1123,28 @@ def render_page(day: dict, archive_dates: list[str], prefix: str, is_index: bool
         + "<main>\n"
         + "\n".join(body)
         + "\n</main></div>"
-        + f'<img class="logo-side" src="{esc(logo)}" alt="" aria-hidden="true" onerror="this.hidden=true">'
+        + (f'<img class="logo-side" src="{esc(logo)}" alt="" aria-hidden="true" onerror="this.hidden=true">'
+           if logo else "")
         + f"<script>{PANEL_JS}</script>"
         + (f"<script>{REFRESH_JS}</script>" if is_index else "")
         + "</body></html>\n"
+    )
+
+
+def render_empty_page() -> str:
+    """まだ一度も取得していないときのトップページ。"""
+    return (
+        "<!doctype html>\n<html lang=\"ja\"><head><meta charset=\"utf-8\">"
+        "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+        "<meta name=\"color-scheme\" content=\"light dark\">"
+        f"<title>{esc(SITE_NAME)}</title>"
+        f"<style>{CSS}</style></head><body><main>\n"
+        f'<header class="masthead"><div class="mtext"><h1>{esc(SITE_NAME)}</h1></div></header>\n'
+        '<p class="sub">岩手県内の国の出先機関・大学の新着情報を日ごとにまとめます。</p>\n'
+        + render_bar() +
+        '\n<p class="notice">まだ取得していません。取得元を設定して取得すると、ここに新着の一覧が表示されます。</p>\n'
+        "<footer>各記事の内容は各機関の公式サイトでご確認ください。</footer>\n"
+        f"</main><script>{REFRESH_JS}</script></body></html>\n"
     )
 
 
@@ -1106,7 +1152,7 @@ def write_search_index(days: list[str]) -> None:
     """過去30日分の記事タイトル検索用データを1ファイルにまとめる（新しい日から順）。"""
     items = []
     for d in days:
-        for m in load_daily(DAILY_DIR / f"{d}.json", d)["municipalities"]:
+        for m in load_daily(DAILY_DIR / f"{d}.json", d)["organizations"]:
             items += [{"d": d, "m": m["name"], "t": i["title"], "u": i["url"]} for i in m["new"]]
     with SEARCH_FILE.open("w", encoding="utf-8") as f:
         json.dump({"days": days, "items": items}, f, ensure_ascii=False, separators=(",", ":"))
@@ -1126,14 +1172,17 @@ def write_pages(today: date) -> None:
             pass
 
     days = sorted((p.stem for p in DAILY_DIR.glob("*.json")), reverse=True)
+    write_search_index(days)
+    (DOCS_DIR / ".nojekyll").touch()
+    if not days:  # まだ一度も取得していない
+        (DOCS_DIR / "index.html").write_text(render_empty_page(), encoding="utf-8")
+        return
     for d in days:
         data = load_daily(DAILY_DIR / f"{d}.json", d)
         (ARCHIVE_DIR / f"{d}.html").write_text(
             render_page(data, days, "../", is_index=False), encoding="utf-8")
-    write_search_index(days)
     latest = load_daily(DAILY_DIR / f"{days[0]}.json", days[0])
     (DOCS_DIR / "index.html").write_text(render_page(latest, days, "", is_index=True), encoding="utf-8")
-    (DOCS_DIR / ".nojekyll").touch()
 
 
 def main() -> None:
@@ -1143,7 +1192,7 @@ def main() -> None:
     daily_path = DAILY_DIR / f"{today}.json"
     save_json(daily_path, add_fetch(load_daily(daily_path, today), result))
     write_pages(now.date())
-    total = sum(len(m["new"]) for m in result["municipalities"])
+    total = sum(len(m["new"]) for m in result["organizations"])
     print(f"完了: {result['fetched_at']} 取得 新着 {total} 件", file=sys.stderr)
 
 

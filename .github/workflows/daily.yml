@@ -1,4 +1,4 @@
-name: Iwate municipal news
+name: Iwate agencies news
 
 # 定期実行はせず、手動実行（Actions 画面・公開ページの更新ボタン）のときだけ動く
 on:
@@ -9,7 +9,7 @@ permissions:
 
 # 同時に動かすのは1つだけ。後から来た実行は前の実行が終わるまで待つ（キャンセルしない）
 concurrency:
-  group: daily-news
+  group: agencies-news
   cancel-in-progress: false
 
 jobs:

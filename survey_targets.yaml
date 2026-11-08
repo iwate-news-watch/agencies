@@ -1,0 +1,27 @@
+# 調査用ワークフロー（Survey agencies）の調査対象。
+# URL は候補です。誤っていれば調査結果にエラーとして記録されます。
+
+targets:
+  # ---- 国の機関 ----
+  - {category: 国の機関, name: 盛岡地方気象台, url: "https://www.data.jma.go.jp/morioka/"}
+  - {category: 国の機関, name: 岩手労働局, url: "https://jsite.mhlw.go.jp/iwate-roudoukyoku/"}
+  - {category: 国の機関, name: 岩手河川国道事務所, url: "https://www.thr.mlit.go.jp/iwate/"}
+  - {category: 国の機関, name: 三陸国道事務所, url: "https://www.thr.mlit.go.jp/sanriku/"}
+  - {category: 国の機関, name: 北上川ダム統合管理事務所, url: "https://www.thr.mlit.go.jp/kitakami-dam/"}
+  - {category: 国の機関, name: 釜石海上保安部, url: "https://www.kaiho.mlit.go.jp/02kanku/kamaishi/"}
+  - {category: 国の機関, name: 盛岡財務事務所, url: "https://lfb.mof.go.jp/tohoku/morioka/"}
+  - {category: 国の機関, name: 日本銀行盛岡事務所, url: "https://www3.boj.or.jp/morioka/"}
+  - {category: 国の機関, name: 東北農政局, url: "https://www.maff.go.jp/tohoku/"}
+  - {category: 国の機関, name: 盛岡地方裁判所, url: "https://www.courts.go.jp/morioka/"}
+  - {category: 国の機関, name: 盛岡地方検察庁, url: "https://www.kensatsu.go.jp/kakuchou/morioka/"}
+  - {category: 国の機関, name: 岩手復興局, url: "https://www.reconstruction.go.jp/"}
+  # ---- 大学・研究機関 ----
+  - {category: 大学・研究機関, name: 岩手大学, url: "https://www.iwate-u.ac.jp/"}
+  - {category: 大学・研究機関, name: 岩手県立大学, url: "https://www.iwate-pu.ac.jp/"}
+  - {category: 大学・研究機関, name: 岩手医科大学, url: "https://www.iwate-med.ac.jp/"}
+  - {category: 大学・研究機関, name: 盛岡大学, url: "https://morioka-u.ac.jp/"}
+  - {category: 大学・研究機関, name: 富士大学, url: "https://www.fuji-u.ac.jp/"}
+  - {category: 大学・研究機関, name: 一関工業高等専門学校, url: "https://www.ichinoseki.ac.jp/"}
+  - {category: 大学・研究機関, name: 国立天文台 水沢VLBI観測所, url: "https://www.miz.nao.ac.jp/"}
+  # ※依頼文が「東京大学 国」で途切れていたため、大槌町の国際沿岸海洋研究センターと推定。URLも推定
+  - {category: 大学・研究機関, name: 東京大学 国際沿岸海洋研究センター, url: "https://www.icrc.aori.u-tokyo.ac.jp/"}

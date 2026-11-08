@@ -1,5 +1,5 @@
 /**
- * 岩手県 市町村新着情報 — 更新ボタン用の中継サーバー（Cloudflare Workers）
+ * 岩手県 国の機関・大学 新着情報 — 更新ボタン用の中継サーバー（Cloudflare Workers）
  *
  * このファイルをそのまま Cloudflare のダッシュボードの Worker エディタに貼り付けて使います。
  *
@@ -7,10 +7,10 @@
  *   GET  /status   … 最新の実行の時刻と状態
  *
  * 設定（Worker の「設定 → 変数とシークレット」）
- *   GITHUB_OWNER    例: nowakinowaki
- *   GITHUB_REPO     例: test
+ *   GITHUB_OWNER    例: iwate-news-watch
+ *   GITHUB_REPO     例: agencies
  *   WORKFLOW_FILE   例: daily.yml
- *   ALLOWED_ORIGIN  公開ページのオリジン 例: https://nowakinowaki.github.io（末尾の / やパスは付けない）
+ *   ALLOWED_ORIGIN  公開ページのオリジン 例: https://iwate-news-watch.github.io（末尾の / やパスは付けない）
  *   GITHUB_TOKEN    ※「シークレット」として登録。fine-grained トークン（Actions: Read and write）
  */
 
