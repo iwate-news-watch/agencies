@@ -1,69 +1,69 @@
 {
  "date": "2026-11-08",
  "first_run": true,
- "last_fetched": "13:13",
+ "last_fetched": "13:52",
  "organizations": [
   {
    "errors": [],
    "name": "盛岡地方気象台",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "岩手労働局",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "岩手河川国道事務所",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "盛岡財務事務所",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "日本銀行盛岡事務所",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "岩手大学",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "岩手医科大学",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "盛岡大学",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "いわて富士大学",
    "new": [],
-   "record_only": true,
+   "record_only": false,
    "status": "ok"
   },
   {
