@@ -22,10 +22,10 @@
 
 ## 対象の機関
 
-分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは各機関のトップ（`survey_targets.yaml` の調査対象）です。取得方法は `sources.yaml` を見てください。
+分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは各機関のトップです。取得方法は `sources.yaml` を見てください。
 
 - 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
-- 準備中（ページ下部にホームページへのリンクだけ表示）: 北上川ダム統合管理事務所・釜石海上保安部・東北農政局・岩手復興局・三陸国道事務所・岩手県立大学
+- 準備中（ページ下部にホームページへのリンクだけ表示）: 北上川ダム統合管理事務所・釜石海上保安部・東北農政局・三陸国道事務所・南三陸沿岸国道事務所・岩手県立大学（取得方法を再調査中）
 
 
 | 分類 | 名称 | URL |
@@ -34,12 +34,12 @@
 | 国の機関 | 岩手労働局 | https://jsite.mhlw.go.jp/iwate-roudoukyoku/ |
 | 国の機関 | 岩手河川国道事務所 | https://www.thr.mlit.go.jp/iwate/ |
 | 国の機関 | 三陸国道事務所 | https://www.thr.mlit.go.jp/sanriku/ |
-| 国の機関 | 北上川ダム統合管理事務所 | https://www.thr.mlit.go.jp/kitakami-dam/ |
+| 国の機関 | 南三陸沿岸国道事務所 | https://www.thr.mlit.go.jp/minamisanriku/ |
+| 国の機関 | 北上川ダム統合管理事務所 | https://www.thr.mlit.go.jp/kitakato/ |
 | 国の機関 | 釜石海上保安部 | https://www.kaiho.mlit.go.jp/02kanku/kamaishi/ |
 | 国の機関 | 盛岡財務事務所 | https://lfb.mof.go.jp/tohoku/morioka/ |
 | 国の機関 | 日本銀行盛岡事務所 | https://www3.boj.or.jp/morioka/ |
 | 国の機関 | 東北農政局 | https://www.maff.go.jp/tohoku/ |
-| 国の機関 | 岩手復興局 | https://www.reconstruction.go.jp/ |
 | 大学・研究機関 | 岩手大学 | https://www.iwate-u.ac.jp/ |
 | 大学・研究機関 | 岩手県立大学 | https://www.iwate-pu.ac.jp/ |
 | 大学・研究機関 | 岩手医科大学 | https://www.iwate-med.ac.jp/ |
@@ -56,7 +56,8 @@
 ├── scripts/survey.py          # 取得元の調査
 ├── scripts/inspect_sources.py # 取得元ごとに拾える記事の確認
 ├── requirements.txt
-├── reports/survey_agencies.csv  # 調査結果（調査用ワークフローが更新）
+├── reports/survey_agencies.csv  # 1回目の調査結果（20サイト）
+├── reports/survey_agencies_2.csv  # 2回目の調査結果（準備中の機関の再調査。調査用ワークフローが更新）
 ├── reports/inspect_sources.csv  # 取得元の確認結果（確認用ワークフローが更新）
 ├── state/
 │   ├── seen.json              # 既出記事のURL（90日より古い記録は自動削除）
@@ -77,19 +78,35 @@
 
 ## 取得元の調査（Survey agencies）
 
-調査対象の追加・修正は `survey_targets.yaml` を編集して main にコミットします（`category`・`name`・`url` の3項目）。
+調査対象は `survey_targets.yaml` に書きます。結果の保存先も同じファイルの `output:` で決めます（現在は `reports/survey_agencies_2.csv`。調査のたびに変えれば、前回の結果を残せます）。
+
+```yaml
+output: reports/survey_agencies_2.csv
+targets:
+  - category: 国の機関
+    name: 釜石海上保安部
+    urls: ["https://www.kaiho.mlit.go.jp/02kanku/kamaishi/", "https://www.kaiho.mlit.go.jp/02kanku/"]
+    hints: ["https://www.kaiho.mlit.go.jp/02kanku/xxxx/"]   # （任意）一覧ページがありそうな場所
+    keywords: [釜石, 宮古, 岩手]                              # （任意）絞り込みのキーワード
+```
+
+**実行方法**
 
 1. リポジトリ画面の **Actions** タブ → 左の一覧の「**Survey agencies**」→「**Run workflow**」（ブランチは `main`）を押します。
-2. `survey_targets.yaml` の各サイトについて、次を調べます（15分ほどかかります）。
-   - トップページの `<link rel="alternate">` に書かれたフィード
-   - ページ内のリンクのうち、URL や文字が RSS / Atom / feed らしいもの
-   - よくあるパス（`rss.xml`・`feed/`・`index.rdf`・`news.rss` など。指定URLのディレクトリとドメインのトップの両方）
-   - 候補は実際に取得し、フィードとして読めて記事があるものだけを結果に載せます
-   - 新着一覧ページの候補（「新着」「お知らせ」「ニュース」「報道発表」などのリンク）を探し、上位3件のページ内の日付の数と書式（`dotted`=2026.10.15、`slash`=2026/10/15、`kanji`=2026年10月15日、`reiwa`=令和8年10月15日、`hyphen`=2026-10-15）を数えます
-3. 結果は `reports/survey_agencies.csv` に保存してコミットされます。実行結果画面（Summary）にも一覧表で要約が出ます。
-4. URLが誤っている・取得できないサイトは `status` が `error` になり、`error` 列に理由（HTTP 404、接続エラーなど）が入ります。別のサイトに転送された場合も `error` 列に記録します。
+2. 10〜20分ほどで終わります。結果は `output:` の CSV に保存してコミットされます。実行結果画面（Summary）にも、機関ごとに記事を拾えた候補の上位が表で出ます。
 
-CSV の主な列: `status`（ok/error）、`http_status`、`final_url`（転送後のURL）、`feeds`（有効なフィード。見つけ方・形式・記事数・最新の日付つき）、`news_page_candidates`（新着一覧ページの候補）、`news_pages_checked`（候補ページの日付の書式と数）、`error`。Excel で開けるよう BOM 付き UTF-8 です。
+**調べる内容**
+
+- アクセスは一般的なブラウザに近い User-Agent と `Accept-Language: ja` で行います（ボット向けに別のページを返すサイトがあるため）。
+- フィード: `urls` の各ページについて、`<link rel="alternate">`・ページ内の RSS / Atom らしいリンク・よくあるパス（`rss.xml`・`feed/`・`index.rdf` など）を試し、実際に読めて記事があるものを記録します。
+- 一覧ページ: 次の順に候補を集め、1サイトにつき最大14ページまで確認します。
+  1. `urls` と `hints` に書いたページそのもの
+  2. それらのページにある「記者発表」「報道発表」「お知らせ」「新着」「ニュース」「トピックス」などのリンク（`hints` の下にあるリンクを優先）
+  3. 2 のページをさらに1段たどった先にある同様のリンク
+- 候補ごとに、ページ内の日付の書式（`dotted`・`slash`・`kanji`・`reiwa`）を判定し、本番と同じ読み取りで記事を拾って、件数・最新の日付・タイトル例（5件）を記録します。`keywords` があれば、絞り込んだ場合の件数とタイトル例も記録します。
+- URLが誤っている・取得できないページは `status` が `error` になり、`error` 列に理由（HTTP 404、接続エラーなど）が入ります。
+
+CSV は1行に1候補で、主な列は `kind`（`site`=調べたページ、`feed`=フィード、`list`=一覧ページの候補）、`url`、`found_via`（見つけ方: `start`・`hint`・`top_link`=1段目、`level2_link`=2段目、`link_alternate`・`page_link`・`common_path`=フィード）、`link_text`（リンクの文字）、`date_format`、`items`、`keyword_items`、`latest`、`sample_titles`、`keyword_samples`、`error` です。Excel で開けるよう BOM 付き UTF-8 です。
 
 調査結果を見て取得元を `sources.yaml` に書き、`scripts/build.py` の `CATEGORIES` に分類と読みを追加してください（下記）。
 
@@ -152,6 +169,17 @@ CSV の主な列: `status`（ok/error）、`http_status`、`final_url`（転送�
 - 日付がタイトルの**後ろ**にあるサイトは `date_position: after` を付けます（リンクの後に出てくる日付をその記事の日付にします）。
 - 「詳細は**こちら**」のように本文の中にリンクがあるサイトは `title_from: text` を付けます。日付から次の日付までの文章をタイトルにし（120字まで）、その中の最初のリンクを記事のURLにします。リンクのない記事は取得元のページへのリンクになります。
 - タイトル末尾の「NEW」「新着」の印は自動で取り除きます。
+
+**キーワードで絞り込む場合（rss・scrape 共通）**
+
+広い範囲（東北全体など）の一覧から岩手県に関係する記事だけを拾うときは、取得元ごとに `include_keywords` を書きます。タイトルにどれかの語を含む記事だけを拾います（全角半角・大文字小文字は区別しません）。
+
+```yaml
+      - type: scrape
+        url: https://www.maff.go.jp/tohoku/press/houdou.html
+        date_format: reiwa
+        include_keywords: [岩手]
+```
 
 ```yaml
       - type: scrape

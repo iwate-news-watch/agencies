@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """調査対象の各サイトについて、RSS/Atom フィードと新着一覧ページの候補を探す。
 
-    python scripts/survey.py [--targets survey_targets.yaml] [--out reports/survey_agencies.csv]
+    python scripts/survey.py [--targets survey_targets.yaml] [--out CSV]
 
-- トップページを取得し（失敗したらエラーとして記録して次へ）、次の3通りでフィードの候補を集める
+- 対象は survey_targets.yaml（保存先は同ファイルの output。--out で上書き可）
+- 調べるページ（urls）ごとに、次の3通りでフィードの候補を集め、実際に読めて記事があるものを記録する
     1. <link rel="alternate" type="application/rss+xml"> など
     2. ページ内のリンクのうち、URL や文字が RSS / Atom / feed らしいもの
-    3. よくあるパス（/rss.xml, /feed/, /news.rss など。サイトのトップとサブディレクトリの両方）
-- 候補は実際に取得し、フィードとして読めて記事があるものだけを「有効」とする
-- 新着一覧ページの候補は、リンク文字（新着・お知らせ・ニュースなど）や URL（news, topics など）で探し、
-  上位の候補を取得して、ページ内の日付の数と日付の書式を数える（スクレイピング設定の参考）
-- 結果を CSV に保存し、GITHUB_STEP_SUMMARY があれば Actions の実行結果画面に要約を書き出す
+    3. よくあるパス（/rss.xml, /feed/, /news.rss など。そのページのディレクトリとドメインのトップの両方）
+- 一覧ページの候補は次の順に集める
+    1. urls と hints に書いたページそのもの
+    2. それらのページにある「記者発表」「報道発表」「お知らせ」「新着」などのリンク（hints の下にあるリンクを優先）
+    3. 2 のページをさらに1段たどった先にある同様のリンク
+  候補ごとにページを取得し、日付の書式を判定して記事を拾い、件数・タイトル例・キーワードで絞った件数を記録する
+- 1行に1候補の CSV に保存し、GITHUB_STEP_SUMMARY があれば Actions の実行結果画面に要約を書き出す
 """
 
 from __future__ import annotations
@@ -31,15 +34,24 @@ import requests
 import yaml
 from bs4 import BeautifulSoup
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build  # noqa: E402  日付の読み取り・キーワード絞り込みは本番と同じ処理を使う
+
 ROOT = Path(__file__).resolve().parent.parent
 JST = timezone(timedelta(hours=9))
-USER_AGENT = (
-    "Mozilla/5.0 (compatible; iwate-agencies-news-survey/1.0; "
-    "+https://github.com/iwate-news-watch/agencies)"
-)
+# 一般的なブラウザに近い User-Agent（ボット向けに別のページを返すサイトや、拒否するサイトがあるため）
+USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36")
+HEADERS = {
+    "User-Agent": USER_AGENT,
+    "Accept-Language": "ja",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+}
 TIMEOUT = 15
-HOST_INTERVAL = 1.0  # 同じホストへのリクエスト間隔（秒）
-MAX_NEWS_PAGES = 3   # 中身まで確認する新着一覧ページの候補数
+HOST_INTERVAL = 1.0   # 同じホストへのリクエスト間隔（秒）
+FOLLOW_LINKS = 6      # 調べるページ1つにつき、1段目としてたどるリンクの数
+MAX_LIST_PAGES = 14   # 1サイトで中身まで確認する一覧ページの候補の上限（urls・hints を除く）
+SAMPLES = 5           # 記録するタイトル例の数
 
 FEED_TYPES = ("application/rss+xml", "application/atom+xml", "application/rdf+xml",
               "application/xml", "text/xml", "application/feed+json")
@@ -50,25 +62,19 @@ COMMON_FEED_PATHS = [
     "news.rss", "news/rss.xml", "news/index.rss", "news/feed/", "feed.xml", "rss/news.xml",
     "cgi-bin/feed.php?siteNew=1",
 ]
-NEWS_TEXT = re.compile(r"(新着|お知らせ|ニュース|NEWS|News|トピックス|TOPICS|報道発表|プレスリリース|"
-                       r"記者発表|更新情報|一覧)")
-NEWS_HREF = re.compile(r"(news|topics|info|press|whatsnew|oshirase|kisha|houdou|release|shinchaku)", re.I)
-DATE_FORMATS = {
-    "dotted": re.compile(r"\d{4}\s*\.\s*\d{1,2}\s*\.\s*\d{1,2}"),         # 2026.10.15
-    "slash": re.compile(r"\d{4}\s*/\s*\d{1,2}\s*/\s*\d{1,2}"),            # 2026/10/15
-    "kanji": re.compile(r"\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日"),      # 2026年10月15日
-    "reiwa": re.compile(r"令和\s*(\d{1,2}|元)\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日"),  # 令和8年10月15日
-    "hyphen": re.compile(r"\d{4}-\d{1,2}-\d{1,2}"),                       # 2026-10-15
-}
+NEWS_TEXT = re.compile(r"(記者発表|報道発表|プレスリリース|お知らせ|新着|ニュース|NEWS|News|トピックス|TOPICS|"
+                       r"更新情報|イベント|一覧)")
+NEWS_HREF = re.compile(r"(news|topics|info|press|kisha|houdou|whatsnew|oshirase|release|shinchaku|event)", re.I)
+SKIP_EXT = re.compile(r"\.(pdf|jpe?g|png|gif|docx?|xlsx?|pptx?|zip|csv|mp4)$", re.I)
+SURVEY_DATE_FORMATS = ("dotted", "slash", "kanji", "reiwa")  # scripts/build.py で読める書式
 
 COLUMNS = [
-    "category", "name", "url", "status", "http_status", "final_url", "page_title",
-    "feed_count", "feeds", "feed_candidates_checked", "news_page_candidates", "news_pages_checked",
-    "error",
+    "category", "name", "kind", "url", "found_via", "link_text", "status", "http_status",
+    "date_format", "items", "keyword_items", "latest", "sample_titles", "keyword_samples", "error",
 ]
 
 _session = requests.Session()
-_session.headers.update({"User-Agent": USER_AGENT, "Accept-Language": "ja,en;q=0.5"})
+_session.headers.update(HEADERS)
 _last_by_host: dict[str, float] = {}
 
 
@@ -88,8 +94,11 @@ def clean(s: str) -> str:
     return " ".join(unicodedata.normalize("NFKC", s or "").split())
 
 
-def soup_of(resp: requests.Response) -> BeautifulSoup:
-    return BeautifulSoup(resp.content, "html.parser")
+def page_text(resp: requests.Response) -> str:
+    charset = requests.utils.get_encoding_from_headers(resp.headers)
+    if charset == "ISO-8859-1":  # requests の text/* 既定値。宣言なしとみなす
+        charset = None
+    return build.decode_html(resp.content, charset)
 
 
 def norm_url(base: str, href: str) -> str | None:
@@ -104,6 +113,17 @@ def same_site(url: str, base: str) -> bool:
     """同じホスト（www. の有無は同一視）か。"""
     a, b = urlsplit(url).netloc.lower(), urlsplit(base).netloc.lower()
     return a.removeprefix("www.") == b.removeprefix("www.")
+
+
+def empty_row(target: dict, **kw) -> dict:
+    row = {c: "" for c in COLUMNS}
+    row.update(category=target.get("category", ""), name=target["name"])
+    row.update(kw)
+    return row
+
+
+def fmt_samples(items: list[dict]) -> str:
+    return " ／ ".join(f'{i["date"] or "日付なし"} {i["title"][:50]}' for i in items[:SAMPLES])
 
 
 # --- フィード ----------------------------------------------------------------
@@ -127,11 +147,11 @@ def feed_candidates(soup: BeautifulSoup, page_url: str, start_url: str) -> list[
         if not url:
             continue
         text = clean(a.get_text(" ")) + " " + " ".join(clean(i.get("alt", "")) for i in a.find_all("img"))
-        path = urlsplit(url).path + ("?" + urlsplit(url).query if urlsplit(url).query else "")
+        parts = urlsplit(url)
+        path = parts.path + ("?" + parts.query if parts.query else "")
         if FEED_HREF.search(path) or FEED_TEXT.search(text):
             add(url, "page_link")
 
-    # よくあるパス。指定URLのディレクトリ（例: /morioka/）と、ドメインのトップの両方で試す
     bases = []
     for b in (start_url, page_url):
         parts = urlsplit(b)
@@ -144,7 +164,7 @@ def feed_candidates(soup: BeautifulSoup, page_url: str, start_url: str) -> list[
     return list(found.items())
 
 
-def check_feed(url: str) -> dict | None:
+def check_feed(url: str, keywords) -> dict | None:
     """フィードとして読めて記事が1件以上あれば情報を返す。"""
     try:
         resp = get(url)
@@ -159,137 +179,186 @@ def check_feed(url: str) -> dict | None:
     feed = feedparser.parse(resp.content)
     if not feed.entries:
         return None
-    latest = ""
-    stamps = [e.get("published_parsed") or e.get("updated_parsed") for e in feed.entries]
-    stamps = [s for s in stamps if s]
-    if stamps:
-        latest = datetime(*max(stamps)[:6], tzinfo=timezone.utc).astimezone(JST).date().isoformat()
-    return {"url": resp.url, "version": feed.version or "unknown", "entries": len(feed.entries),
-            "latest": latest, "title": clean(feed.feed.get("title", ""))[:40]}
+    try:
+        items = build.parse_feed(resp.content, resp.url)
+    except ValueError:
+        return None
+    hits = build.keyword_filter(items, keywords)
+    dates = sorted((i["date"] for i in items if i["date"]), reverse=True)
+    return {"url": resp.url, "http_status": resp.status_code, "date_format": feed.version or "feed",
+            "items": len(items), "keyword_items": len(hits) if keywords else "",
+            "latest": dates[0] if dates else "", "sample_titles": fmt_samples(items),
+            "keyword_samples": fmt_samples(hits) if keywords else ""}
 
 
-# --- 新着一覧ページ ------------------------------------------------------------
+# --- 一覧ページ ----------------------------------------------------------------
 
-def news_candidates(soup: BeautifulSoup, page_url: str) -> list[tuple[str, str, int]]:
+def news_links(soup: BeautifulSoup, page_url: str, hints: list[str]) -> list[tuple[str, str, int]]:
     """(URL, リンク文字, スコア) の一覧（スコアの高い順）。同じサイト内のリンクだけ。"""
     scored: dict[str, tuple[str, int]] = {}
     for a in soup.find_all("a", href=True):
         url = norm_url(page_url, a["href"])
         if not url or not same_site(url, page_url) or url.rstrip("/") == page_url.rstrip("/"):
             continue
-        if re.search(r"\.(pdf|jpe?g|png|gif|docx?|xlsx?|zip)$", urlsplit(url).path, re.I):
+        if SKIP_EXT.search(urlsplit(url).path):
             continue
-        text = clean(a.get_text(" "))[:40]
+        text = clean(a.get_text(" ") or " ".join(i.get("alt", "") for i in a.find_all("img")))[:40]
         score = 0
         if NEWS_TEXT.search(text):
             score += 2
-        if re.search(r"(一覧|もっと見る|more|過去)", text, re.I):
+        if re.search(r"(記者発表|報道発表|プレスリリース)", text):
+            score += 1
+        if re.search(r"(一覧|もっと見る|more|過去|バックナンバー)", text, re.I):
             score += 1
         if NEWS_HREF.search(urlsplit(url).path):
             score += 1
+        if any(url.startswith(h) for h in hints):
+            score += 3
         if score >= 2 and score > scored.get(url, ("", 0))[1]:
             scored[url] = (text, score)
     return sorted(((u, t, s) for u, (t, s) in scored.items()), key=lambda x: -x[2])
 
 
-def date_profile(soup: BeautifulSoup) -> dict[str, int]:
-    for tag in soup(["script", "style", "noscript"]):
-        tag.decompose()
-    text = unicodedata.normalize("NFKC", soup.get_text(" "))
-    counts = {k: len(p.findall(text)) for k, p in DATE_FORMATS.items()}
-    # 「令和8年10月15日」は kanji には当たらないが、念のため重複を避ける
-    return {k: v for k, v in counts.items() if v}
+def evaluate_list(url: str, text: str, keywords) -> dict:
+    """ページ内の日付の書式を判定し、本番と同じ読み取りで記事を拾う。"""
+    plain = unicodedata.normalize("NFKC", BeautifulSoup(text, "html.parser").get_text(" "))
+    counts = {f: len(build.DATE_PATTERNS[f].findall(plain)) for f in SURVEY_DATE_FORMATS}
+    fmt = max(counts, key=lambda f: counts[f])
+    if not counts[fmt]:
+        return {"date_format": "日付なし", "items": 0, "keyword_items": 0 if keywords else ""}
+    items = [i for i in build.scrape_dated_links(text, url, fmt) if i["date"]]
+    hits = build.keyword_filter(items, keywords)
+    dates = sorted((i["date"] for i in items), reverse=True)
+    others = ",".join(f"{f}:{n}" for f, n in counts.items() if n and f != fmt)
+    return {"date_format": fmt + (f"（ほか {others}）" if others else ""), "items": len(items),
+            "keyword_items": len(hits) if keywords else "", "latest": dates[0] if dates else "",
+            "sample_titles": fmt_samples(items), "keyword_samples": fmt_samples(hits) if keywords else ""}
 
 
-def fmt_dates(counts: dict[str, int]) -> str:
-    return ",".join(f"{k}:{v}" for k, v in sorted(counts.items(), key=lambda x: -x[1])) or "日付なし"
+def fetch_page(url: str) -> tuple[requests.Response | None, str, str]:
+    """(レスポンス, 本文, エラー)。"""
+    try:
+        resp = get(url)
+    except requests.RequestException as e:
+        return None, "", f"{type(e).__name__}: {e}"[:300]
+    if resp.status_code >= 400:
+        return resp, "", f"HTTP {resp.status_code}"
+    return resp, page_text(resp), ""
 
 
 # --- 1サイト分 ----------------------------------------------------------------
 
-def survey(target: dict) -> dict:
-    row = {c: "" for c in COLUMNS}
-    row.update(category=target.get("category", ""), name=target["name"], url=target["url"])
-    try:
-        resp = get(target["url"])
-    except requests.RequestException as e:
-        row.update(status="error", error=f"{type(e).__name__}: {e}"[:300])
-        return row
-    row.update(http_status=resp.status_code, final_url=resp.url)
-    if resp.status_code >= 400:
-        row.update(status="error", error=f"HTTP {resp.status_code}")
-        return row
-    soup = soup_of(resp)
-    row["page_title"] = clean(soup.title.get_text() if soup.title else "")[:80]
-    row["status"] = "ok"
-    if not same_site(resp.url, target["url"]):
-        row["error"] = f"別のサイトに転送されました: {resp.url}"
+def survey(target: dict) -> list[dict]:
+    keywords = target.get("keywords") or []
+    hints = target.get("hints") or []
+    rows: list[dict] = []
+    seen_feeds: set[str] = set()
+    done: set[str] = set()      # 一覧ページとして確認済みのURL
+    queue: list[tuple[str, str, str]] = []  # (URL, 見つけ方, リンク文字)
 
-    # フィード
-    feeds, checked = [], 0
-    seen_final: set[str] = set()
-    for url, how in feed_candidates(soup, resp.url, target["url"]):
-        checked += 1
-        info = check_feed(url)
-        if info and info["url"] not in seen_final:
-            seen_final.add(info["url"])
-            feeds.append({**info, "how": how})
-    row["feed_count"] = len(feeds)
-    row["feeds"] = " ; ".join(
-        f'{f["url"]} [{f["how"]}, {f["version"]}, {f["entries"]}件, 最新{f["latest"] or "日付なし"}]'
-        for f in feeds)
-    row["feed_candidates_checked"] = checked
+    def list_row(url: str, how: str, link_text: str, resp, text: str, err: str) -> dict:
+        row = empty_row(target, kind="list", url=resp.url if resp is not None else url,
+                        found_via=how, link_text=link_text)
+        if resp is not None:
+            row["http_status"] = resp.status_code
+        if err:
+            row.update(status="error", error=err)
+        else:
+            row.update(status="ok", **evaluate_list(resp.url, text, keywords))
+        return row
 
-    # 新着一覧ページ（トップページ自身の日付も数える）
-    news = news_candidates(soup, resp.url)
-    row["news_page_candidates"] = " ; ".join(f"{u} [{t}]" for u, t, _ in news[:8])
-    checked_pages = [f"(トップ) {resp.url} [{fmt_dates(date_profile(soup_of(resp)))}]"]
-    for url, text, _ in news[:MAX_NEWS_PAGES]:
-        try:
-            r = get(url)
-            if r.status_code >= 400:
-                checked_pages.append(f"{url} [HTTP {r.status_code}]")
+    # 1. urls と hints に書いたページ
+    level1: list[tuple[str, str, str]] = []
+    for kind, url in [("start", u) for u in target.get("urls") or []] + [("hint", h) for h in hints]:
+        resp, text, err = fetch_page(url)
+        done.add(url)
+        if kind == "start":
+            site = empty_row(target, kind="site", url=url, found_via="start")
+            if resp is not None:
+                site.update(http_status=resp.status_code)
+                if resp.url != url:
+                    site["link_text"] = f"転送先: {resp.url}"
+            if err:
+                site.update(status="error", error=err)
+                rows.append(site)
                 continue
-            checked_pages.append(f"{url} [{text}; {fmt_dates(date_profile(soup_of(r)))}]")
-        except requests.RequestException as e:
-            checked_pages.append(f"{url} [{type(e).__name__}]")
-    row["news_pages_checked"] = " ; ".join(checked_pages)
-    return row
+            soup = BeautifulSoup(text, "html.parser")
+            site.update(status="ok", link_text=(site["link_text"] + " " if site["link_text"] else "")
+                        + clean(soup.title.get_text() if soup.title else "")[:60])
+            if not same_site(resp.url, url):
+                site["error"] = f"別のサイトに転送されました: {resp.url}"
+            rows.append(site)
+            for furl, how in feed_candidates(soup, resp.url, url):
+                info = check_feed(furl, keywords)
+                if info and info["url"] not in seen_feeds:
+                    seen_feeds.add(info["url"])
+                    rows.append(empty_row(target, kind="feed", found_via=how, status="ok", **info))
+        rows.append(list_row(url, kind, "", resp, text, err))
+        if not err:
+            soup = BeautifulSoup(text, "html.parser")
+            level1 += [(u, "top_link", t) for u, t, _ in news_links(soup, resp.url, hints)[:FOLLOW_LINKS]]
+
+    # 2. 1段目のリンク先を確認し、その先の候補（2段目）も集める
+    level2: list[tuple[str, str, str]] = []
+    checked = 0
+    for url, how, link_text in level1:
+        if url in done or checked >= MAX_LIST_PAGES:
+            continue
+        done.add(url)
+        checked += 1
+        resp, text, err = fetch_page(url)
+        rows.append(list_row(url, how, link_text, resp, text, err))
+        if not err:
+            soup = BeautifulSoup(text, "html.parser")
+            level2 += [(u, "level2_link", t) for u, t, _ in news_links(soup, resp.url, hints)[:FOLLOW_LINKS]]
+    for url, how, link_text in level2:
+        if url in done or checked >= MAX_LIST_PAGES:
+            continue
+        done.add(url)
+        checked += 1
+        resp, text, err = fetch_page(url)
+        rows.append(list_row(url, how, link_text, resp, text, err))
+    return rows
 
 
 # --- 出力 ---------------------------------------------------------------------
 
-def md_cell(s: str) -> str:
+def md_cell(s) -> str:
     return str(s).replace("|", "\\|").replace("\n", " ")
 
 
-def write_summary(rows: list[dict], out: Path, path: str) -> None:
-    ok = sum(r["status"] == "ok" for r in rows)
-    with_feed = sum(bool(r["feed_count"]) for r in rows)
+def write_summary(rows: list[dict], targets: list[dict], out: Path, path: str) -> None:
     now = datetime.now(JST).strftime("%Y-%m-%d %H:%M")
-    lines = [
-        "# 国の機関・大学 取得元調査",
-        "",
-        f"{now}（日本時間） ・ 対象 {len(rows)} サイト ・ 取得成功 {ok} ・ "
-        f"フィードあり {with_feed} ・ エラー {len(rows) - ok}",
-        "",
-        f"詳細はリポジトリの `{out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}` を見てください。",
-        "",
-        "| 分類 | 名称 | 状態 | フィード | 新着一覧ページの候補 |",
-        "|---|---|---|---|---|",
-    ]
-    for r in rows:
-        if r["status"] != "ok":
-            state = f"❌ {r['error'] or 'エラー'}"
+    rel = out.relative_to(ROOT) if out.is_relative_to(ROOT) else out
+    lines = [f"# 取得元調査（{now} 日本時間）", "", f"詳細はリポジトリの `{rel}` を見てください。", ""]
+    for t in targets:
+        mine = [r for r in rows if r["name"] == t["name"]]
+        kw = t.get("keywords") or []
+        lines.append(f"## {t['category']} ・ {t['name']}" + (f"（キーワード: {'、'.join(kw)}）" if kw else ""))
+        for s in (r for r in mine if r["kind"] == "site"):
+            state = f"❌ {s['error']}" if s["status"] == "error" else f"✅ {s['http_status']} {s['link_text']}"
+            lines.append(f"- {s['url']} … {md_cell(state)}" + (f"（{s['error']}）" if s["status"] == "ok" and s["error"] else ""))
+        cands = [r for r in mine if r["kind"] in ("feed", "list") and r["status"] == "ok" and r["items"]]
+        key = (lambda r: (int(r["keyword_items"] or 0), r["kind"] == "feed", int(r["items"]))) if kw else \
+              (lambda r: (r["kind"] == "feed", int(r["items"])))
+        cands.sort(key=key, reverse=True)
+        errors = [r for r in mine if r["kind"] == "list" and r["status"] == "error"]
+        if not cands:
+            lines.append("- 記事を拾える候補は見つかりませんでした")
         else:
-            state = f"✅ {r['http_status']}" + (f"（{r['error']}）" if r["error"] else "")
-        feed = r["feeds"].split(" ; ")[0] if r["feeds"] else "なし"
-        if r["feed_count"] and int(r["feed_count"]) > 1:
-            feed += f" ほか{int(r['feed_count']) - 1}件"
-        checked = r["news_pages_checked"].split(" ; ")
-        news = checked[1] if len(checked) > 1 else (checked[0] if checked[0] else "")
-        lines.append("| " + " | ".join(md_cell(x) for x in
-                                         (r["category"], r["name"], state, feed, news or "—")) + " |")
+            lines += ["", "| 種類 | URL | 見つけ方 | 書式 | 件数 | 絞込後 | 最新 | タイトル例 |",
+                      "|---|---|---|---|---|---|---|---|"]
+            for r in cands[:6]:
+                ex = r["keyword_samples"] if kw and r["keyword_samples"] else r["sample_titles"]
+                lines.append("| " + " | ".join(md_cell(x) for x in (
+                    "フィード" if r["kind"] == "feed" else "一覧", r["url"],
+                    r["found_via"] + (f"「{r['link_text']}」" if r["link_text"] and r["kind"] == "list" else ""),
+                    r["date_format"], r["items"], r["keyword_items"] if kw else "—", r["latest"],
+                    " ／ ".join(ex.split(" ／ ")[:3]))) + " |")
+        if errors:
+            lines.append("")
+            lines.append("取得できなかった候補: " + "、".join(f"{r['url']}（{r['error']}）" for r in errors[:5]))
+        lines.append("")
     with open(path, "a", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
@@ -297,23 +366,25 @@ def write_summary(rows: list[dict], out: Path, path: str) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--targets", default=str(ROOT / "survey_targets.yaml"))
-    ap.add_argument("--out", default=str(ROOT / "reports" / "survey_agencies.csv"))
+    ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
-    targets = (yaml.safe_load(Path(args.targets).read_text(encoding="utf-8")) or {}).get("targets") or []
-    rows = []
+    conf = yaml.safe_load(Path(args.targets).read_text(encoding="utf-8")) or {}
+    targets = conf.get("targets") or []
+    out = Path(args.out or ROOT / conf.get("output", "reports/survey_agencies.csv")).resolve()
+    rows: list[dict] = []
     for t in targets:
+        if "url" in t and "urls" not in t:  # 1回目の調査の書き方（url: 1つ）も読めるようにする
+            t["urls"] = [t["url"]]
         try:
-            row = survey(t)
+            mine = survey(t)
         except Exception as e:  # 1サイトの想定外の失敗で全体を止めない
-            row = {c: "" for c in COLUMNS}
-            row.update(category=t.get("category", ""), name=t["name"], url=t["url"], status="error",
-                       error=f"{type(e).__name__}: {e}"[:300])
-        print(f"[{row['status'].upper()}] {row['name']} {row['url']}: フィード {row['feed_count'] or 0}件"
-              + (f" / {row['error']}" if row["error"] else ""), file=sys.stderr)
-        rows.append(row)
+            mine = [empty_row(t, kind="site", url=(t.get("urls") or [""])[0], status="error",
+                              error=f"{type(e).__name__}: {e}"[:300])]
+        ok = [r for r in mine if r["kind"] in ("feed", "list") and r["status"] == "ok" and r["items"]]
+        print(f"[{t['name']}] 候補 {len(ok)} 件（確認 {len(mine)} ページ）", file=sys.stderr)
+        rows += mine
 
-    out = Path(args.out).resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
     # Excel で開いても文字化けしないよう BOM 付き UTF-8
     with out.open("w", encoding="utf-8-sig", newline="") as f:
@@ -324,7 +395,7 @@ def main() -> None:
 
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
-        write_summary(rows, out, summary)
+        write_summary(rows, targets, out, summary)
 
 
 if __name__ == "__main__":

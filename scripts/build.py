@@ -269,7 +269,23 @@ def scrape_dated_links(content: bytes | str, base_url: str, date_format: str,
     return items
 
 
+def keyword_filter(items: list[dict], keywords) -> list[dict]:
+    """include_keywords のどれかをタイトルに含む記事だけを残す（全角半角・大文字小文字は区別しない）。"""
+    if not keywords:
+        return items
+    if isinstance(keywords, str):
+        keywords = [keywords]
+    words = [unicodedata.normalize("NFKC", str(k)).lower() for k in keywords if str(k).strip()]
+    return [i for i in items
+            if any(w in unicodedata.normalize("NFKC", i["title"]).lower() for w in words)]
+
+
 def collect(source: dict) -> list[dict]:
+    """取得元から記事を集める。include_keywords があれば、タイトルにどれかを含む記事だけを返す。"""
+    return keyword_filter(_collect(source), source.get("include_keywords"))
+
+
+def _collect(source: dict) -> list[dict]:
     url = source["url"]
     resp = fetch(url)
     kind = source.get("type", "rss")
@@ -568,12 +584,12 @@ CATEGORIES = [
         ("岩手労働局", "いわてろうどうきょく"),
         ("岩手河川国道事務所", "いわてかせんこくどうじむしょ"),
         ("三陸国道事務所", "さんりくこくどうじむしょ"),
+        ("南三陸沿岸国道事務所", "みなみさんりくえんがんこくどうじむしょ"),
         ("北上川ダム統合管理事務所", "きたかみがわだむとうごうかんりじむしょ"),
         ("釜石海上保安部", "かまいしかいじょうほあんぶ"),
         ("盛岡財務事務所", "もりおかざいむじむしょ"),
         ("日本銀行盛岡事務所", "にっぽんぎんこうもりおかじむしょ"),
         ("東北農政局", "とうほくのうせいきょく"),
-        ("岩手復興局", "いわてふっこうきょく"),
     ]),
     ("大学・研究機関", [
         ("岩手大学", "いわてだいがく"),

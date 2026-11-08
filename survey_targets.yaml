@@ -1,23 +1,37 @@
 # 調査用ワークフロー（Survey agencies）の調査対象。
+#
+#   output:   結果のCSVの保存先（調査のたびに変えると、前回の結果を残せる）
+#   targets:  調査するサイト
+#     category / name : 分類と名称
+#     urls            : 調べるページ（1つ以上）。トップページのほか、一覧ページが分かっていればそのURLも
+#     hints           : (任意) 一覧ページがありそうな場所。そのURL自体も候補にし、その下にあるリンクを優先して調べる
+#     keywords        : (任意) 記事を絞り込むキーワード。候補ごとに、絞った場合の件数も記録する
+#
 # URL は候補です。誤っていれば調査結果にエラーとして記録されます。
+# 1回目の調査（20サイト）の結果は reports/survey_agencies.csv にあります。
+
+output: reports/survey_agencies_2.csv
 
 targets:
-  # ---- 国の機関 ----
-  - {category: 国の機関, name: 盛岡地方気象台, url: "https://www.data.jma.go.jp/morioka/"}
-  - {category: 国の機関, name: 岩手労働局, url: "https://jsite.mhlw.go.jp/iwate-roudoukyoku/"}
-  - {category: 国の機関, name: 岩手河川国道事務所, url: "https://www.thr.mlit.go.jp/iwate/"}
-  - {category: 国の機関, name: 三陸国道事務所, url: "https://www.thr.mlit.go.jp/sanriku/"}
-  - {category: 国の機関, name: 北上川ダム統合管理事務所, url: "https://www.thr.mlit.go.jp/kitakami-dam/"}
-  - {category: 国の機関, name: 釜石海上保安部, url: "https://www.kaiho.mlit.go.jp/02kanku/kamaishi/"}
-  - {category: 国の機関, name: 盛岡財務事務所, url: "https://lfb.mof.go.jp/tohoku/morioka/"}
-  - {category: 国の機関, name: 日本銀行盛岡事務所, url: "https://www3.boj.or.jp/morioka/"}
-  - {category: 国の機関, name: 東北農政局, url: "https://www.maff.go.jp/tohoku/"}
-  - {category: 国の機関, name: 岩手復興局, url: "https://www.reconstruction.go.jp/"}
-  # ---- 大学・研究機関 ----
-  - {category: 大学・研究機関, name: 岩手大学, url: "https://www.iwate-u.ac.jp/"}
-  - {category: 大学・研究機関, name: 岩手県立大学, url: "https://www.iwate-pu.ac.jp/"}
-  - {category: 大学・研究機関, name: 岩手医科大学, url: "https://www.iwate-med.ac.jp/"}
-  - {category: 大学・研究機関, name: 盛岡大学, url: "https://morioka-u.ac.jp/"}
-  - {category: 大学・研究機関, name: いわて富士大学, url: "https://www.fuji-u.ac.jp/"}
-  - {category: 大学・研究機関, name: 国立天文台 水沢VLBI観測所, url: "https://www.miz.nao.ac.jp/"}
-  - {category: 大学・研究機関, name: 東京大学 国際沿岸海洋研究センター, url: "https://www.icrc.aori.u-tokyo.ac.jp/"}
+  - category: 国の機関
+    name: 北上川ダム統合管理事務所
+    urls: ["https://www.thr.mlit.go.jp/kitakato/"]
+  - category: 国の機関
+    name: 三陸国道事務所
+    urls: ["https://www.thr.mlit.go.jp/sanriku/"]
+    hints: ["https://www.thr.mlit.go.jp/sanriku/01_press/"]
+  - category: 国の機関
+    name: 南三陸沿岸国道事務所
+    urls: ["https://www.thr.mlit.go.jp/minamisanriku/"]
+    hints: ["https://www.thr.mlit.go.jp/minamisanriku/kisha/"]
+  - category: 国の機関
+    name: 東北農政局
+    urls: ["https://www.maff.go.jp/tohoku/stinfo/index.html", "https://www.maff.go.jp/tohoku/press/houdou.html"]
+    keywords: [岩手]
+  - category: 国の機関
+    name: 釜石海上保安部
+    urls: ["https://www.kaiho.mlit.go.jp/02kanku/kamaishi/", "https://www.kaiho.mlit.go.jp/02kanku/"]
+    keywords: [釜石, 宮古, 岩手]
+  - category: 大学・研究機関
+    name: 岩手県立大学
+    urls: ["https://www.iwate-pu.ac.jp/"]

@@ -15,6 +15,9 @@
 #                        text … 日付から次の日付までの文章をタイトルにし、その中の最初のリンクを記事のURLにする
 #                               （「詳細はこちら」のように本文中にリンクがあるサイト）
 #
+# include_keywords: (任意・rss/scrape 共通) タイトルにどれかの語を含む記事だけを拾う
+#   例: include_keywords: [釜石, 宮古, 岩手]（全角半角・大文字小文字は区別しない）
+#
 # homepage: ページで機関名からリンクする公式ホームページのURL（各機関のトップ）。
 #   省略すると、最初の取得元URLのドメインのトップ（https://ドメイン/）にリンクします。
 #
@@ -119,7 +122,7 @@ organizations:
 
   # ---- 準備中（取得せず、ページ下部にホームページへのリンクだけ表示） ----
   - name: 北上川ダム統合管理事務所
-    homepage: https://www.thr.mlit.go.jp/kitakami-dam/
+    homepage: https://www.thr.mlit.go.jp/kitakato/
     preparing: true
   - name: 釜石海上保安部
     homepage: https://www.kaiho.mlit.go.jp/02kanku/kamaishi/
@@ -127,11 +130,11 @@ organizations:
   - name: 東北農政局
     homepage: https://www.maff.go.jp/tohoku/
     preparing: true
-  - name: 岩手復興局
-    homepage: https://www.reconstruction.go.jp/
-    preparing: true
   - name: 三陸国道事務所
     homepage: https://www.thr.mlit.go.jp/sanriku/
+    preparing: true
+  - name: 南三陸沿岸国道事務所
+    homepage: https://www.thr.mlit.go.jp/minamisanriku/
     preparing: true
   - name: 岩手県立大学
     homepage: https://www.iwate-pu.ac.jp/
