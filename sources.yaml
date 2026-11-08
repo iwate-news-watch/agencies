@@ -112,9 +112,11 @@ organizations:
     homepage: https://www.iwate-pu.ac.jp/
     sources:
       # GitHub Actions からの直接の取得は HTTP 403（CloudFront で遮断）のため Worker 経由で取得する。
-      # 新着情報一覧（/news）と同じ記事の Atom フィード（トップページの link rel=alternate）
-      - type: rss
-        url: https://www.iwate-pu.ac.jp/feeds/feed-page.xml
+      # Atom フィード（/feeds/feed-page.xml）はサイト全体のページ更新の一覧で、記事以外も混ざるため使わない
+      - type: scrape
+        url: https://www.iwate-pu.ac.jp/news
+        date_format: kanji
+        selector: "div.page-content ul.notice-list li.notice-list__item"  # 本文の新着一覧（全ページ共通の重要告知を除く）
         via_proxy: true
   - name: 岩手医科大学
     homepage: https://www.iwate-med.ac.jp/
