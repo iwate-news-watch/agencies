@@ -10,6 +10,43 @@
 
 > このリポジトリは岩手県市町村の新着一覧（iwate-news-watch/test）をひな形にしています。
 
+## 現在の状況と今後の手順
+
+いまは取得元が未設定なので、公開ページには「まだ取得していません」とだけ表示されます。次の順に進めます。
+
+1. **取得元を調査する** … 「Survey agencies」ワークフローを実行し、`reports/survey_agencies.csv` で各サイトのフィードと新着一覧ページを確認します（下記「取得元の調査」）。
+2. **取得元を設定する** … 調査結果をもとに `sources.yaml` に取得元を書きます（下記「取得元の追加・変更方法」）。
+3. **取得する** … 「Iwate agencies news」ワークフローを実行します。初回は記録のみで、2回目以降に増えた記事が新着として表示されます。
+4. （後で）更新ボタン用の中継サーバーを用意し、`docs/config.json` の `trigger_url` に設定します。
+5. （後で）新しいロゴを用意し、`scripts/build.py` の `LOGO_FILE` に設定します。
+
+## 対象の機関
+
+分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは調査対象の候補（`survey_targets.yaml`）です。
+
+| 分類 | 名称 | URL（候補） |
+|---|---|---|
+| 国の機関 | 盛岡地方気象台 | https://www.data.jma.go.jp/morioka/ |
+| 国の機関 | 岩手労働局 | https://jsite.mhlw.go.jp/iwate-roudoukyoku/ |
+| 国の機関 | 岩手河川国道事務所 | https://www.thr.mlit.go.jp/iwate/ |
+| 国の機関 | 三陸国道事務所 | https://www.thr.mlit.go.jp/sanriku/ |
+| 国の機関 | 北上川ダム統合管理事務所 | https://www.thr.mlit.go.jp/kitakami-dam/ |
+| 国の機関 | 釜石海上保安部 | https://www.kaiho.mlit.go.jp/02kanku/kamaishi/ |
+| 国の機関 | 盛岡財務事務所 | https://lfb.mof.go.jp/tohoku/morioka/ |
+| 国の機関 | 日本銀行盛岡事務所 | https://www3.boj.or.jp/morioka/ |
+| 国の機関 | 東北農政局 | https://www.maff.go.jp/tohoku/ |
+| 国の機関 | 盛岡地方裁判所 | https://www.courts.go.jp/morioka/ |
+| 国の機関 | 盛岡地方検察庁 | https://www.kensatsu.go.jp/kakuchou/morioka/ |
+| 国の機関 | 岩手復興局 | https://www.reconstruction.go.jp/ |
+| 大学・研究機関 | 岩手大学 | https://www.iwate-u.ac.jp/ |
+| 大学・研究機関 | 岩手県立大学 | https://www.iwate-pu.ac.jp/ |
+| 大学・研究機関 | 岩手医科大学 | https://www.iwate-med.ac.jp/ |
+| 大学・研究機関 | 盛岡大学 | https://morioka-u.ac.jp/ |
+| 大学・研究機関 | 富士大学 | https://www.fuji-u.ac.jp/ |
+| 大学・研究機関 | 一関工業高等専門学校 | https://www.ichinoseki.ac.jp/ |
+| 大学・研究機関 | 国立天文台 水沢VLBI観測所 | https://www.miz.nao.ac.jp/ |
+| 大学・研究機関 | 東京大学 国際沿岸海洋研究センター | https://www.icrc.aori.u-tokyo.ac.jp/ |
+
 ```
 .
 ├── sources.yaml               # 取得元の一覧（ここを編集する）
@@ -35,6 +72,8 @@
 ページ内のリンク（アーカイブ・前後の日・検索用データ・設定ファイル）はすべて相対パスなので、`/agencies/` 配下でもそのまま動きます。
 
 ## 取得元の調査（Survey agencies）
+
+調査対象の追加・修正は `survey_targets.yaml` を編集して main にコミットします（`category`・`name`・`url` の3項目）。
 
 1. リポジトリ画面の **Actions** タブ → 左の一覧の「**Survey agencies**」→「**Run workflow**」（ブランチは `main`）を押します。
 2. `survey_targets.yaml` の各サイトについて、次を調べます（15分ほどかかります）。

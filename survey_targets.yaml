@@ -23,5 +23,4 @@ targets:
   - {category: 大学・研究機関, name: 富士大学, url: "https://www.fuji-u.ac.jp/"}
   - {category: 大学・研究機関, name: 一関工業高等専門学校, url: "https://www.ichinoseki.ac.jp/"}
   - {category: 大学・研究機関, name: 国立天文台 水沢VLBI観測所, url: "https://www.miz.nao.ac.jp/"}
-  # ※依頼文が「東京大学 国」で途切れていたため、大槌町の国際沿岸海洋研究センターと推定。URLも推定
   - {category: 大学・研究機関, name: 東京大学 国際沿岸海洋研究センター, url: "https://www.icrc.aori.u-tokyo.ac.jp/"}
