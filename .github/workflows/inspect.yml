@@ -6,7 +6,15 @@ on:
   workflow_dispatch:
     inputs:
       save_html:
-        description: "scrape の取得元のページを reports/html/ に保存する"
+        description: "ページを保存する（全取得元なら reports/html/、URL指定なら reports/diagnose/）"
+        type: boolean
+        default: false
+      urls:
+        description: "診断するページのURL（空白区切り。空なら sources.yaml の全取得元を確認）"
+        type: string
+        default: ""
+      via_proxy:
+        description: "URL指定のとき、Worker（/proxy）経由の取得も試す"
         type: boolean
         default: false
 
@@ -27,7 +35,10 @@ jobs:
       - name: Inspect sources
         env:
           TZ: Asia/Tokyo
-        run: python scripts/inspect_sources.py ${{ inputs.save_html && '--html' || '' }}
+          URLS: ${{ inputs.urls }}
+        run: |
+          python scripts/inspect_sources.py ${{ inputs.save_html && '--html' || '' }} \
+            ${{ inputs.via_proxy && '--proxy' || '' }} --urls $URLS
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"

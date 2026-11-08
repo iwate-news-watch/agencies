@@ -21,7 +21,7 @@ import unicodedata
 from functools import cache
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urldefrag, urlsplit
+from urllib.parse import quote, urljoin, urldefrag, urlsplit
 
 import feedparser
 import requests
@@ -80,6 +80,30 @@ def fetch(url: str) -> requests.Response:
         finally:
             _last_request = time.monotonic()
     raise AssertionError("unreachable")
+
+
+@cache
+def proxy_base() -> str:
+    """Worker（中継サーバー）のURL。環境変数 PROXY_BASE があればそれを、なければ docs/config.json の trigger_url を使う。"""
+    import os
+    base = os.environ.get("PROXY_BASE") or ""
+    if not base:
+        try:
+            base = json.loads((DOCS_DIR / "config.json").read_text(encoding="utf-8")).get("trigger_url") or ""
+        except (OSError, ValueError):
+            base = ""
+    return base.strip().rstrip("/")
+
+
+def fetch_url(source: dict) -> str:
+    """実際に取得するURL。via_proxy: true なら Worker の /proxy を経由する（大学側が海外IPを遮断している場合など）。"""
+    url = source["url"]
+    if not source.get("via_proxy"):
+        return url
+    base = proxy_base()
+    if not base:
+        raise ValueError("via_proxy には docs/config.json の trigger_url（Worker のURL）の設定が必要です")
+    return f"{base}/proxy?url={quote(url, safe='')}"
 
 
 def normalize_url(url: str) -> str:
@@ -287,7 +311,7 @@ def collect(source: dict) -> list[dict]:
 
 def _collect(source: dict) -> list[dict]:
     url = source["url"]
-    resp = fetch(url)
+    resp = fetch(fetch_url(source))
     kind = source.get("type", "rss")
     if kind == "rss":
         return parse_feed(resp.content, url)
