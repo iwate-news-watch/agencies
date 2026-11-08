@@ -66,7 +66,7 @@ NEWS_TEXT = re.compile(r"(記者発表|報道発表|プレスリリース|お知
                        r"更新情報|イベント|一覧)")
 NEWS_HREF = re.compile(r"(news|topics|info|press|kisha|houdou|whatsnew|oshirase|release|shinchaku|event)", re.I)
 SKIP_EXT = re.compile(r"\.(pdf|jpe?g|png|gif|docx?|xlsx?|pptx?|zip|csv|mp4)$", re.I)
-SURVEY_DATE_FORMATS = ("dotted", "slash", "kanji", "reiwa")  # scripts/build.py で読める書式
+SURVEY_DATE_FORMATS = ("dotted", "slash", "kanji", "reiwa", "reiwa_short")  # scripts/build.py で読める書式
 
 COLUMNS = [
     "category", "name", "kind", "url", "found_via", "link_text", "status", "http_status",
@@ -76,18 +76,26 @@ COLUMNS = [
 _session = requests.Session()
 _session.headers.update(HEADERS)
 _last_by_host: dict[str, float] = {}
+_via_proxy = False  # 調査中のサイトを Worker（/proxy）経由で取得するか（survey_targets.yaml の via_proxy）
 
 
 def get(url: str) -> requests.Response:
-    """同じホストには間隔を空けて取得する（失敗しても例外はそのまま返す）。"""
+    """同じホストには間隔を空けて取得する（失敗しても例外はそのまま返す）。
+
+    via_proxy のサイトは Worker 経由で取得し、resp.url は Worker ではなく取得先の最終URLにする。
+    """
+    real = build.fetch_url({"url": url, "via_proxy": _via_proxy})
     host = urlsplit(url).netloc
     wait = HOST_INTERVAL - (time.monotonic() - _last_by_host.get(host, 0.0))
     if wait > 0:
         time.sleep(wait)
     try:
-        return _session.get(url, timeout=TIMEOUT, allow_redirects=True)
+        resp = _session.get(real, timeout=TIMEOUT + (15 if _via_proxy else 0), allow_redirects=True)
     finally:
         _last_by_host[host] = time.monotonic()
+    if _via_proxy:
+        resp.url = resp.headers.get("X-Proxy-Final-Url") or url
+    return resp
 
 
 def clean(s: str) -> str:
@@ -249,6 +257,8 @@ def fetch_page(url: str) -> tuple[requests.Response | None, str, str]:
 # --- 1サイト分 ----------------------------------------------------------------
 
 def survey(target: dict) -> list[dict]:
+    global _via_proxy
+    _via_proxy = bool(target.get("via_proxy"))
     keywords = target.get("keywords") or []
     hints = target.get("hints") or []
     rows: list[dict] = []

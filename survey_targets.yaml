@@ -6,28 +6,19 @@
 #     urls            : 調べるページ（1つ以上）。トップページのほか、一覧ページが分かっていればそのURLも
 #     hints           : (任意) 一覧ページがありそうな場所。そのURL自体も候補にし、その下にあるリンクを優先して調べる
 #     keywords        : (任意) 記事を絞り込むキーワード。候補ごとに、絞った場合の件数も記録する
+#     via_proxy       : (任意) true なら Cloudflare Worker（docs/config.json の trigger_url）の /proxy 経由で取得する
+#                       （GitHub Actions から直接取得できないサイト用。Worker 側で許可したホストだけ取得できる）
 #
 # URL は候補です。誤っていれば調査結果にエラーとして記録されます。
-# 1回目の調査（20サイト）の結果は reports/survey_agencies.csv にあります。
+# これまでの調査結果:
+#   reports/survey_agencies.csv   … 1回目（20サイト）
+#   reports/survey_agencies_2.csv … 2回目（準備中だった北上川ダム・三陸国道・南三陸沿岸国道・東北農政局・岩手県立大学）
 
-output: reports/survey_agencies_2.csv
+output: reports/survey_agencies_3.csv
 
 targets:
-  - category: 国の機関
-    name: 北上川ダム統合管理事務所
-    urls: ["https://www.thr.mlit.go.jp/kitakato/"]
-  - category: 国の機関
-    name: 三陸国道事務所
-    urls: ["https://www.thr.mlit.go.jp/sanriku/"]
-    hints: ["https://www.thr.mlit.go.jp/sanriku/01_press/"]
-  - category: 国の機関
-    name: 南三陸沿岸国道事務所
-    urls: ["https://www.thr.mlit.go.jp/minamisanriku/"]
-    hints: ["https://www.thr.mlit.go.jp/minamisanriku/kisha/"]
-  - category: 国の機関
-    name: 東北農政局
-    urls: ["https://www.maff.go.jp/tohoku/stinfo/index.html", "https://www.maff.go.jp/tohoku/press/houdou.html"]
-    keywords: [岩手]
+  # 3回目: GitHub Actions から直接は HTTP 403（CloudFront で遮断）のため Worker 経由で調べる
   - category: 大学・研究機関
     name: 岩手県立大学
     urls: ["https://www.iwate-pu.ac.jp/"]
+    via_proxy: true

@@ -7,6 +7,8 @@
 #     date_format: slash   … 「2026/10/16」形式
 #     date_format: kanji   … 「2026年11月5日」形式
 #     date_format: reiwa   … 「令和8年 10月15日」形式
+#     date_format: reiwa_short … 「R8.11.6」形式
+#     date_format: monthday … 「11月4日」形式（年なし。年は取得日から推定。date_position: after と組み合わせる）
 #     selector: (任意) 記事一覧部分のCSSセレクタ。指定するとその範囲だけを走査
 #       （複数の範囲に当たる場合は範囲ごとに走査し、範囲をまたいで日付とリンクを組にしない）
 #     date_position: (任意) before … 日付の後のリンクを記事にする（既定）
@@ -20,6 +22,9 @@
 #
 # homepage: ページで機関名からリンクする公式ホームページのURL（各機関のトップ）。
 #   省略すると、最初の取得元URLのドメインのトップ（https://ドメイン/）にリンクします。
+#
+# via_proxy: (任意) true なら Cloudflare Worker（docs/config.json の trigger_url）の /proxy 経由で取得する。
+#   GitHub Actions から直接取得できないサイト用。Worker 側で許可したホスト（既定は www.iwate-pu.ac.jp）だけ取得できる。
 #
 # preparing: true … 準備中。取得はせず、ページ下部の「準備中」に homepage へのリンクだけ表示します。
 #
@@ -61,6 +66,34 @@ organizations:
         url: https://lfb.mof.go.jp/tohoku/morioka/soumu/pagethkhp04500008.html
         date_format: reiwa
         selector: "ul.newsList"
+  - name: 北上川ダム統合管理事務所
+    homepage: https://www.thr.mlit.go.jp/kitakato/
+    sources:
+      - type: scrape
+        url: https://www.thr.mlit.go.jp/kitakato/102kisya/index.html
+        date_format: kanji
+  - name: 三陸国道事務所
+    homepage: https://www.thr.mlit.go.jp/sanriku/
+    sources:
+      - type: scrape
+        url: https://www.thr.mlit.go.jp/sanriku/01_press/
+        date_format: reiwa
+  - name: 南三陸沿岸国道事務所
+    homepage: https://www.thr.mlit.go.jp/minamisanriku/
+    sources:
+      - type: scrape
+        url: https://www.thr.mlit.go.jp/minamisanriku/kisha/index.html
+        date_format: reiwa_short  # 「R8.11.6」形式
+        selector: "div.post"      # 記者発表の表（メニューを除く）
+  - name: 東北農政局（東北6県）
+    homepage: https://www.maff.go.jp/tohoku/
+    sources:
+      # 東北6県まとめての発表にも岩手の情報が含まれるため、キーワードで絞らずすべて拾う
+      - type: scrape
+        url: https://www.maff.go.jp/tohoku/press/houdou.html
+        date_format: monthday     # 「［11月4日］」形式（年は取得日から推定）
+        date_position: after      # 日付がタイトルの後ろにある
+        selector: "dl.list_item dd"  # 各月の発表だけ（月の目次・過年度へのリンクを除く）
   - name: 日本銀行盛岡事務所
     homepage: https://www3.boj.or.jp/morioka/
     sources:
@@ -121,18 +154,6 @@ organizations:
         title_from: text                   # 「詳細はこちら」形式なので本文をタイトルにする
 
   # ---- 準備中（取得せず、ページ下部にホームページへのリンクだけ表示） ----
-  - name: 北上川ダム統合管理事務所
-    homepage: https://www.thr.mlit.go.jp/kitakato/
-    preparing: true
-  - name: 東北農政局
-    homepage: https://www.maff.go.jp/tohoku/
-    preparing: true
-  - name: 三陸国道事務所
-    homepage: https://www.thr.mlit.go.jp/sanriku/
-    preparing: true
-  - name: 南三陸沿岸国道事務所
-    homepage: https://www.thr.mlit.go.jp/minamisanriku/
-    preparing: true
   - name: 岩手県立大学
     homepage: https://www.iwate-pu.ac.jp/
     preparing: true

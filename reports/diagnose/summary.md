@@ -11,6 +11,6 @@
 | https://www.iwate-pu.ac.jp/ | 本番のUser-Agent | ❌ 403 | CloudFront | 919 バイト |  |  |
 | https://www.iwate-pu.ac.jp/ | ブラウザ風User-Agent | ❌ 403 | CloudFront | 919 バイト |  |  |
 
-失敗したときのヘッダーと本文は `reports/diagnose/*.txt`、取得できたページは `reports/diagnose/*.html` にあります。
+失敗したときのヘッダーと本文は `reports/diagnose/*.txt`にあります（取得できたページの保存分は確認後に削除しました）。
 
 判定の目安: ブラウザ風だけ成功 → User-Agent で判定するボット対策 ／ どちらも 403 で本文に海外・国外の文言 → 海外 IP の遮断 ／ Cloudflare などのヘッダーや captcha・challenge の文言 → WAF のボット対策

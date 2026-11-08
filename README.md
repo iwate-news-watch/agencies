@@ -24,8 +24,9 @@
 
 分類は公開ページの並び替え・絞り込みパネルの区分です（`scripts/build.py` の `CATEGORIES`）。URLは各機関のトップです。取得方法は `sources.yaml` を見てください。
 
-- 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
-- 準備中（ページ下部にホームページへのリンクだけ表示）: 北上川ダム統合管理事務所・東北農政局・三陸国道事務所・南三陸沿岸国道事務所・岩手県立大学（取得方法を再調査中）
+- 取得中: 盛岡地方気象台・岩手労働局・岩手河川国道事務所・北上川ダム統合管理事務所・三陸国道事務所・南三陸沿岸国道事務所・東北農政局（東北6県）・盛岡財務事務所・日本銀行盛岡事務所・岩手大学・岩手医科大学・盛岡大学・いわて富士大学・国立天文台 水沢VLBI観測所・東京大学 国際沿岸海洋研究センター
+- 準備中（ページ下部にホームページへのリンクだけ表示）: 岩手県立大学（GitHub Actions からは HTTP 403。Cloudflare Worker 経由での取得を調査中）
+- 東北農政局は東北6県まとめての発表にも岩手の情報が含まれるため、キーワードで絞らずに報道発表をすべて拾います。
 
 
 | 分類 | 名称 | URL |
@@ -38,7 +39,7 @@
 | 国の機関 | 北上川ダム統合管理事務所 | https://www.thr.mlit.go.jp/kitakato/ |
 | 国の機関 | 盛岡財務事務所 | https://lfb.mof.go.jp/tohoku/morioka/ |
 | 国の機関 | 日本銀行盛岡事務所 | https://www3.boj.or.jp/morioka/ |
-| 国の機関 | 東北農政局 | https://www.maff.go.jp/tohoku/ |
+| 国の機関 | 東北農政局（東北6県） | https://www.maff.go.jp/tohoku/ |
 | 大学・研究機関 | 岩手大学 | https://www.iwate-u.ac.jp/ |
 | 大学・研究機関 | 岩手県立大学 | https://www.iwate-pu.ac.jp/ |
 | 大学・研究機関 | 岩手医科大学 | https://www.iwate-med.ac.jp/ |
@@ -163,6 +164,10 @@ CSV は1行に1候補で、主な列は `kind`（`site`=調べたページ、`fe
 | `slash` | 西暦をスラッシュで区切る | `2026/10/16` |
 | `kanji` | 西暦を年月日で書く | `2026年11月5日`（空白入り・全角数字も可） |
 | `reiwa` | 令和（令和N年 = 西暦 2018+N 年） | `令和8年 10月15日`（空白入り・全角数字も可） |
+| `reiwa_short` | 令和の略記 | `R8.11.6`・`R08.11.06`・`R8/11/6` |
+| `monthday` | 年なしの月日。年は取得日から推定（取得日より1か月以上先になる日付は前年とみなす）。タイトル中の日付と区別するため `date_position: after` と組み合わせます | `11月4日`・`［11月4日］` |
+
+全角数字は半角に直してから読みます。HTML のコメント（`<!-- -->`）の中は読みません（取り下げた記事が残っていることがあるため）。
 
 - メニューやバナーのリンクまで拾ってしまう場合は、`selector` で記事一覧の部分を指定してください。複数の範囲に当たる場合は範囲ごとに読み、範囲をまたいで日付とリンクを組にしません（1記事ずつの枠を指定すると確実です）。
 - 日付がタイトルの**後ろ**にあるサイトは `date_position: after` を付けます（リンクの後に出てくる日付をその記事の日付にします）。
@@ -191,6 +196,24 @@ CSV は1行に1候補で、主な列は `kind`（`site`=調べたページ、`fe
 **設定を変えたら確認する（Inspect sources）**
 
 Actions の「**Inspect sources**」を実行すると、各取得元からいま拾える記事（タイトル・URL・日付・リンクのある場所）を `reports/inspect_sources.csv` に書き出し、実行結果画面に取得元ごとの件数とタイトルの例を表示します。新着の記録（`state/`）は変えません。「save_html」をオンにすると、scrape の取得元のページを `reports/html/` に保存します（`selector` を決める参考。確認が済んだら削除してください）。
+
+「urls」に URL を空白区切りで入れると、そのページだけを**診断**します（結果は `reports/diagnose/`）。
+
+- 本番の User-Agent と、一般的なブラウザに近い User-Agent の2通りで取得し、HTTP ステータス・サーバー・本文の長さ・日付の書式の数・遮断の手がかり（海外からの遮断・WAF などの文言）を `summary.md` と実行結果画面に表示します。
+- 失敗（4xx/5xx）したときは、レスポンスのヘッダーと本文（先頭8000文字）を `<ページ>-<方法>.txt` に保存します。実行環境の接続元 IP と国も記録します。
+- 「via_proxy」をオンにすると、Worker の `/proxy` 経由の取得も試します。
+- 「save_html」をオンにすると、取得できたページを保存します（確認が済んだら削除してください）。
+
+**GitHub Actions から取得できないサイト（`via_proxy`）**
+
+海外の IP やデータセンターからのアクセスを遮断しているサイトは、取得元に `via_proxy: true` を書くと Cloudflare Worker（`docs/config.json` の `trigger_url`）の `/proxy` 経由で取得します。Worker 側で許可したホスト（既定は `www.iwate-pu.ac.jp` だけ）しか取得できません。Worker の設定は下の「Worker の /proxy」を見てください。
+
+```yaml
+      - type: scrape
+        url: https://www.iwate-pu.ac.jp/xxxx/
+        date_format: dotted
+        via_proxy: true
+```
 
 **読み方を変えたときの注意**
 
@@ -314,8 +337,23 @@ python scripts/build.py
 
 3. **Commit changes** で main ブランチにコミットします。1〜2分で公開ページにボタンが表示されます。
 
-ボタンを外したいときは `trigger_url` を `""`（空）に戻します。完全に止めるときは、Cloudflare で Worker を削除し、GitHub でトークンを削除（Developer settings → Fine-grained tokens → 対象のトークン → Delete）してください。
+ボタンを外したいときは `trigger_url` を `""`（空）に戻します（`via_proxy` の取得元も使えなくなります）。完全に止めるときは、Cloudflare で Worker を削除し、GitHub でトークンを削除（Developer settings → Fine-grained tokens → 対象のトークン → Delete）してください。
 
 ## ロゴ
 
 ロゴは現在表示しない設定です。新しいロゴを用意したら `docs/` に置き、`scripts/build.py` の `LOGO_FILE` にファイル名（例: `"agencies-logo.svg"`）を書いてください。次回の取得からページに表示されます。
+
+## Worker の /proxy（GitHub Actions から取得できないサイト用）
+
+`worker/worker.js` には、更新ボタン用の `/trigger`・`/status` のほかに `GET /proxy?url=…` があります。GitHub Actions から直接は遮断されるサイトのページを、Worker が代わりに取得して返します。
+
+- 取得してよいのは許可したホストだけです（既定は `www.iwate-pu.ac.jp`）。それ以外の URL、ユーザー情報やポート番号つきの URL、許可外のホストへの転送（リダイレクト）は拒否します（踏み台に使われないようにするため）。
+- 取得結果（HTTP 200 のもの）は5分間キャッシュし、同じページに短時間に何度もアクセスしないようにします。
+- 応答には `X-Proxy-Cache`（HIT/MISS）・`X-Proxy-Final-Url`（転送後の URL）・`X-Proxy-Upstream-Status`・`X-Proxy-Upstream-Server` が付きます。
+- 許可するホストを増やすときは、Worker の変数 `PROXY_ALLOWED_HOSTS` にカンマ区切りで書きます（例: `www.iwate-pu.ac.jp,www.example.ac.jp`）。省略時は `www.iwate-pu.ac.jp` だけです。
+
+**`worker.js` を変更したとき**は、Cloudflare のダッシュボードで Worker の **Edit code** を開き、このリポジトリの `worker/worker.js` の全文を貼り直して **Deploy** を押してください（変数とシークレットはそのまま残ります）。
+
+確認は、ブラウザで `https://ginga-trigger.iwate-news.workers.dev/proxy?url=https%3A%2F%2Fwww.iwate-pu.ac.jp%2F` を開きます。大学のトップページが表示されれば成功です。`url_not_allowed` と出たら、URL かホストの許可を見直してください。
+
+> 注意: Worker が相手のサイトにアクセスするときの接続元は Cloudflare のデータセンターです。どのデータセンターで動くかは呼び出し元に近い場所で決まるため、GitHub Actions（米国）から呼ぶと米国のデータセンターになることがあります。相手のサイトが海外からのアクセスを遮断している場合は、Worker 経由でも 403 になる可能性があります（その場合は Inspect sources の診断で `Worker経由` が 403 になります）。

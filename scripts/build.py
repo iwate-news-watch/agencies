@@ -26,7 +26,7 @@ from urllib.parse import quote, urljoin, urldefrag, urlsplit
 import feedparser
 import requests
 import yaml
-from bs4 import BeautifulSoup, NavigableString, Tag, UnicodeDammit
+from bs4 import BeautifulSoup, Comment, NavigableString, Tag, UnicodeDammit
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCES_FILE = ROOT / "sources.yaml"
@@ -140,6 +140,10 @@ DATE_PATTERNS = {
     "kanji": re.compile(r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日"),
     # 令和8年 10月15日 / 令和 8年10月 15日 / 令和元年...
     "reiwa": re.compile(r"令和\s*(\d{1,2}|元)\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日"),
+    # R8.11.6 / R08.11.06 / R8/11/6（令和の略記）
+    "reiwa_short": re.compile(r"(?<![A-Za-z])R\s*(\d{1,2})\s*[./]\s*(\d{1,2})\s*[./]\s*(\d{1,2})(?!\d)"),
+    # 11月4日（年なし。年は取得日から推定する。タイトル中の日付と区別するため date_position: after と組み合わせる）
+    "monthday": re.compile(r"(?<!\d)()(\d{1,2})\s*月\s*(\d{1,2})\s*日"),
 }
 
 
@@ -149,6 +153,15 @@ def to_iso_date(fmt: str, m: re.Match) -> str:
         y, mo, d = m.group(1), int(m.group(2)), int(m.group(3))
         if fmt == "reiwa":
             year = 2018 + (1 if y == "元" else int(y))
+        elif fmt == "reiwa_short":
+            year = 2018 + int(y)
+        elif fmt == "monthday":
+            # 年の書かれていない日付は、取得日から見て未来になりすぎない年にする（12月に1月の日付を見たら前年…ではなく
+            # 1月に12月の日付を見たら前年）
+            today = datetime.now(JST).date()
+            year = today.year
+            if date(year, mo, d) > today + timedelta(days=31):
+                year -= 1
         else:
             year = int(y)
         return date(year, mo, d).isoformat()
@@ -197,6 +210,8 @@ def scrape_dated_links(content: bytes | str, base_url: str, date_format: str,
     soup = BeautifulSoup(content, "html.parser")
     for tag in soup(["script", "style", "noscript"]):
         tag.decompose()
+    for c in soup.find_all(string=lambda t: isinstance(t, Comment)):
+        c.extract()  # HTMLのコメント（取り下げた記事が残っていることがある）は読まない
     roots = soup.select(selector) if selector else [soup]
 
     items: list[dict] = []
@@ -612,7 +627,7 @@ CATEGORIES = [
         ("北上川ダム統合管理事務所", "きたかみがわだむとうごうかんりじむしょ"),
         ("盛岡財務事務所", "もりおかざいむじむしょ"),
         ("日本銀行盛岡事務所", "にっぽんぎんこうもりおかじむしょ"),
-        ("東北農政局", "とうほくのうせいきょく"),
+        ("東北農政局（東北6県）", "とうほくのうせいきょく"),
     ]),
     ("大学・研究機関", [
         ("岩手大学", "いわてだいがく"),
