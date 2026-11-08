@@ -1,12 +1,12 @@
 # ページの診断
 
-実行環境の接続元: 40.65.58.132（US / AS8075 Microsoft Corporation）
+実行環境の接続元: 20.168.98.32（US / AS8075 Microsoft Corporation）
 
 | ページ | 取得方法 | 結果 | サーバー | 本文 | 日付の書式 | 手がかり |
 |---|---|---|---|---|---|---|
-| https://www.iwate-pu.ac.jp/ | 本番のUser-Agent | ❌ 403 | CloudFront | 919 バイト |  |  |
-| https://www.iwate-pu.ac.jp/ | ブラウザ風User-Agent | ❌ 403 | CloudFront | 919 バイト |  |  |
-| https://www.iwate-pu.ac.jp/ | Worker経由 | ✅ 200（転送先 https://ginga-trigger.iwate-news.workers.dev/proxy?url=https%3A%2F%2Fwww.iwate-pu.ac.jp%2F） | cloudflare | 397290 バイト | kanji:8, monthday:8 | ボット対策・WAF、Cloudflare のヘッダーあり |
+| https://www.iwate-pu.ac.jp/news | 本番のUser-Agent | ❌ 403 | CloudFront | 919 バイト |  |  |
+| https://www.iwate-pu.ac.jp/news | ブラウザ風User-Agent | ❌ 403 | CloudFront | 919 バイト |  |  |
+| https://www.iwate-pu.ac.jp/news | Worker経由 | ✅ 200（転送先 https://ginga-trigger.iwate-news.workers.dev/proxy?url=https%3A%2F%2Fwww.iwate-pu.ac.jp%2Fnews） | cloudflare | 328770 バイト | kanji:21, reiwa_short:3, monthday:24 | ボット対策・WAF、Cloudflare のヘッダーあり |
 
 失敗したときのヘッダーと本文は `reports/diagnose/*.txt`、取得できたページは `reports/diagnose/*.html` にあります。
 
