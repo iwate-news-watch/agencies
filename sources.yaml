@@ -1,0 +1,165 @@
+# 岩手県内33市町村の取得元一覧
+#
+# 各自治体の sources に取得元を並べます（複数可。記事URLで重複を除きます）。
+#   type: rss     … RSS / Atom フィード
+#   type: scrape  … RSSのないサイト。ページ内の日付の直後にある最初のリンクを記事とみなす
+#     date_format: dotted  … 「2026.10.15」形式
+#     date_format: reiwa   … 「令和8年 10月15日」形式
+#     selector: (任意) 記事一覧部分のCSSセレクタ。指定するとその範囲だけを走査
+#
+# sources が空の自治体はページに「取得元未設定」と表示されます。
+#
+# homepage: (任意) ページで自治体名からリンクする公式ホームページのURL。
+#   省略すると、最初の取得元URLのドメインのトップ（https://ドメイン/）にリンクします。
+
+municipalities:
+  # ---- 市 ----
+  - name: 盛岡市
+    sources:
+      - type: rss
+        url: https://www.city.morioka.iwate.jp/news.rss
+  - name: 宮古市
+    sources:
+      - type: rss
+        url: https://www.city.miyako.iwate.jp/cgi-bin/feed.php?siteNew=1
+  - name: 大船渡市
+    sources:
+      - type: rss
+        url: https://www.city.ofunato.iwate.jp/feed/latest.xml
+  - name: 花巻市
+    sources:
+      - type: rss
+        url: https://www.city.hanamaki.iwate.jp/news.rss
+  - name: 北上市
+    sources:
+      - type: rss
+        url: https://www.city.kitakami.iwate.jp/cgi-bin/feed.php?siteNew=1
+  - name: 久慈市
+    sources:
+      - type: rss
+        url: https://www.city.kuji.lg.jp/cgi-bin/feed.php?siteNew=1
+  - name: 遠野市
+    sources:
+      - type: rss
+        url: https://www.city.tono.iwate.jp/rss.xml
+  - name: 一関市
+    sources:
+      - type: rss
+        url: https://www.city.ichinoseki.iwate.jp/feed/news.xml
+  - name: 陸前高田市
+    sources:
+      - type: rss
+        url: https://www.city.rikuzentakata.iwate.jp/cgi-bin/feed.php?siteNew=1
+  - name: 釜石市
+    sources:
+      - type: rss
+        url: https://www.city.kamaishi.iwate.jp/category/kubun/news/index.rss
+      - type: rss
+        url: https://www.city.kamaishi.iwate.jp/category/kubun/event/index.atom
+      - type: rss
+        url: https://www.city.kamaishi.iwate.jp/category/kubun/recruitment/index.atom
+      - type: rss
+        url: https://www.city.kamaishi.iwate.jp/category/bunya/nyusatsu/index.rss
+  - name: 二戸市
+    sources:
+      - type: rss
+        url: https://www.city.ninohe.lg.jp/RSSFeed/whatsnew
+  - name: 八幡平市
+    sources:
+      - type: rss
+        url: https://www.city.hachimantai.lg.jp/rss/10/list1.xml
+      - type: rss
+        url: https://www.city.hachimantai.lg.jp/rss/10/list5.xml
+      - type: rss
+        url: https://www.city.hachimantai.lg.jp/rss/10/list7.xml
+  - name: 奥州市
+    sources:
+      - type: rss
+        url: https://www.city.oshu.iwate.jp/cgi-bin/feed.php?siteNew=1
+  - name: 滝沢市
+    sources:
+      - type: rss
+        url: https://www.city.takizawa.iwate.jp/feed/latest.xml
+
+  # ---- 町 ----
+  - name: 雫石町
+    sources:
+      - type: rss
+        url: https://www.town.shizukuishi.iwate.jp/docs/index.rss
+  - name: 葛巻町
+    sources:
+      - type: rss
+        url: https://www.town.kuzumaki.lg.jp/docs/index.rss
+  - name: 岩手町
+    sources:
+      - type: rss
+        url: https://town.iwate.iwate.jp/feed/
+  - name: 紫波町
+    sources:
+      - type: scrape
+        url: https://www.town.shiwa.iwate.jp/news/
+        date_format: dotted
+  - name: 矢巾町
+    sources:
+      - type: scrape
+        url: https://www.town.yahaba.iwate.jp/news/
+        date_format: dotted
+  - name: 西和賀町
+    sources:
+      - type: rss
+        url: https://www.town.nishiwaga.lg.jp/cgi-bin/feed.php?siteNew=1
+  - name: 金ケ崎町
+    sources:
+      - type: rss
+        url: https://www.town.kanegasaki.iwate.jp/articles/index.rss
+  - name: 平泉町
+    sources:
+      - type: rss
+        url: https://www.town.hiraizumi.iwate.jp/feed/
+  - name: 住田町
+    sources:
+      - type: rss
+        url: https://www.town.sumita.iwate.jp/shinchaku/index.rss
+  - name: 大槌町
+    sources:
+      - type: rss
+        url: https://www.town.otsuchi.iwate.jp/news/rss.xml
+  - name: 山田町
+    sources:
+      - type: rss
+        url: https://www.town.yamada.iwate.jp/oshirase/rss.xml
+  - name: 岩泉町
+    sources:
+      - type: rss
+        url: https://www.town.iwaizumi.lg.jp/docs/index.rss
+  - name: 軽米町
+    sources:
+      - type: scrape
+        url: https://www.town.karumai.iwate.jp/article/whatsnew/
+        date_format: reiwa
+  - name: 洋野町
+    sources:
+      - type: rss
+        url: https://www.town.hirono.iwate.jp/category/kubun/news/index.rss
+  - name: 一戸町
+    sources:
+      - type: rss
+        url: https://www.town.ichinohe.iwate.jp/cgi-bin/feed.php?siteNew=1
+
+  # ---- 村 ----
+  - name: 田野畑村
+    sources:
+      - type: rss
+        url: https://www.vill.tanohata.iwate.jp/docs/index.rss
+  - name: 普代村
+    sources:
+      - type: rss
+        url: https://www.vill.fudai.iwate.jp/oshirase/rss.xml
+  - name: 九戸村
+    sources:
+      - type: rss
+        url: https://www.vill.kunohe.iwate.jp/oshirase/rss.xml
+  - name: 野田村
+    sources:
+      - type: rss
+        url: https://www.vill.noda.iwate.jp/cgi-bin/feed.php?siteNew=1

@@ -1,0 +1,915 @@
+{
+ "date": "2026-10-16",
+ "first_run": false,
+ "last_fetched": "20:32",
+ "municipalities": [
+  {
+   "errors": [],
+   "name": "盛岡市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "都南つどいの森「森のトリセツ・タイサンボクの葉っぱの金継ぎ」",
+     "url": "https://www.city.morioka.iwate.jp/kanko_sports_bunka/taiken/events/1036879/1040135.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "都南つどいの森「森を愉しむワークショップ・豊富な素材・ナチュラルなリース・スワッグつくり」",
+     "url": "https://www.city.morioka.iwate.jp/kanko_sports_bunka/taiken/events/1036879/1039742.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "就労支援講座「見つけよう！わたしらしい働き方」",
+     "url": "https://www.city.morioka.iwate.jp/kurashi/chiikikatsudo_shiminkyodo/sankaku/1032829.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "宮古市",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "大船渡市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "岩手県交通安全ポスターコンクールにて最優秀賞を受賞しました！",
+     "url": "https://www.city.ofunato.iwate.jp/archive/p20261008175130"
+    },
+    {
+     "date": "2026-10-14",
+     "fetched_at": "20:15",
+     "title": "【開催中】大船渡アスリート応援団特別展2026について",
+     "url": "https://www.city.ofunato.iwate.jp/archive/p20261014152446"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "花巻市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "「ひきこもりの理解を深めるシンポジウム」のお知らせ",
+     "url": "https://www.city.hanamaki.iwate.jp/kenko_iryo_fukushi/syogai/1019862/1026101.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "「令和8年台風第18号災害義援金（鹿児島県）」を受け付けています",
+     "url": "https://www.city.hanamaki.iwate.jp/kenko_iryo_fukushi/oshirase/1019872/1019873/1026161.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "家庭教育支援講座「親子で原木しいたけ収穫体験！～ルンビニー苑の皆さんと一緒にやってみよう～」を開催します",
+     "url": "https://www.city.hanamaki.iwate.jp/bunkasports/shogaigakushu/1019894/1016419/1026157.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "令和8年度イーハトーブ花巻カレッジを開催します",
+     "url": "https://www.city.hanamaki.iwate.jp/bunkasports/shogaigakushu/1019894/1016419/1015161.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "「郵便局」「警察官」を名乗るサギ電話にご注意ください！（10月15日発生）",
+     "url": "https://www.city.hanamaki.iwate.jp/kurashi/anshin_anzen/chui/1025208/1026160.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "11月14日開催｜【まきまき花巻】「魅力の発信方法を学ぼう！はなまきBuzzネタハンター」を開催します",
+     "url": "https://www.city.hanamaki.iwate.jp/shisei/chiiki/1009485/1026143.html"
+    },
+    {
+     "date": "2026-10-15",
+     "fetched_at": "20:15",
+     "title": "［削禁］新着情報データ作成",
+     "url": "https://www.city.hanamaki.iwate.jp/news_p.xml"
+    },
+    {
+     "date": "2026-10-15",
+     "fetched_at": "20:15",
+     "title": "「花巻市SOSネットワーク」事業の利用登録者及び協力者の情報漏洩の可能性について",
+     "url": "https://www.city.hanamaki.iwate.jp/kenko_iryo_fukushi/koureinokata/1019854/1026159.html"
+    },
+    {
+     "date": "2026-10-15",
+     "fetched_at": "20:15",
+     "title": "映画『おいしい給食 炎の修学旅行』×花巻市 コラボ企画を実施します！（令和8年10月16日スタート）",
+     "url": "https://www.city.hanamaki.iwate.jp/kanko/oshirase/1026103.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "北上市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "きたかみまちづくりコラボアワードのエントリーを開始します",
+     "url": "https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/chiikidukurika/chiikikyodogakari/2/2/25952.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "市有財産(土地)の一般競争入札を行います",
+     "url": "https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/shisankeieika/kanzaigakari/kouyuuzaisann/29000.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "地域住民参加による道路の雪対策への支援制度",
+     "url": "https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/dorokankyoka/ijikakari/josetsu/14473.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "【11月7日】博物館和賀分館臨時休館のお知らせ",
+     "url": "https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/hakubutsu/1_1/15056.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "北上工業団地ライナーの実証運行について",
+     "url": "https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/toshisaiseisuishin/koutsuuseisaku/1_1/30157.html"
+    },
+    {
+     "date": "2026-10-15",
+     "fetched_at": "20:15",
+     "title": "【小枝田跨線橋】終日通行止め のお知らせ",
+     "url": "https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/dorokankyoka/hozengakari/1_1/27234.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "久慈市",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "遠野市",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "一関市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "日形秋祭り",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016161100"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "金沢ふるさと秋祭り",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016162250"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "健康マージャン教室",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016162612"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "第36回花泉地区ソフトバレーボール大会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016150636"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "花泉地区自主防災会 移動研修",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016150817"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "老松こども教室",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016151743"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "作品展示会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016153353"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "消防・防災フェスタ",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016153943"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "成人事業",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016154435"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "ひょうたん学級",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016154805"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "福祉講演会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016155008"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "移動研修",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016155517"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "市民センターまつり",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016140420"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "成人教室",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016140639"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "地区民運動会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016140757"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "ほっこり交流会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016141411"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "涌津市民センターまつり「みんなの作品展」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016141656"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "涌津市民センターまつり「わくつ互市・フリーマーケット」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016142043"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "涌津市民センターまつり「わくわくきっず縁日」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016142205"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "涌津市民センターまつり「わくつフェス」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016142625"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "いきいき元気学級「シニアのための健康セミナー」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016143132"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "秋季スポーツ大会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016144222"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "レモンクラブ健康ウオーキング",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016144656"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "油島地区ふれあい交流会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016144848"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "油島市民センターまつり（作品展）",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016145047"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "油島市民センターまつり（健康福祉講演会）",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016145312"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "油島市民センターまつり（油島っ子まつり）",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016145426"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "油島お宝学習会移動研修",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016145610"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "旬を楽しむ会料理教室",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016145808"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "花泉昔かたり",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20260618153257"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "花泉互市",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016133206"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "花泉まつりプレイベント ミュージックステージ",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016133601"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "花泉まつり",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016134125"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "千葉理安を知ろう！",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016134845"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "永山涼太トークイベント「歴史から小説を生み出す楽しみ」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016135059"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "はなとしょ互市 図書館まつり",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016135351"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "永寿大学",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261016135931"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "インフルエンザを予防しましょう（流行注意報発令中）",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/contents-154586"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "企画展「東磐井のザシキワラシ」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20260923150808"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "岩手ビッグブルズホームゲームが開催されます",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261013114621"
+    },
+    {
+     "date": "2026-10-15",
+     "fetched_at": "20:15",
+     "title": "雨ニモマケズ朗読会11月3日開催",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009173325"
+    },
+    {
+     "date": "2026-10-14",
+     "fetched_at": "20:15",
+     "title": "岩手県警察音楽隊「安全安心ふれあいコンサート」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261014161745"
+    },
+    {
+     "date": "2026-10-14",
+     "fetched_at": "20:15",
+     "title": "摺沢地区食生活改善推進協議会移動研修",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261014162620"
+    },
+    {
+     "date": "2026-10-14",
+     "fetched_at": "20:15",
+     "title": "摺沢地区自公連移動研修「摺沢の史跡めぐり」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261014163814"
+    },
+    {
+     "date": "2026-10-13",
+     "fetched_at": "20:15",
+     "title": "第２回「農」を考える事業移動研修",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261013154221"
+    },
+    {
+     "date": "2026-10-13",
+     "fetched_at": "20:15",
+     "title": "猿沢地区芸能発表会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261013154838"
+    },
+    {
+     "date": "2026-10-13",
+     "fetched_at": "20:15",
+     "title": "第９回猿沢みんなの食堂",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261013155538"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "渋民地区歩け歩け大会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009131852"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "Go！Go！しぶさた",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009132341"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "曽慶地区ニュースポーツ大会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009132743"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "舞台「銀河鉄道の夜」",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009133214"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "第38回（令和８年度）曽慶地区芸能祭",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009134127"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "結いコン 大須賀ひできコンサート",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009134519"
+    },
+    {
+     "date": "2026-10-09",
+     "fetched_at": "20:15",
+     "title": "大原地区ソフトバレーボール大会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261009114031"
+    },
+    {
+     "date": "2026-10-08",
+     "fetched_at": "20:15",
+     "title": "佐藤醇吉生誕150年展",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261008140418"
+    },
+    {
+     "date": "2026-10-08",
+     "fetched_at": "20:15",
+     "title": "佐藤醇吉生誕150年展記念講演",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261008141559"
+    },
+    {
+     "date": "2026-10-08",
+     "fetched_at": "20:15",
+     "title": "福祉講演会",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261008142432"
+    },
+    {
+     "date": "2026-10-08",
+     "fetched_at": "20:15",
+     "title": "第１回すこやか麻雀教室（全３回）",
+     "url": "https://www.city.ichinoseki.iwate.jp/archive/p20261008143157"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "陸前高田市",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "釜石市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "アンコンシャス・バイアス研修テキスト作成のためのアンケートを実施しています",
+     "url": "https://www.city.kamaishi.iwate.jp/docs/2026101500056/"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "【11/7・8】かまいしゼロカーボンフェスタ2026を開催します",
+     "url": "https://www.city.kamaishi.iwate.jp/docs/2026091100045/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "二戸市",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "八幡平市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "陸上自衛隊岩手山演習場等における10月後半の訓練予定を更新しました",
+     "url": "https://www.city.hachimantai.lg.jp/soshiki/bouan/32641.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "市長日程（10月19日から10月25日まで）",
+     "url": "https://www.city.hachimantai.lg.jp/site/shicho/32687.html"
+    },
+    {
+     "date": "2026-09-30",
+     "fetched_at": "20:15",
+     "title": "西根・松尾地区統合中学校新校舎整備基本構想を策定しました",
+     "url": "https://www.city.hachimantai.lg.jp/site/tougou/32553.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "奥州市",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "【2026】秋麗～奥州の紅葉スポット特集～",
+     "url": "https://www.city.oshu.iwate.jp/kanko/tokushu/16998.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "前沢温泉保養交流館の民間活用に関するサウンディング型市場調査（調査結果）",
+     "url": "https://www.city.oshu.iwate.jp/soshiki/6/1056/18987.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "【先着順】市有財産を売却します",
+     "url": "https://www.city.oshu.iwate.jp/soshiki/3/1008/6/Bank/16665.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "奥州市地域公共交通シンポジウムを開催します（10月18日開催）",
+     "url": "https://www.city.oshu.iwate.jp/soshiki/2/1004/16614.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "「子どもについて語り合う保護者のつどい」のお知らせ",
+     "url": "https://www.city.oshu.iwate.jp/kyoikuiinkai/soshiki/2/16970.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "令和8年度奥州市郷土芸能祭を開催します！",
+     "url": "https://www.city.oshu.iwate.jp/web_museum/oshirase/1/747.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "滝沢市",
+   "new": [
+    {
+     "date": "2026-01-01",
+     "fetched_at": "20:15",
+     "title": "広報たきざわ電子版",
+     "url": "https://www.city.takizawa.iwate.jp/about-takizawa/joho-hasshin/koutyou-kouhou/kouhou-denshiban"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "雫石町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "町内限定 雫石牛特別販売開催！",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2026101300021/"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "雫石町防災メール配信再開について",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2026101600015/"
+    },
+    {
+     "date": "2026-09-17",
+     "fetched_at": "20:15",
+     "title": "2026しずくいし産業まつり（10/17～18)の開催について",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2026082600011/"
+    },
+    {
+     "date": "2026-09-16",
+     "fetched_at": "20:15",
+     "title": "公示送達",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2026062600048/"
+    },
+    {
+     "date": "2026-06-04",
+     "fetched_at": "20:15",
+     "title": "令和８年度 第２回スポーツ吹き矢体験教室を開催します！【参加者募集】",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2026060400022/"
+    },
+    {
+     "date": "2025-09-30",
+     "fetched_at": "20:15",
+     "title": "【申込終了しました】雫石さんぽ（鶯宿編） 秋の鶯宿をウォーキングしませんか？",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2025081400011/"
+    },
+    {
+     "date": "2019-04-01",
+     "fetched_at": "20:15",
+     "title": "再生可能エネルギー事業に係る届出及び説明会報告書の公表について",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2019040100036/"
+    },
+    {
+     "date": "2014-11-29",
+     "fetched_at": "20:15",
+     "title": "雫石町児童館",
+     "url": "https://www.town.shizukuishi.iwate.jp/docs/2014112900309/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "葛巻町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "紫波町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "矢巾町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "NEW! 令和8年10月30日入札の設計図書について",
+     "url": "https://www.town.yahaba.iwate.jp/soshiki/soumu/chousei/17921174273270116/"
+    },
+    {
+     "date": "2026-10-15",
+     "fetched_at": "20:15",
+     "title": "NEW! 【行方不明者情報→無事発見されました】10/15(木)",
+     "url": "https://www.town.yahaba.iwate.jp/soshiki/kenkou/kenkoufukushi/17920661553193986/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "西和賀町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "金ケ崎町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "１０月２９日「キッズくらぶ」in第一小学校 当選発表",
+     "url": "https://www.town.kanegasaki.iwate.jp/articles/2026082400017/"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "かねがさき町民大学2026「物であふれた部屋をリセット～大人のための挫折しない片付け講座～」",
+     "url": "https://www.town.kanegasaki.iwate.jp/articles/2026092900057/"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "かねがさき町民大学2026「おとなのまちあるき～歴史の町並みと紅葉を歩く～」",
+     "url": "https://www.town.kanegasaki.iwate.jp/articles/2026061000023/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "平泉町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "岩手ビッグブルズ ホームゲームにご招待！（市町村招待プロジェクト）",
+     "url": "https://www.town.hiraizumi.iwate.jp/%e5%b2%a9%e6%89%8b%e3%83%93%e3%83%83%e3%82%b0%e3%83%96%e3%83%ab%e3%82%ba-%e3%83%9b%e3%83%bc%e3%83%a0%e3%82%b2%e3%83%bc%e3%83%a0%e3%81%ab%e3%81%94%e6%8b%9b%e5%be%85%ef%bc%81%ef%bc%88%e5%b8%82-2-40959/"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "インフルエンザの流行（注意報）について",
+     "url": "https://www.town.hiraizumi.iwate.jp/%e3%82%a4%e3%83%b3%e3%83%95%e3%83%ab%e3%82%a8%e3%83%b3%e3%82%b6%e6%b5%81%e8%a1%8c%e8%ad%a6%e5%a0%b1%e7%99%ba%e4%bb%a4%e4%b8%ad-33883/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "住田町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "大槌町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "岩手沿岸南部クリーンセンターの「ごみの受入中止」について",
+     "url": "https://www.town.otsuchi.iwate.jp/gyosei/docs/463801.html"
+    },
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "釜石・大槌地区公務員合同説明会が開催されます。",
+     "url": "https://www.town.otsuchi.iwate.jp/gyosei/docs/463798.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "山田町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩泉町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "【岩泉歯科診療所】11月診療日のお知らせ",
+     "url": "https://www.town.iwaizumi.lg.jp/docs/2026100500033/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "軽米町",
+   "new": [
+    {
+     "date": "2026-10-14",
+     "fetched_at": "20:15",
+     "title": "広報かるまい 令和8年10月号(No811)",
+     "url": "https://www.town.karumai.iwate.jp/article/gyosei/kochokoho/koho/kohokarumai/entry-basename-60.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "洋野町",
+   "new": [
+    {
+     "date": "2026-10-16",
+     "fetched_at": "20:15",
+     "title": "【参加者募集/学生（中学生以上）向け】「先輩の話を聞こう！喋ろう！相談しよう！～若手起業家と学生の交流イベント～」開催！",
+     "url": "https://www.town.hirono.iwate.jp/doc/2026101600039/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "一戸町",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "田野畑村",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "普代村",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "九戸村",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "野田村",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  }
+ ]
+}

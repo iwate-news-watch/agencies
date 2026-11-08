@@ -1,0 +1,58 @@
+name: Iwate municipal news
+
+# 定期実行はせず、手動実行（Actions 画面・公開ページの更新ボタン）のときだけ動く
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 同時に動かすのは1つだけ。後から来た実行は前の実行が終わるまで待つ（キャンセルしない）
+concurrency:
+  group: daily-news
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 待機していた実行でも、起動時点ではなく「今の」main の最新から始める
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build pages
+        env:
+          TZ: Asia/Tokyo
+        run: python scripts/build.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state docs
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "Update news: $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M')"
+          # 実行中に main が進んでいても取り込んでから push する（最大5回）
+          for i in 1 2 3 4 5; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "push に失敗しました。$((i * 10)) 秒後に再試行します（${i}/5）"
+            sleep $((i * 10))
+          done
+          echo "push に5回失敗しました"
+          exit 1

@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>2026年11月1日の更新 | NAMBU 岩手県市町村新着情報</title><style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;
+--accent:#0a6bc2;--err-bg:#fdecec;--err-fg:#b3261e;--err-line:#f2b8b5;--chip:#eef4fb}
+@media (prefers-color-scheme:dark){:root{--bg:#121214;--card:#1c1c1f;--fg:#ececee;
+--muted:#9a9aa2;--line:#2e2e33;--accent:#6cb4ff;--err-bg:#3a1416;--err-fg:#ffb4ab;
+--err-line:#7a2a2a;--chip:#1f2a38}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:16px/1.65 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+-webkit-text-size-adjust:100%}
+main{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.35rem;line-height:1.4;margin:0 0 4px}
+.sub{color:var(--muted);font-size:.85rem;margin:0 0 20px}
+h1{font-size:1.25rem}
+.site{font-size:.85rem;color:var(--muted);margin:0 0 6px}
+.daynav{display:flex;justify-content:space-between;gap:8px;margin:0 0 16px;font-size:.88rem}
+.daynav a{display:inline-block;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.daynav .next{margin-left:auto}
+.card h3{font-size:1.05rem;margin:0 0 8px;display:flex;align-items:center;gap:8px;color:inherit}
+.count{font-size:.75rem;font-weight:600;background:var(--chip);color:var(--accent);
+padding:1px 8px;border-radius:999px}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:14px 16px;margin:0 0 12px}
+section.err{background:var(--err-bg);border-color:var(--err-line)}
+section.err h3,.err .msg{color:var(--err-fg)}
+ul.items{list-style:none;margin:0;padding:0}
+ul.items li{padding:8px 0;border-top:1px solid var(--line)}
+ul.items li:first-child{border-top:0;padding-top:0}
+.date{display:block;color:var(--muted);font-size:.78rem}
+a{color:var(--accent);text-decoration:none;word-break:break-word}
+a:hover{text-decoration:underline}
+.msg{margin:0;font-size:.9rem;color:var(--muted)}
+.errlist{margin:6px 0 0;padding-left:18px;font-size:.78rem;word-break:break-all}
+.latest{border:2px solid var(--accent);border-radius:14px;padding:12px 12px 2px;margin:0 0 24px}
+.latest .card{margin-bottom:10px}
+.latest .msg{margin:0 4px 12px}
+h2{font-size:1.05rem;margin:0 0 10px}
+h2 .meta{margin-left:8px;font-size:.8rem;font-weight:400;color:var(--muted)}
+.latest h2{margin:0 4px 10px}
+.notice{background:var(--chip);border-radius:12px;padding:12px 16px;margin:0 0 16px}
+h4{font-size:.95rem;margin:20px 0 6px;color:var(--muted)}
+h3.foot{font-size:.95rem;margin:36px 0 8px;color:var(--muted)}
+.names{margin:0;font-size:.9rem;color:var(--muted)}
+.archive{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
+.archive a{display:inline-block;padding:4px 10px;border:1px solid var(--line);
+border-radius:8px;background:var(--card);font-size:.85rem}
+footer{margin-top:32px;font-size:.78rem;color:var(--muted)}
+.bar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 20px}
+.bar p{margin:0;font-size:.9rem}
+.bar .state{color:var(--muted);font-size:.85rem}
+.bar .state.busy{color:var(--accent)}
+.bar .state.fail{color:var(--err-fg)}
+.bar button{margin-top:10px;font:inherit;font-weight:600;padding:8px 18px;border-radius:999px;
+border:0;background:var(--accent);color:var(--bg);cursor:pointer}
+.bar button:disabled{opacity:.5;cursor:default}
+.bar .rmsg{margin-top:8px;font-size:.88rem}
+.bar .rmsg:empty{display:none}
+[hidden]{display:none!important}
+.layout{max-width:760px;margin:0 auto}
+.ptoggle{font:inherit;font-size:.9rem;font-weight:600;padding:7px 16px;margin:0 0 16px;border-radius:999px;
+border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer}
+.panel{position:fixed;top:0;left:0;bottom:0;z-index:20;width:min(320px,86vw);overflow-y:auto;
+background:var(--card);border-right:1px solid var(--line);padding:16px 16px 32px;
+transform:translateX(-105%);transition:transform .2s;visibility:hidden}
+.panel-open .panel{transform:none;visibility:visible}
+.panel:focus{outline:none}
+.backdrop{position:fixed;inset:0;z-index:15;background:rgba(0,0,0,.4)}
+.phead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px}
+.phead h2{margin:0;font-size:1rem}
+.pclose,.pbtns button{font:inherit;font-size:.78rem;padding:3px 10px;border-radius:8px;
+border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.panel fieldset{border:0;margin:0 0 12px;padding:0}
+.panel legend,.plabel{font-size:.82rem;font-weight:600;color:var(--muted);padding:0;margin:0 0 4px}
+.psort{border-bottom:1px solid var(--line)!important;padding-bottom:10px!important}
+.panel label{display:flex;align-items:center;gap:6px;font-size:.9rem;padding:3px 0;cursor:pointer}
+.panel input[type=checkbox],.panel input[type=radio]{margin:0;accent-color:var(--accent);width:1.05em;height:1.05em}
+.pregion legend{color:var(--fg)}
+.pbtns{display:flex;gap:6px;margin:0 0 4px}
+.fmsg{margin:0 4px 12px}
+.card h3 a.mlink{color:inherit}
+.card h3 a.mlink::after{content:"↗";margin-left:3px;font-size:.75em;font-weight:400;color:var(--muted)}
+.card h3 a.mlink:hover{color:var(--accent)}
+.pbtns button{white-space:nowrap}
+.pall{margin:0 0 12px;padding:0 0 10px;border-bottom:1px dashed var(--line)}
+.pall button{font-weight:600}
+.psearch{margin:0 0 12px;padding:0 0 10px;border-bottom:1px solid var(--line)}
+.qbox{position:relative}
+.qbox input{width:100%;font:inherit;font-size:1rem;padding:7px 34px 7px 10px;border:1px solid var(--line);
+border-radius:8px;background:var(--bg);color:var(--fg)}
+.qbox input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.qbox input::-webkit-search-cancel-button{display:none}
+#q-clear{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;border:0;
+border-radius:50%;background:transparent;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer}
+#q-clear:hover{background:var(--line)}
+.panel label.qall{font-size:.85rem;margin-top:6px}
+.qcount{margin:4px 0 0;font-size:.85rem;font-weight:600;color:var(--accent)}
+.qcount:empty{display:none}
+mark{background:#ffe58a;color:inherit;border-radius:2px;padding:0 1px}
+@media (prefers-color-scheme:dark){mark{background:#7a5d00}}
+ul.items li.first{border-top:0;padding-top:0}
+.sresults{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 16px}
+.sresults .date a{color:inherit}
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 4px}
+.masthead .mtext{min-width:0}
+.masthead h1{margin:0}
+.logo-sm{flex:none;display:block;width:auto;height:auto;max-height:44px;max-width:96px}
+.logo-side{display:none}
+@media (min-width:1400px){
+.logo-sm{display:none}
+.logo-side{--gutter:calc((100vw - 1060px) / 2);--w:min(180px,calc(var(--gutter) - 48px));
+display:block;position:fixed;top:24px;right:calc((var(--gutter) - var(--w)) / 2);
+width:var(--w);height:auto;max-height:calc(100vh - 48px);object-fit:contain}
+}
+@media (min-width:1000px){
+.has-panel .layout{max-width:1060px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:8px;align-items:start}
+.has-panel .panel{position:sticky;top:0;bottom:auto;width:auto;max-height:100vh;transform:none;visibility:visible;
+z-index:auto;border:0;border-right:1px solid var(--line);background:transparent;padding:20px 16px 24px}
+.ptoggle,.pclose,.backdrop{display:none!important}
+}
+</style></head><body><div class="layout"><aside class="panel" id="panel" aria-label="検索・並び替え・絞り込み" data-base="../" hidden><div class="phead"><h2>検索・並び替え・絞り込み</h2><button type="button" class="pclose" id="panel-close">閉じる</button></div><div class="psearch" role="search"><label class="plabel" for="q">記事タイトルを検索</label><div class="qbox"><input type="search" id="q" autocomplete="off" enterkeyhint="search" placeholder="例：入札 募集"><button type="button" id="q-clear" aria-label="検索語を消す" hidden>×</button></div><label class="qall"><input type="checkbox" id="q-all"> 過去30日分も検索</label><p class="qcount" id="q-count" role="status" aria-live="polite"></p></div><fieldset class="psort"><legend>並び替え</legend><label><input type="radio" name="sort" value="region" checked> 地域順</label><label><input type="radio" name="sort" value="count"> 新着件数順</label><label><input type="radio" name="sort" value="kana"> 五十音順</label></fieldset><div class="pfilter"><p class="plabel">絞り込み</p><div class="pbtns pall" role="group" aria-label="全自治体"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><fieldset class="pregion" data-region="県央"><legend>県央</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="盛岡市" data-order="0" data-kana="もりおかし" checked> 盛岡市</label><label><input type="checkbox" name="muni" value="八幡平市" data-order="1" data-kana="はちまんたいし" checked> 八幡平市</label><label><input type="checkbox" name="muni" value="滝沢市" data-order="2" data-kana="たきざわし" checked> 滝沢市</label><label><input type="checkbox" name="muni" value="雫石町" data-order="3" data-kana="しずくいしちょう" checked> 雫石町</label><label><input type="checkbox" name="muni" value="葛巻町" data-order="4" data-kana="くずまきまち" checked> 葛巻町</label><label><input type="checkbox" name="muni" value="岩手町" data-order="5" data-kana="いわてまち" checked> 岩手町</label><label><input type="checkbox" name="muni" value="紫波町" data-order="6" data-kana="しわちょう" checked> 紫波町</label><label><input type="checkbox" name="muni" value="矢巾町" data-order="7" data-kana="やはばちょう" checked> 矢巾町</label></fieldset><fieldset class="pregion" data-region="県南"><legend>県南</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="花巻市" data-order="8" data-kana="はなまきし" checked> 花巻市</label><label><input type="checkbox" name="muni" value="北上市" data-order="9" data-kana="きたかみし" checked> 北上市</label><label><input type="checkbox" name="muni" value="遠野市" data-order="10" data-kana="とおのし" checked> 遠野市</label><label><input type="checkbox" name="muni" value="一関市" data-order="11" data-kana="いちのせきし" checked> 一関市</label><label><input type="checkbox" name="muni" value="奥州市" data-order="12" data-kana="おうしゅうし" checked> 奥州市</label><label><input type="checkbox" name="muni" value="西和賀町" data-order="13" data-kana="にしわがまち" checked> 西和賀町</label><label><input type="checkbox" name="muni" value="金ケ崎町" data-order="14" data-kana="かねがさきちょう" checked> 金ケ崎町</label><label><input type="checkbox" name="muni" value="平泉町" data-order="15" data-kana="ひらいずみちょう" checked> 平泉町</label></fieldset><fieldset class="pregion" data-region="沿岸"><legend>沿岸</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="宮古市" data-order="16" data-kana="みやこし" checked> 宮古市</label><label><input type="checkbox" name="muni" value="大船渡市" data-order="17" data-kana="おおふなとし" checked> 大船渡市</label><label><input type="checkbox" name="muni" value="陸前高田市" data-order="18" data-kana="りくぜんたかたし" checked> 陸前高田市</label><label><input type="checkbox" name="muni" value="釜石市" data-order="19" data-kana="かまいしし" checked> 釜石市</label><label><input type="checkbox" name="muni" value="住田町" data-order="20" data-kana="すみたちょう" checked> 住田町</label><label><input type="checkbox" name="muni" value="大槌町" data-order="21" data-kana="おおつちちょう" checked> 大槌町</label><label><input type="checkbox" name="muni" value="山田町" data-order="22" data-kana="やまだまち" checked> 山田町</label><label><input type="checkbox" name="muni" value="岩泉町" data-order="23" data-kana="いわいずみちょう" checked> 岩泉町</label><label><input type="checkbox" name="muni" value="田野畑村" data-order="24" data-kana="たのはたむら" checked> 田野畑村</label></fieldset><fieldset class="pregion" data-region="県北"><legend>県北</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="久慈市" data-order="25" data-kana="くじし" checked> 久慈市</label><label><input type="checkbox" name="muni" value="二戸市" data-order="26" data-kana="にのへし" checked> 二戸市</label><label><input type="checkbox" name="muni" value="普代村" data-order="27" data-kana="ふだいむら" checked> 普代村</label><label><input type="checkbox" name="muni" value="軽米町" data-order="28" data-kana="かるまいまち" checked> 軽米町</label><label><input type="checkbox" name="muni" value="野田村" data-order="29" data-kana="のだむら" checked> 野田村</label><label><input type="checkbox" name="muni" value="九戸村" data-order="30" data-kana="くのへむら" checked> 九戸村</label><label><input type="checkbox" name="muni" value="洋野町" data-order="31" data-kana="ひろのちょう" checked> 洋野町</label><label><input type="checkbox" name="muni" value="一戸町" data-order="32" data-kana="いちのへまち" checked> 一戸町</label></fieldset></div></aside><div class="backdrop" id="panel-backdrop" hidden></div><main>
+<header class="masthead"><div class="mtext"><p class="site">NAMBU 岩手県市町村新着情報</p><h1>2026年11月1日の更新</h1></div><img class="logo-sm" src="../nambu-logo.svg" alt="NAMBU" onerror="this.hidden=true"></header>
+<p class="sub">最終取得 14:15（日本時間） ・ 新着 185 件</p>
+<nav class="daynav"><a class="prev" href="../archive/2026-10-27.html">← 前の日（10月27日）</a><a class="next" href="../archive/2026-11-04.html">次の日（11月4日） →</a></nav>
+<button type="button" class="ptoggle" id="panel-toggle" aria-controls="panel" aria-expanded="false" hidden>検索・並び替え・絞り込み</button>
+<section class="sresults" id="search-results" aria-live="polite" hidden></section>
+<div id="day-view">
+<div class="mlist"><section class="card" data-muni="八幡平市" data-region="県央" data-order="1" data-kana="はちまんたいし" data-count="5"><h3><a class="mlink" href="https://www.city.hachimantai.lg.jp/" target="_blank" rel="noopener" title="八幡平市の公式ホームページ（別タブで開きます）">八幡平市</a><span class="count">5件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.city.hachimantai.lg.jp/soshiki/bouan/32820.html" target="_blank" rel="noopener">陸上自衛隊岩手山演習場等における11月前半の訓練予定を更新しました</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hachimantai.lg.jp/soshiki/shokanka/28723.html" target="_blank" rel="noopener">令和9年度自然公園保護管理員、自然保護指導員及び一般県道雫石東八幡平線道路パトロール員を募集します</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.hachimantai.lg.jp/site/shicho/32814.html" target="_blank" rel="noopener">市長日程（11月2日から11月8日まで）</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hachimantai.lg.jp/soshiki/senkan/32794.html" target="_blank" rel="noopener">令和8年度明るい選挙啓発ポスターコンクール入賞作品決定</a></li><li><span class="date">2026年7月31日</span><a href="https://www.city.hachimantai.lg.jp/soshiki/somuka/32805.html" target="_blank" rel="noopener">特定事業主行動計画について</a></li></ul></section>
+<section class="card" data-muni="滝沢市" data-region="県央" data-order="2" data-kana="たきざわし" data-count="3"><h3><a class="mlink" href="https://www.city.takizawa.iwate.jp/" target="_blank" rel="noopener" title="滝沢市の公式ホームページ（別タブで開きます）">滝沢市</a><span class="count">3件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.city.takizawa.iwate.jp/business/noringyo/p20261021100332" target="_blank" rel="noopener">令和９年産「銀河のしずく」及び「白銀のひかり」作付け経営体の募集について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.takizawa.iwate.jp/kurashi/kenko/kenkoudukuri/p20251210110854" target="_blank" rel="noopener">ナイトコンディショニング教室を開催します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.takizawa.iwate.jp/suido/zigyousya/nyuusatsukekka/p20261026132722" target="_blank" rel="noopener">滝沢市上下水道料金徴収業務 公募型プロポーザルの実施について</a></li></ul></section>
+<section class="card" data-muni="雫石町" data-region="県央" data-order="3" data-kana="しずくいしちょう" data-count="10"><h3><a class="mlink" href="https://www.town.shizukuishi.iwate.jp/" target="_blank" rel="noopener" title="雫石町の公式ホームページ（別タブで開きます）">雫石町</a><span class="count">10件</span></h3><ul class="items"><li><span class="date">2026年11月2日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2026102700011/" target="_blank" rel="noopener">【公表】雫石町通学路交通安全プログラムに基づく合同点検の結果について（令和８年度）</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2026102900015/" target="_blank" rel="noopener">雫石町内障害福祉サービス事業所情報</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2026102600038/" target="_blank" rel="noopener">令和８年度「健康づくり表彰式」を開催します</a></li><li><span class="date">2026年9月25日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2026092500035/" target="_blank" rel="noopener">【雫石 紅葉情報 2026】 10/30 里の紅葉</a></li><li><span class="date">2026年7月24日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2025072400044/" target="_blank" rel="noopener">【応募締め切り間近！】雫石さんぽ スマホde スタンプラリー2026！</a></li><li><span class="date">2024年10月15日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2023100200017/" target="_blank" rel="noopener">11月1日（日）～3日（火祝）第62回雫石町総合芸術祭を開催します！</a></li><li><span class="date">2023年12月1日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2023113000017/" target="_blank" rel="noopener">議会の日程</a></li><li><span class="date">2021年11月29日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2014121100103/" target="_blank" rel="noopener">審議会等の会議の公開について</a></li><li><span class="date">2021年11月1日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2014120500034/" target="_blank" rel="noopener">所得証明・資産証明書など各種証明書が必要な方へ</a></li><li><span class="date">2021年1月6日</span><a href="https://www.town.shizukuishi.iwate.jp/docs/2014122300090/" target="_blank" rel="noopener">外来診療について</a></li></ul></section>
+<section class="card" data-muni="葛巻町" data-region="県央" data-order="4" data-kana="くずまきまち" data-count="4"><h3><a class="mlink" href="https://www.town.kuzumaki.lg.jp/" target="_blank" rel="noopener" title="葛巻町の公式ホームページ（別タブで開きます）">葛巻町</a><span class="count">4件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.town.kuzumaki.lg.jp/docs/2026102200016/" target="_blank" rel="noopener">広報くずまき－2026(令和８)年11月号</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.kuzumaki.lg.jp/docs/2024073000024/" target="_blank" rel="noopener">「全国送料無料キャンペーン」の実施について（葛巻町特産品販売促進事業費補助金）</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.kuzumaki.lg.jp/docs/2026102900015/" target="_blank" rel="noopener">「岩手県シルバーリハビリ体操３級指導者養成講習会」のご案内</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.kuzumaki.lg.jp/docs/2018040900011/" target="_blank" rel="noopener">令和７年度中山間地域等直接支払制度実施状況の公表について</a></li></ul></section>
+<section class="card" data-muni="紫波町" data-region="県央" data-order="6" data-kana="しわちょう" data-count="11"><h3><a class="mlink" href="https://www.town.shiwa.iwate.jp/" target="_blank" rel="noopener" title="紫波町の公式ホームページ（別タブで開きます）">紫波町</a><span class="count">11件</span></h3><ul class="items"><li><span class="date">2026年10月31日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/4/1_hyousyou/r5hyousyou/" target="_blank" rel="noopener">NEW! 令和8年度紫波町表彰</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/5_1/2_kominkan_chuoukouminkan/1793342454876421/" target="_blank" rel="noopener">NEW! 第14回 わたしの「おすすめ本」POPコンクール の入賞作品が決定しました!</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/4_2/kyousou/1793250441756452/" target="_blank" rel="noopener">NEW! 食と農の育成学校を考える対話会 Part.3 『果樹経営を未来につなぐ』を開催します</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.shiwa.iwate.jp/shiwasse/event1/event2/172964905523053/" target="_blank" rel="noopener">NEW! 食育講座/子育て応援センターしわっせ</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/5_2/4_3/175852774225740/" target="_blank" rel="noopener">NEW! 保育施設の空き状況について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.shiwa.iwate.jp/kurashi/gomi/1/20261026291200/" target="_blank" rel="noopener">NEW! 秋季清掃週間のお知らせ/紫波町</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.shiwa.iwate.jp/shiwasse/event1/event2/17320628824061/" target="_blank" rel="noopener">NEW! 11月のお楽しみ会/子育て応援センターしわっせ</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/5_1/2_kominkan_chuoukouminkan/179316828715814/" target="_blank" rel="noopener">NEW! 第60回紫波町芸術祭 小中学生作品展を開催いたします</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/4_1/2_6/1793154881756041/" target="_blank" rel="noopener">NEW! 【紫波町民対象】岩手ビッグブルズ ホームゲームにご招待!</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.shiwa.iwate.jp/machikado/machikado/machikado/17518759026445/" target="_blank" rel="noopener">NEW! 電子回覧板</a></li><li><span class="date">2026年10月26日</span><a href="https://www.town.shiwa.iwate.jp/soshiki/5_4/rakusatsu/7425.html/" target="_blank" rel="noopener">NEW! 学校給食用食材の落札結果について</a></li></ul></section>
+<section class="card" data-muni="矢巾町" data-region="県央" data-order="7" data-kana="やはばちょう" data-count="13"><h3><a class="mlink" href="https://www.town.yahaba.iwate.jp/" target="_blank" rel="noopener" title="矢巾町の公式ホームページ（別タブで開きます）">矢巾町</a><span class="count">13件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/douro/kurashi/176007957315985/" target="_blank" rel="noopener">NEW! 【11/27~】町道南昌山線 冬の通行止めについて</a></li><li><span class="date">2026年10月31日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/kyouiku/manabi/178995495817240/" target="_blank" rel="noopener">NEW! 【令和8年度 秋季企画展】『矢巾町史現代編 写真集』パネル展を開催中です</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/jyumin/kurashi/1793253136958158/" target="_blank" rel="noopener">NEW! 町内悪臭規制地域の変更に伴う説明会開催について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yahaba.iwate.jp/chousei/mayor/mayor/1793334205958049/" target="_blank" rel="noopener">NEW! 【町長だより】葛西咲絆さんが来庁されました</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/douro/kurashi/179247725926379/" target="_blank" rel="noopener">NEW! 広宮沢公園テニスコート区域の利活用に伴うサウンディング型市場調査の実施について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/suidou/kurashi/17927158121531/" target="_blank" rel="noopener">NEW! 水道やはばHP及びインターネットでの上下水道の使用開始・中止受付の再開について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/kikaku/kurashi/17279244007066/" target="_blank" rel="noopener">NEW! 2027年版 岩手県民手帳を発売します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yahaba.iwate.jp/chousei/mayor/mayor/1793003020415102/" target="_blank" rel="noopener">NEW! 【町長だより】若松謙維氏が来庁されました</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/kyouiku/kurashi/179109422225729/" target="_blank" rel="noopener">NEW! 令和9年矢巾町二十歳の集いについて</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.yahaba.iwate.jp/chousei/mayor/mayor/1793066514302709/" target="_blank" rel="noopener">NEW! 【町長だより】訪問介護事業所あんどけあ山本代表と藤原代表が来庁されました</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/sangyou/kankousangyou/174666854314436/" target="_blank" rel="noopener">NEW! 矢巾町にぎわい創出事業(各まつり)に係る協賛御礼について</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/kyushoku/manabi/179307419618903/" target="_blank" rel="noopener">NEW! 学校給食献立のお知らせ(令和8年11月分)</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.yahaba.iwate.jp/soshiki/gakumu/manabi/171332468414767/" target="_blank" rel="noopener">NEW! 令和8年度矢巾町教育委員会定例会開催について</a></li></ul></section>
+<section class="card" data-muni="花巻市" data-region="県南" data-order="8" data-kana="はなまきし" data-count="27"><h3><a class="mlink" href="https://www.city.hanamaki.iwate.jp/" target="_blank" rel="noopener" title="花巻市の公式ホームページ（別タブで開きます）">花巻市</a><span class="count">27件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/kurashi/ijyu_teijyu/event_kensyu/1026209.html" target="_blank" rel="noopener">【二地域居住・ふるさと住民登録制度】「つながる花巻」アイデア出しワークショップを開催します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/kosodate_kyoiku/kyoiku/gakkoukyouiku/1020304/1020332.html" target="_blank" rel="noopener">矢沢地区義務教育学校設立委員会の取組</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/syoubou/1018502/1020032/1022322.html" target="_blank" rel="noopener">消防フェスティバルを開催します！</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shisetsu/bunka/1004119/1026205.html" target="_blank" rel="noopener">まなび学園(生涯学園都市会館)の電話復旧について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/kosodate_kyoiku/kyoiku/sho_chugakko/website/1001503/index.html" target="_blank" rel="noopener">笹間第一小学校</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/kurashi/douro_kotsu/1022542.html" target="_blank" rel="noopener">JR釜石線について考えるシンポジウム「マイレールDAY2026」を開催します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/chiiki/shinkou_center/1008011/1026117/index.html" target="_blank" rel="noopener">令和7年度コミュニティ会議による地域づくり</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/chiiki/chiikikyogikai/1011129/index.html" target="_blank" rel="noopener">花巻市石鳥谷地域協議会</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/jinji_saiyo/syokuinsaiyo/1026206.html" target="_blank" rel="noopener">令和9年度採用 花巻市職員採用試験一般事務職（社会人・経験者枠）・消防職（経験者枠）第2次試験合格者の発表</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shigikai/1004054/1021572.html" target="_blank" rel="noopener">はなまき市議会だより「花の風」（第90号）を発行しました</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/kanko/oshirase/1026196.html" target="_blank" rel="noopener">道の駅石鳥谷 秋の感謝祭～花巻スイーツフェスタ＆青雲プロジェクトエピソード2～</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/toukei/1000226/1017324.html" target="_blank" rel="noopener">2027年版岩手県民手帳を販売中！</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/kouhou/kouhou_hanamaki/1025117/1026191.html" target="_blank" rel="noopener">広報はなまき 令和8年11月1日号</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.hanamaki.iwate.jp/bunkasports/bunka/1019887/sogobunkazai/1002065.html" target="_blank" rel="noopener">花巻市総合文化財センタートップページ</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/shicho/kisyakaiken/1025294/1025300.html" target="_blank" rel="noopener">令和8年10月 定例記者会見を開催しました</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.hanamaki.iwate.jp/bunkasports/sports/1019890/1026053.html" target="_blank" rel="noopener">「ドリーム・バレーボールinはなまき」を開催します</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.hanamaki.iwate.jp/bunkasports/bunka/1019887/tosyokan/1008405/1018107.html" target="_blank" rel="noopener">【石鳥谷図書館】日曜映画会「スープ・オペラ」を11月29日(日曜)に開催します！</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/shisei/shingikai_iinkai/1006109/1010673/index.html" target="_blank" rel="noopener">花巻市環境審議会</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/kenko_iryo_fukushi/kenshin/1019867/1001902.html" target="_blank" rel="noopener">ピロリ菌検診のお知らせ</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/syoubou/1018639/index.html" target="_blank" rel="noopener">組織案内・採用</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/bunkasports/bunka/1019887/1008981/1009017/1026158.html" target="_blank" rel="noopener">【重要】資料整理に伴う全館休館のお知らせ(11/24～12/4)</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/syoubou/1018501/1020133/1020894.html" target="_blank" rel="noopener">【就職イベント】いわて就職マッチングフェアに出展します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/kurashi/anshin_anzen/bousai_saigai/1005074.html" target="_blank" rel="noopener">緊急地震速報の配信訓練を行います（11月5日実施）</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/kurashi/anshin_anzen/bousai_saigai/1025915.html" target="_blank" rel="noopener">全国瞬時警報システム（Jアラート）の全国一斉情報伝達試験（第3回）を実施します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/syoubou/1018501/1019393.html" target="_blank" rel="noopener">災害発生件数（災害情報案内）</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/shisei/shingikai_iinkai/1006109/1010236/index.html" target="_blank" rel="noopener">花巻新渡戸記念館運営協議会</a></li><li><span class="date">2026年10月27日</span><a href="https://www.city.hanamaki.iwate.jp/shisei/jinji_saiyo/syokuinsaiyo/1026194.html" target="_blank" rel="noopener">令和9年度採用 花巻市職員採用試験（一般採用試験）第2次試験合格者の発表</a></li></ul></section>
+<section class="card" data-muni="北上市" data-region="県南" data-order="9" data-kana="きたかみし" data-count="6"><h3><a class="mlink" href="https://www.city.kitakami.iwate.jp/" target="_blank" rel="noopener" title="北上市の公式ホームページ（別タブで開きます）">北上市</a><span class="count">6件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/gikaijimukyoku_gijika/gijichosagakari/6/14745.html" target="_blank" rel="noopener">議会全員協議会（市長要請）の開催予定について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/toshikeikakuka/koenryokuchigakari/1_1/24627.html" target="_blank" rel="noopener">和賀川ふれあい広場の施設利用がオンラインで予約できます！</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/shogaigakushubunkaka/shogaigakushugakari/oshirase/23021.html" target="_blank" rel="noopener">令和8年度第36期北上市民大学の聴講生を募集します！</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/kenko/iryorenkeikakari/hokenkosodateshienhukugoushisetu/19227.html" target="_blank" rel="noopener">北上市保健・子育て支援複合施設hoKko（ほっこ）を紹介します！</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.kitakami.iwate.jp/life/soshikikarasagasu/gikaijimukyoku_gijika/gijichosagakari/iinkaikatsudo/30253.html" target="_blank" rel="noopener">予算提言</a></li><li><span class="date">2026年10月27日</span><a href="http://www.city.kitakami.iwate.jp/life/soshikikarasagasu/oninoyakata/onisyoseki.html" target="_blank" rel="noopener">鬼の館刊行書籍 通信販売のご案内</a></li></ul></section>
+<section class="card" data-muni="一関市" data-region="県南" data-order="11" data-kana="いちのせきし" data-count="11"><h3><a class="mlink" href="https://www.city.ichinoseki.iwate.jp/" target="_blank" rel="noopener" title="一関市の公式ホームページ（別タブで開きます）">一関市</a><span class="count">11件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261027154903" target="_blank" rel="noopener">令和８年度いちのせきまちの保健室＠道の駅だいとう</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20260806154139" target="_blank" rel="noopener">令和８年度いちのせきまちの保健室＠イオンスーパーセンター一関店</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20260806154249" target="_blank" rel="noopener">令和８年度いちのせきまちの保健室＠千厩ショッピングモールエスピア</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261027185815" target="_blank" rel="noopener">「いわて食の商談会in仙台」出展者を募集します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261027130610" target="_blank" rel="noopener">令和８年度いちのせきまちの保健室＠マイヤ花泉店</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261024132932" target="_blank" rel="noopener">一関市６次産業化・農商工連携開発事業費補助金（二次募集）について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/contents-151812" target="_blank" rel="noopener">いちのせきパートナーシップ宣誓制度</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261028145004" target="_blank" rel="noopener">村田 尚久さん</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261028151601" target="_blank" rel="noopener">若者UIターン補助金</a></li><li><span class="date">2026年10月27日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/p20261027163057" target="_blank" rel="noopener">防災・減災研修会</a></li><li><span class="date">2026年10月27日</span><a href="https://www.city.ichinoseki.iwate.jp/archive/contents-128901" target="_blank" rel="noopener">令和９年度医療介護従事者修学資金貸付事業の新規修学生を募集します</a></li></ul></section>
+<section class="card" data-muni="奥州市" data-region="県南" data-order="12" data-kana="おうしゅうし" data-count="18"><h3><a class="mlink" href="https://www.city.oshu.iwate.jp/" target="_blank" rel="noopener" title="奥州市の公式ホームページ（別タブで開きます）">奥州市</a><span class="count">18件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.city.oshu.iwate.jp/kyoikuiinkai/19436.html" target="_blank" rel="noopener">令和8年度奥州市会計年度任用職員（学校用務員）を募集します</a></li><li><span class="date">2026年11月1日</span><a href="https://www.city.oshu.iwate.jp/johokan/kohooshu/860.html" target="_blank" rel="noopener">1歳を迎えるお子さんを市広報誌内で紹介します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/4/1013/1/14440.html" target="_blank" rel="noopener">【申込は11月27日まで！】『桐生祥秀選手の走り方教室』参加者募集します！</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/14/1126/4517.html" target="_blank" rel="noopener">奥州市立東水沢学校給食センター</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/23/1162/19450.html" target="_blank" rel="noopener">健康増進プラザ悠悠館 いきいきプール再開しました</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/suido/jigyou/jigyougaiyou/4562.html" target="_blank" rel="noopener">奥州市下水道事業経営戦略の決算状況を公表しました</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/johokan/calendar/5_2/17893.html" target="_blank" rel="noopener">奥州市壁紙カレンダーをご利用ください（令和8年11月）</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/7/1058/3/19401.html" target="_blank" rel="noopener">木育ひろば「木こりんパーク」を開催します(コープAterui)</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/5/1051/6/17156.html" target="_blank" rel="noopener">11月1日から12月1日までは「犯罪被害者月間」です。</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/7/1057/5/6/10896.html" target="_blank" rel="noopener">「担い手通信」（令和8年度第3号）を発行しました</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/7/1057/5/5/3461.html" target="_blank" rel="noopener">農作物病害虫発生予察情報・防除速報</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/14/1076/2/19423.html" target="_blank" rel="noopener">第3期奥州市教育振興基本計画（案）に係るパブリックコメントの実施について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.oshu.iwate.jp/soshiki/2/1003/7/19427.html" target="_blank" rel="noopener">2027年版岩手県民手帳を販売しています</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.oshu.iwate.jp/library/oshirase/2/17102.html" target="_blank" rel="noopener">【水沢図書館】企画展「物語で旅する世界遺産」</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.oshu.iwate.jp/soshiki/2/1006/tabunka/kouen/19425.html" target="_blank" rel="noopener">令和8年度多文化共生防災セミナーを開催します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.oshu.iwate.jp/soshiki/5/1052/4/4/5475.html" target="_blank" rel="noopener">11月11日（水曜日）Jアラート全国一斉情報伝達訓練を実施します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.oshu.iwate.jp/soshiki/4/1034/3112.html" target="_blank" rel="noopener">白山地区センター</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.oshu.iwate.jp/soshiki/9/1065/2/2/kokoronokenkou/19288.html" target="_blank" rel="noopener">令和8年度 奥州市心といのちの大切さを考える講演会</a></li></ul></section>
+<section class="card" data-muni="西和賀町" data-region="県南" data-order="13" data-kana="にしわがまち" data-count="2"><h3><a class="mlink" href="https://www.town.nishiwaga.lg.jp/" target="_blank" rel="noopener" title="西和賀町の公式ホームページ（別タブで開きます）">西和賀町</a><span class="count">2件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.town.nishiwaga.lg.jp/soshikikarasagasu/somuka/1/2/7/2/3847.html" target="_blank" rel="noopener">令和8年度西和賀町会計年度任用職員（スクールバス代行運転手）募集のお知らせ</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.nishiwaga.lg.jp/soshikikarasagasu/kikakuzaisei/2/1/2/4388.html" target="_blank" rel="noopener">町民参加型ワークショップ「にしわが これから会議」が始まりました</a></li></ul></section>
+<section class="card" data-muni="金ケ崎町" data-region="県南" data-order="14" data-kana="かねがさきちょう" data-count="3"><h3><a class="mlink" href="https://www.town.kanegasaki.iwate.jp/" target="_blank" rel="noopener" title="金ケ崎町の公式ホームページ（別タブで開きます）">金ケ崎町</a><span class="count">3件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.town.kanegasaki.iwate.jp/articles/2026101400066/" target="_blank" rel="noopener">令和９年度の幼稚園・認定こども園（教育）の入園案内について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.kanegasaki.iwate.jp/articles/2026103000011/" target="_blank" rel="noopener">11月12日「キッズくらぶ」永岡小学校 当選発表</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.kanegasaki.iwate.jp/articles/2026102800018/" target="_blank" rel="noopener">ミドルシニア世代向け！就職面談会のご案内</a></li></ul></section>
+<section class="card" data-muni="平泉町" data-region="県南" data-order="15" data-kana="ひらいずみちょう" data-count="7"><h3><a class="mlink" href="https://www.town.hiraizumi.iwate.jp/" target="_blank" rel="noopener" title="平泉町の公式ホームページ（別タブで開きます）">平泉町</a><span class="count">7件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.town.hiraizumi.iwate.jp/%e7%94%ba%e9%95%b7%e4%ba%a4%e9%9a%9b%e8%b2%bb%e3%82%92%e5%85%ac%e8%a1%a8%e3%81%97%e3%81%be%e3%81%99-11-36340/" target="_blank" rel="noopener">町長交際費を公表します</a></li><li><span class="date">2026年11月1日</span><a href="https://www.town.hiraizumi.iwate.jp/%e3%80%8c%e5%ba%83%e5%a0%b1%e3%81%b2%e3%82%89%e3%81%84%e3%81%9a%e3%81%bf%e3%80%8d%e4%bb%a4%e5%92%8c%ef%bc%98%e5%b9%b411%e6%9c%88%e5%8f%b7-41254/" target="_blank" rel="noopener">「広報ひらいずみ」令和８年11月号</a></li><li><span class="date">2026年10月31日</span><a href="https://www.town.hiraizumi.iwate.jp/%e3%83%af%e3%83%bc%e3%82%af%e3%82%b7%e3%83%a7%e3%83%83%e3%83%97%e3%82%92%e9%96%8b%e5%82%ac%e3%81%97%e3%81%be%e3%81%99-2-41313/" target="_blank" rel="noopener">ワークショップを開催します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.hiraizumi.iwate.jp/%e4%bb%a4%e5%92%8c%ef%bc%98%e5%b9%b4%e5%ba%a6%e5%b9%b3%e6%b3%89%e7%94%ba%e6%8c%87%e5%ae%9a%e7%ae%a1%e7%90%86%e8%80%85%e5%88%b6%e5%ba%a6%e9%81%8b%e5%96%b6%e5%a7%94%e5%93%a1%e4%bc%9a-41276/" target="_blank" rel="noopener">令和８年度平泉町指定管理者制度運営委員会</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.hiraizumi.iwate.jp/%e4%bb%a4%e5%92%8c8%e5%b9%b45%e6%9c%88%e3%81%ae%e4%bc%91%e6%97%a5%e5%bd%93%e7%95%aa%e5%8c%bb%e3%81%ae%e5%a4%89%e6%9b%b4%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6-37837/" target="_blank" rel="noopener">令和8年１0月の休日当番医の変更について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.hiraizumi.iwate.jp/%e8%a6%b3%e8%87%aa%e5%9c%a8%e7%8e%8b%e9%99%a2%e8%b7%a1%e7%ac%ac18%e6%ac%a1%e7%99%ba%e6%8e%98%e8%aa%bf%e6%9f%bb%e3%81%ae%e7%8f%be%e5%9c%b0%e8%aa%ac%e6%98%8e%e4%bc%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6-41167/" target="_blank" rel="noopener">観自在王院跡第18次発掘調査の現地説明会を開催します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.hiraizumi.iwate.jp/%e4%bb%a4%e5%92%8c%ef%bc%99%e5%b9%b4%e5%ba%a6%e5%b9%b3%e6%b3%89%e7%94%ba%e5%9c%b0%e5%9f%9f%e3%81%8a%e3%81%93%e3%81%97%e5%8d%94%e5%8a%9b%e9%9a%8a%e3%82%92%e5%8b%9f%e9%9b%86%e3%81%97%e3%81%be%e3%81%99-41141/" target="_blank" rel="noopener">令和９年度平泉町地域おこし協力隊を募集します！</a></li></ul></section>
+<section class="card" data-muni="宮古市" data-region="沿岸" data-order="16" data-kana="みやこし" data-count="1"><h3><a class="mlink" href="https://www.city.miyako.iwate.jp/" target="_blank" rel="noopener" title="宮古市の公式ホームページ（別タブで開きます）">宮古市</a><span class="count">1件</span></h3><ul class="items"><li><span class="date">2026年10月29日</span><a href="https://www.city.miyako.iwate.jp/gyosei/soshiki/sogomadoguchi/4/2/11670.html" target="_blank" rel="noopener">郵便局をかたる詐欺電話にご注意ください！</a></li></ul></section>
+<section class="card" data-muni="大船渡市" data-region="沿岸" data-order="17" data-kana="おおふなとし" data-count="3"><h3><a class="mlink" href="https://www.city.ofunato.iwate.jp/" target="_blank" rel="noopener" title="大船渡市の公式ホームページ（別タブで開きます）">大船渡市</a><span class="count">3件</span></h3><ul class="items"><li><span class="date">2026年10月29日</span><a href="https://www.city.ofunato.iwate.jp/archive/p20261028163329" target="_blank" rel="noopener">ふるさと納税ポータルサイト「さとふる」メール配信サービスへの不正アクセスによる情報漏えい及び注意喚起について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.city.ofunato.iwate.jp/archive/p20261025152051" target="_blank" rel="noopener">「東北文化の日」の博物館無料開館</a></li><li><span class="date">2026年10月27日</span><a href="https://www.city.ofunato.iwate.jp/archive/p20250529083809" target="_blank" rel="noopener">マイナンバーカード手続きの一時停止について（11月2日、支所・出張所）</a></li></ul></section>
+<section class="card" data-muni="陸前高田市" data-region="沿岸" data-order="18" data-kana="りくぜんたかたし" data-count="1"><h3><a class="mlink" href="https://www.city.rikuzentakata.iwate.jp/" target="_blank" rel="noopener" title="陸前高田市の公式ホームページ（別タブで開きます）">陸前高田市</a><span class="count">1件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.city.rikuzentakata.iwate.jp/soshiki/gakkokyoikuka/kyoiku/3/9180.html" target="_blank" rel="noopener">令和9年度陸前高田市奨学生を募集します</a></li></ul></section>
+<section class="card" data-muni="釜石市" data-region="沿岸" data-order="19" data-kana="かまいしし" data-count="14"><h3><a class="mlink" href="https://www.city.kamaishi.iwate.jp/" target="_blank" rel="noopener" title="釜石市の公式ホームページ（別タブで開きます）">釜石市</a><span class="count">14件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102800025/" target="_blank" rel="noopener">広報かまいし2026年11月1日号（No.1891）</a></li><li><span class="date">2026年11月1日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102800018/" target="_blank" rel="noopener">令和8年度 中妻地区生活応援センターだより（中妻公民館だより１１月号）</a></li><li><span class="date">2026年11月1日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026090800038/" target="_blank" rel="noopener">令和８年秋季全国火災予防運動</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2024032900013/" target="_blank" rel="noopener">唐丹公民館だより11月1日号掲載</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102800049/" target="_blank" rel="noopener">令和8年度釜石大槌地区行政事務組合職員採用試験合格発表</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026093000053/" target="_blank" rel="noopener">空き家対策セミナーを開催します！</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026101900061/" target="_blank" rel="noopener">マイレールDAY2026～鉄道の大切さ、今日は１日考えよう～ シンポジウムを開催します。</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102900039/" target="_blank" rel="noopener">令和8年度 小佐野公民館だより</a></li><li><span class="date">2026年10月30日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026060400015/" target="_blank" rel="noopener">令和8年度岩手県防災士スキルアップ研修会の参加者を募集します</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102100040/" target="_blank" rel="noopener">【11/22】第36回 釜石市健康づくりの集いを開催します</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102000036/" target="_blank" rel="noopener">みちのく潮風トレイル 釜石グルメウォーク「釜石まんぷくトレイル」</a></li><li><span class="date">2026年10月29日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102600014/" target="_blank" rel="noopener">令和８年度 釜石市職員採用試験 第２次試験結果（令和８年10月19日・20日実施）</a></li><li><span class="date">2026年10月27日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026102200030/" target="_blank" rel="noopener">第56回 釜石市民芸術文化祭開催のお知らせ</a></li><li><span class="date">2026年4月1日</span><a href="https://www.city.kamaishi.iwate.jp/docs/2026033000198/" target="_blank" rel="noopener">令和８年度 平田だより</a></li></ul></section>
+<section class="card" data-muni="住田町" data-region="沿岸" data-order="20" data-kana="すみたちょう" data-count="1"><h3><a class="mlink" href="https://www.town.sumita.iwate.jp/" target="_blank" rel="noopener" title="住田町の公式ホームページ（別タブで開きます）">住田町</a><span class="count">1件</span></h3><ul class="items"><li><span class="date">2026年10月28日</span><a href="http://www.town.sumita.iwate.jp/docs/2026102900015/" target="_blank" rel="noopener">神田住田町長の退院について</a></li></ul></section>
+<section class="card" data-muni="大槌町" data-region="沿岸" data-order="21" data-kana="おおつちちょう" data-count="5"><h3><a class="mlink" href="https://www.town.otsuchi.iwate.jp/" target="_blank" rel="noopener" title="大槌町の公式ホームページ（別タブで開きます）">大槌町</a><span class="count">5件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.town.otsuchi.iwate.jp/gyosei/docs/463846.html" target="_blank" rel="noopener">大槌町林野火災復興エール券（飲食店・タクシー専用プレミアム付き商品券）を販売します</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.otsuchi.iwate.jp/gyosei/docs/463839.html" target="_blank" rel="noopener">大槌町学校給食調理等業務委託に係る公募型プロポーザルの実施について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.otsuchi.iwate.jp/gyosei/docs/463835.html" target="_blank" rel="noopener">「農業資材価格高騰緊急対策事業」の申請受付を行います</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.otsuchi.iwate.jp/gyosei/docs/463829.html" target="_blank" rel="noopener">「崎山弁天遺跡」講演会・シンポジウム開催のお知らせ</a></li><li><span class="date">2026年10月23日</span><a href="https://www.town.otsuchi.iwate.jp/gyosei/docs/435876.html" target="_blank" rel="noopener">岩手県沿岸南部クリーンセンターへの直接持ち込み再開のお知らせ</a></li></ul></section>
+<section class="card" data-muni="山田町" data-region="沿岸" data-order="22" data-kana="やまだまち" data-count="7"><h3><a class="mlink" href="https://www.town.yamada.iwate.jp/" target="_blank" rel="noopener" title="山田町の公式ホームページ（別タブで開きます）">山田町</a><span class="count">7件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="https://www.town.yamada.iwate.jp/docs/10704.html" target="_blank" rel="noopener">【11月21日（土曜日）開催】保護猫の譲渡会開催のお知らせ</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yamada.iwate.jp/docs/10705.html" target="_blank" rel="noopener">令和8年度山田町職員採用試験（第2回）第2次試験合格者</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.yamada.iwate.jp/docs/10701.html" target="_blank" rel="noopener">令和８年度山田町総合防災訓練の開催について</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.yamada.iwate.jp/docs/10689.html" target="_blank" rel="noopener">山田町役場庁舎耐震補強・改修工事実施設計業務委託に係る公募型プロポーザル方式の実施について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.yamada.iwate.jp/docs/10696.html" target="_blank" rel="noopener">令和8年熊本地震災害義援金の募金結果について</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.yamada.iwate.jp/docs/7795.html" target="_blank" rel="noopener">マイナ保険証の利用について</a></li><li><span class="date">2026年10月23日</span><a href="https://www.town.yamada.iwate.jp/docs/10684.html" target="_blank" rel="noopener">【日本赤十字】令和8年台風第18号災害義援金の受付について</a></li></ul></section>
+<section class="card" data-muni="岩泉町" data-region="沿岸" data-order="23" data-kana="いわいずみちょう" data-count="9"><h3><a class="mlink" href="https://www.town.iwaizumi.lg.jp/" target="_blank" rel="noopener" title="岩泉町の公式ホームページ（別タブで開きます）">岩泉町</a><span class="count">9件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026101900030/" target="_blank" rel="noopener">令和９年度岩泉町奨学生の募集について</a></li><li><span class="date">2026年11月1日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026102100057/" target="_blank" rel="noopener">冬期間の通行止め路線と期間のお知らせ</a></li><li><span class="date">2026年11月1日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2024053100034/" target="_blank" rel="noopener">町営住宅の入居者を募集（11/10申込〆）</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026102800018/" target="_blank" rel="noopener">ハローワーク週間求人情報(令和８年10月29日発行)</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026102700042/" target="_blank" rel="noopener">岩手県の最低賃金（令和８年１２月１日改定）</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026102700028/" target="_blank" rel="noopener">第24回 岩手「道の駅」スタンプラリー開催のご案内</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026102700011/" target="_blank" rel="noopener">寄附金をいただきました（10/26）</a></li><li><span class="date">2026年10月27日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026102700035/" target="_blank" rel="noopener">【結果】令和９年度採用 令和８年度岩泉町職員『再チャレンジ採用』選考試験の合格者</a></li><li><span class="date">2026年10月22日</span><a href="https://www.town.iwaizumi.lg.jp/docs/2026050700019/" target="_blank" rel="noopener">いわいずみ議会だより</a></li></ul></section>
+<section class="card" data-muni="田野畑村" data-region="沿岸" data-order="24" data-kana="たのはたむら" data-count="3"><h3><a class="mlink" href="https://www.vill.tanohata.iwate.jp/" target="_blank" rel="noopener" title="田野畑村の公式ホームページ（別タブで開きます）">田野畑村</a><span class="count">3件</span></h3><ul class="items"><li><span class="date">2026年10月30日</span><a href="http://www.vill.tanohata.iwate.jp/docs/2024100300011/" target="_blank" rel="noopener">生活習慣病予防【栄養】教室の開催について(島越)</a></li><li><span class="date">2026年10月28日</span><a href="http://www.vill.tanohata.iwate.jp/docs/2026102800018/" target="_blank" rel="noopener">田野畑村第三セクター連携感謝祭の開催について</a></li><li><span class="date">2026年10月28日</span><a href="http://www.vill.tanohata.iwate.jp/docs/2024122800018/" target="_blank" rel="noopener">田野畑むらづくり基金中間報告書について</a></li></ul></section>
+<section class="card" data-muni="二戸市" data-region="県北" data-order="26" data-kana="にのへし" data-count="7"><h3><a class="mlink" href="https://www.city.ninohe.lg.jp/" target="_blank" rel="noopener" title="二戸市の公式ホームページ（別タブで開きます）">二戸市</a><span class="count">7件</span></h3><ul class="items"><li><span class="date">2026年11月1日</span><a href="http://www.city.ninohe.lg.jp/info/4496" target="_blank" rel="noopener">金田一コミュニティセンター【赤カブの漬物教室 開催のお知らせ】</a></li><li><span class="date">2026年10月30日</span><a href="http://www.city.ninohe.lg.jp/info/3960" target="_blank" rel="noopener">令和８年度稲庭キャンプ場の閉鎖について</a></li><li><span class="date">2026年10月30日</span><a href="http://www.city.ninohe.lg.jp/info/4688" target="_blank" rel="noopener">令和8年度岩手県総合防災訓練（二戸市会場）のご案内</a></li><li><span class="date">2026年10月29日</span><a href="http://www.city.ninohe.lg.jp/info/4699" target="_blank" rel="noopener">令和8年10月分二戸市入札・見積・プロポーザル執行状況</a></li><li><span class="date">2026年10月28日</span><a href="http://www.city.ninohe.lg.jp/info/4607" target="_blank" rel="noopener">【放送日決定!】「出張！なんでも鑑定団in二戸」放送のお知らせ</a></li><li><span class="date">2026年10月28日</span><a href="http://www.city.ninohe.lg.jp/info/4708" target="_blank" rel="noopener">令和７年度決算関連</a></li><li><span class="date">2026年10月27日</span><a href="http://www.city.ninohe.lg.jp/info/3154" target="_blank" rel="noopener">広報「えきしゅう」について</a></li></ul></section>
+<section class="card" data-muni="軽米町" data-region="県北" data-order="28" data-kana="かるまいまち" data-count="6"><h3><a class="mlink" href="https://www.town.karumai.iwate.jp/" target="_blank" rel="noopener" title="軽米町の公式ホームページ（別タブで開きます）">軽米町</a><span class="count">6件</span></h3><ul class="items"><li><span class="date">2026年10月29日</span><a href="https://www.town.karumai.iwate.jp/article/ukamekan/ukamekan_event/entry-basename-52.html" target="_blank" rel="noopener">津軽三味線“SHAMISEN”ライブの開催について</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.karumai.iwate.jp/article/ukamekan/ukamekan_annai/entry-basename-36.html" target="_blank" rel="noopener">【令和8年11月】かるまい文化交流センター宇漢米館の休館日について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.karumai.iwate.jp/article/mokuteki/koreisha/koreishashien/entry-basename-12.html" target="_blank" rel="noopener">令和8年度 生活支援体制整備事業 「地域のお宝発表会」について</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.karumai.iwate.jp/article/gyosei/gikai/gikaijoho/entry-basename-15.html" target="_blank" rel="noopener">議会だよりNo247(R8.10.28発行)</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.karumai.iwate.jp/article/kenkofukushi/kenkouiryou/kenkoudukuri/entry-basename.html" target="_blank" rel="noopener">献血バスがやってきます!</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.karumai.iwate.jp/article/education/kosodatesupport/entry-basename-21.html" target="_blank" rel="noopener">ピヨピヨ広場🐤11月開設日とイベントについて</a></li></ul></section>
+<section class="card" data-muni="洋野町" data-region="県北" data-order="31" data-kana="ひろのちょう" data-count="5"><h3><a class="mlink" href="https://www.town.hirono.iwate.jp/" target="_blank" rel="noopener" title="洋野町の公式ホームページ（別タブで開きます）">洋野町</a><span class="count">5件</span></h3><ul class="items"><li><span class="date">2026年10月31日</span><a href="https://www.town.hirono.iwate.jp/doc/2026103000059/" target="_blank" rel="noopener">指名停止措置について</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.hirono.iwate.jp/doc/2026103000028/" target="_blank" rel="noopener">令和７年度 町税（普通税・国民健康保険税）の収納状況</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.hirono.iwate.jp/doc/2026102300013/" target="_blank" rel="noopener">旧城内小学校無償譲渡会資料</a></li><li><span class="date">2026年10月30日</span><a href="https://www.town.hirono.iwate.jp/doc/2026103000011/" target="_blank" rel="noopener">第21回洋野町文化祭について</a></li><li><span class="date">2026年10月29日</span><a href="https://www.town.hirono.iwate.jp/doc/2026102700011/" target="_blank" rel="noopener">11月は「秋のこどもまんなか月間」です！「189（いちはやく） 気づいたあなたに できること」</a></li></ul></section>
+<section class="card" data-muni="一戸町" data-region="県北" data-order="32" data-kana="いちのへまち" data-count="3"><h3><a class="mlink" href="https://www.town.ichinohe.iwate.jp/" target="_blank" rel="noopener" title="一戸町の公式ホームページ（別タブで開きます）">一戸町</a><span class="count">3件</span></h3><ul class="items"><li><span class="date">2026年10月28日</span><a href="https://www.town.ichinohe.iwate.jp/soshikikarasagasu/sekaiisanka/bunkazaikakari/7290.html" target="_blank" rel="noopener">『第48回一戸町郷土芸能祭』を開催します</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.ichinohe.iwate.jp/soshikikarasagasu/seisakukikakuka/joho/7289.html" target="_blank" rel="noopener">町内ライブカメラ一時停止のお知らせ</a></li><li><span class="date">2026年10月28日</span><a href="https://www.town.ichinohe.iwate.jp/soshikikarasagasu/kenkofukushika/hokenhan/5981.html" target="_blank" rel="noopener">いちのへ健康フェア</a></li></ul></section></div><p class="msg fmsg" hidden>選択中の自治体の記事はありません</p>
+<h4>更新なし</h4>
+<p class="names"><a class="mlink" href="https://www.city.morioka.iwate.jp/" target="_blank" rel="noopener" title="盛岡市の公式ホームページ（別タブで開きます）">盛岡市</a>、<a class="mlink" href="https://www.city.kuji.lg.jp/" target="_blank" rel="noopener" title="久慈市の公式ホームページ（別タブで開きます）">久慈市</a>、<a class="mlink" href="https://www.city.tono.iwate.jp/" target="_blank" rel="noopener" title="遠野市の公式ホームページ（別タブで開きます）">遠野市</a>、<a class="mlink" href="https://town.iwate.iwate.jp/" target="_blank" rel="noopener" title="岩手町の公式ホームページ（別タブで開きます）">岩手町</a>、<a class="mlink" href="https://www.vill.fudai.iwate.jp/" target="_blank" rel="noopener" title="普代村の公式ホームページ（別タブで開きます）">普代村</a>、<a class="mlink" href="https://www.vill.kunohe.iwate.jp/" target="_blank" rel="noopener" title="九戸村の公式ホームページ（別タブで開きます）">九戸村</a>、<a class="mlink" href="https://www.vill.noda.iwate.jp/" target="_blank" rel="noopener" title="野田村の公式ホームページ（別タブで開きます）">野田村</a></p></div>
+<h3 class="foot">過去30日のアーカイブ</h3>
+<p><a href="../index.html">← 最新の一覧へ</a></p>
+<ul class="archive"><li><a href="../archive/2026-11-06.html">2026年11月6日</a></li><li><a href="../archive/2026-11-04.html">2026年11月4日</a></li><li><a href="../archive/2026-11-01.html">2026年11月1日</a></li><li><a href="../archive/2026-10-27.html">2026年10月27日</a></li><li><a href="../archive/2026-10-26.html">2026年10月26日</a></li><li><a href="../archive/2026-10-23.html">2026年10月23日</a></li><li><a href="../archive/2026-10-22.html">2026年10月22日</a></li><li><a href="../archive/2026-10-21.html">2026年10月21日</a></li><li><a href="../archive/2026-10-20.html">2026年10月20日</a></li><li><a href="../archive/2026-10-19.html">2026年10月19日</a></li><li><a href="../archive/2026-10-18.html">2026年10月18日</a></li><li><a href="../archive/2026-10-17.html">2026年10月17日</a></li><li><a href="../archive/2026-10-16.html">2026年10月16日</a></li><li><a href="../archive/2026-10-15.html">2026年10月15日</a></li></ul>
+<footer>各記事の内容は各自治体の公式サイトでご確認ください。</footer>
+</main></div><img class="logo-side" src="../nambu-logo.svg" alt="" aria-hidden="true" onerror="this.hidden=true"><script>
+(function () {
+  var KEY = "iwate-news-panel";
+  var LIMIT = 200;
+  var panel = document.getElementById("panel");
+  var toggle = document.getElementById("panel-toggle");
+  var backdrop = document.getElementById("panel-backdrop");
+  if (!panel || !toggle) return;
+  var q = document.getElementById("q");
+  var qClear = document.getElementById("q-clear");
+  var qAll = document.getElementById("q-all");
+  var qCount = document.getElementById("q-count");
+  var dayView = document.getElementById("day-view");
+  var results = document.getElementById("search-results");
+  var base = panel.getAttribute("data-base") || "";
+  var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
+  var boxes = Array.prototype.slice.call(panel.querySelectorAll('input[name="muni"]'));
+  var radios = Array.prototype.slice.call(panel.querySelectorAll('input[name="sort"]'));
+  var muniMeta = {};
+  boxes.forEach(function (b) { muniMeta[b.value] = {order: Number(b.dataset.order), kana: b.dataset.kana}; });
+
+  // 保存するのは並び替えと自治体の絞り込みだけ（検索語は保存しない）
+  var state = {sort: "region", off: []};
+  try {
+    var saved = JSON.parse(window.localStorage.getItem(KEY) || "null");
+    if (saved && typeof saved === "object") {
+      if (["region", "count", "kana"].indexOf(saved.sort) >= 0) state.sort = saved.sort;
+      if (Array.isArray(saved.off)) state.off = saved.off.filter(function (x) { return typeof x === "string"; });
+    }
+  } catch (e) {}
+  function save() {
+    try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  // 全角半角・大文字小文字を同一視する。元の文字位置への対応表も作り、ハイライトに使う
+  function norm(s) {
+    var text = "", map = [];
+    for (var i = 0; i < s.length; i++) {
+      var c = s.charAt(i);
+      var code = s.charCodeAt(i);
+      if (code >= 0xD800 && code <= 0xDBFF && i + 1 < s.length) c += s.charAt(i + 1);
+      var n = c.normalize("NFKC").toLowerCase();
+      if (/^[\u3099\u309a]/.test(n) && map.length) {  // 半角の濁点・半濁点は前の文字と合成
+        var last = text.charAt(text.length - 1), merged = (last + n).normalize("NFC");
+        if (merged.length === 1) {
+          text = text.slice(0, -1) + merged;
+          map[map.length - 1][1] = i + c.length;
+          i += c.length - 1;
+          continue;
+        }
+      }
+      for (var k = 0; k < n.length; k++) map.push([i, i + c.length]);
+      text += n;
+      i += c.length - 1;
+    }
+    return {text: text, map: map};
+  }
+  function terms() {
+    return norm(q.value).text.split(/\s+/).filter(Boolean);
+  }
+  // すべての語を含めば一致。一致した元の文字範囲を返す（不一致は null）
+  function match(n, ts) {
+    var ranges = [];
+    for (var j = 0; j < ts.length; j++) {
+      var t = ts[j], at = n.text.indexOf(t);
+      if (at < 0) return null;
+      while (at >= 0) {
+        ranges.push([n.map[at][0], n.map[at + t.length - 1][1]]);
+        at = n.text.indexOf(t, at + t.length);
+      }
+    }
+    ranges.sort(function (a, b) { return a[0] - b[0]; });
+    var out = [];
+    ranges.forEach(function (r) {
+      var prev = out[out.length - 1];
+      if (prev && r[0] <= prev[1]) prev[1] = Math.max(prev[1], r[1]);
+      else out.push([r[0], r[1]]);
+    });
+    return out;
+  }
+  function highlight(el, title, ranges) {
+    el.textContent = "";
+    var pos = 0;
+    ranges.forEach(function (r) {
+      if (r[0] > pos) el.appendChild(document.createTextNode(title.slice(pos, r[0])));
+      var m = document.createElement("mark");
+      m.textContent = title.slice(r[0], r[1]);
+      el.appendChild(m);
+      pos = r[1];
+    });
+    if (pos < title.length) el.appendChild(document.createTextNode(title.slice(pos)));
+  }
+
+  // このページの記事
+  var cards = [];
+  each(document.querySelectorAll(".mlist .card"), function (card) {
+    var items = [];
+    each(card.querySelectorAll("ul.items li"), function (li) {
+      var a = li.querySelector("a");
+      if (a) items.push({li: li, a: a, title: a.textContent, n: norm(a.textContent), marked: false});
+    });
+    cards.push({el: card, items: items, badge: card.querySelector(".count")});
+  });
+
+  // 過去30日分（search.json）は必要になったときに1回だけ読み込む
+  var arch = null, archState = "idle";
+  function loadArchive() {
+    if (archState !== "idle") return;
+    archState = "loading";
+    fetch(base + "search.json", {cache: "no-cache"}).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function (data) {
+      arch = (data.items || []).map(function (e) { return {d: e.d, m: e.m, t: e.t, u: e.u, n: norm(e.t)}; });
+      archState = "ok";
+      apply();
+    }).catch(function () { archState = "error"; apply(); });
+  }
+
+  function muniCmp(a, b) {
+    var x = muniMeta[a] || {order: 9999, kana: a}, y = muniMeta[b] || {order: 9999, kana: b};
+    if (state.sort === "kana") return x.kana.localeCompare(y.kana, "ja") || x.order - y.order;
+    return x.order - y.order;
+  }
+  function cardCmp(a, b) {
+    var d = 0;
+    if (state.sort === "count") d = Number(b.dataset.count) - Number(a.dataset.count);
+    else if (state.sort === "kana") d = a.dataset.kana.localeCompare(b.dataset.kana, "ja");
+    return d || Number(a.dataset.order) - Number(b.dataset.order);
+  }
+  function mdText(iso) {
+    var p = iso.split("-");
+    return Number(p[1]) + "月" + Number(p[2]) + "日";
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function applyDay(ts) {
+    var hits = 0;
+    each(document.querySelectorAll(".mlist"), function (list) {
+      var listCards = cards.filter(function (c) { return c.el.parentNode === list; });
+      var shown = 0, count = 0;
+      listCards.sort(function (a, b) { return cardCmp(a.el, b.el); }).forEach(function (c) {
+        var on = state.off.indexOf(c.el.dataset.muni) < 0, matched = 0, first = true;
+        c.items.forEach(function (it) {
+          var r = ts.length ? match(it.n, ts) : [];
+          it.li.hidden = !r;
+          if (r && (r.length || it.marked)) { highlight(it.a, it.title, r); it.marked = r.length > 0; }
+          it.li.classList.toggle("first", !!r && first);
+          if (r) { matched++; first = false; }
+        });
+        c.el.hidden = !on || (ts.length > 0 && matched === 0);
+        if (c.badge) c.badge.textContent = ts.length ? matched + "/" + c.items.length + "件" : c.items.length + "件";
+        if (!c.el.hidden) { shown++; count += matched; }
+        list.appendChild(c.el);
+      });
+      hits += count;
+      var msg = list.nextElementSibling;
+      if (msg && msg.classList.contains("fmsg")) {
+        msg.hidden = shown > 0;
+        msg.textContent = ts.length ? "検索語に一致する記事はありません" : "選択中の自治体の記事はありません";
+      }
+      var meta = list.parentNode.querySelector(".shown");
+      if (meta) meta.textContent = state.off.length || ts.length ? "（表示中 " + count + "件）" : "";
+    });
+    return hits;
+  }
+
+  function applyArchive(ts) {
+    results.textContent = "";
+    if (archState !== "ok") {
+      results.appendChild(el("p", "msg", archState === "error"
+        ? "過去30日分のデータを読み込めませんでした。時間をおいてもう一度お試しください"
+        : "過去30日分のデータを読み込んでいます…"));
+      return null;
+    }
+    var found = [];
+    arch.forEach(function (e) {
+      if (state.off.indexOf(e.m) >= 0) return;
+      var r = match(e.n, ts);
+      if (r) found.push({e: e, r: r});
+    });
+    found.sort(function (a, b) {
+      return a.e.d < b.e.d ? 1 : a.e.d > b.e.d ? -1 : muniCmp(a.e.m, b.e.m);
+    });
+    var head = el("h2", null, "過去30日分の検索結果");
+    head.appendChild(el("span", "meta", found.length + "件" +
+      (found.length > LIMIT ? "（新しい順に" + LIMIT + "件を表示）" : "")));
+    results.appendChild(head);
+    if (!found.length) {
+      results.appendChild(el("p", "msg", "検索語に一致する記事はありません"));
+      return 0;
+    }
+    var ul = el("ul", "items");
+    found.slice(0, LIMIT).forEach(function (f) {
+      var li = el("li"), meta = el("span", "date"), day = el("a", null, mdText(f.e.d));
+      day.href = base + "archive/" + f.e.d + ".html";
+      meta.appendChild(day);
+      meta.appendChild(document.createTextNode(" ・ " + f.e.m));
+      var a = el("a");
+      a.href = f.e.u;
+      a.target = "_blank";
+      a.rel = "noopener";
+      highlight(a, f.e.t, f.r);
+      li.appendChild(meta);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    results.appendChild(ul);
+    return found.length;
+  }
+
+  function apply() {
+    radios.forEach(function (r) { r.checked = r.value === state.sort; });
+    boxes.forEach(function (b) { b.checked = state.off.indexOf(b.value) < 0; });
+    var ts = terms();
+    var dayHits = applyDay(ts);
+    var archive = qAll.checked && ts.length > 0;
+    if (archive) loadArchive();
+    var hits = archive ? applyArchive(ts) : dayHits;
+    results.hidden = !archive;
+    dayView.hidden = archive;
+    qClear.hidden = !q.value;
+    qCount.textContent = !ts.length ? "" : hits == null ? "検索中…"
+      : (archive ? "過去30日分の検索結果 " : "検索結果 ") + hits + "件";
+    var total = boxes.length, on = boxes.filter(function (b) { return b.checked; }).length;
+    toggle.textContent = "検索・並び替え・絞り込み" +
+      (on < total ? "（" + on + "/" + total + "）" : "") + (ts.length ? "（検索中）" : "");
+  }
+  function setOpen(open) {
+    document.body.classList.toggle("panel-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    backdrop.hidden = !open;
+    if (open) panel.focus();
+  }
+
+  q.addEventListener("input", apply);
+  q.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") q.blur();  // スマホでキーボードを閉じる
+  });
+  qClear.addEventListener("click", function () { q.value = ""; apply(); q.focus(); });
+  qAll.addEventListener("change", apply);
+  radios.forEach(function (r) {
+    r.addEventListener("change", function () { state.sort = r.value; save(); apply(); });
+  });
+  boxes.forEach(function (b) {
+    b.addEventListener("change", function () {
+      state.off = state.off.filter(function (x) { return x !== b.value; });
+      if (!b.checked) state.off.push(b.value);
+      save(); apply();
+    });
+  });
+  // 「すべて選択／解除」。地域のボタンはその地域、絞り込み欄の先頭のボタンは全自治体が対象
+  each(panel.querySelectorAll("button[data-act]"), function (btn) {
+    btn.addEventListener("click", function () {
+      var scope = btn.closest(".pregion") || panel;
+      var names = Array.prototype.map.call(scope.querySelectorAll('input[name="muni"]'), function (b) { return b.value; });
+      state.off = state.off.filter(function (x) { return names.indexOf(x) < 0; });
+      if (btn.dataset.act === "off") state.off = state.off.concat(names);
+      save(); apply();
+    });
+  });
+  toggle.addEventListener("click", function () { setOpen(!document.body.classList.contains("panel-open")); });
+  document.getElementById("panel-close").addEventListener("click", function () { setOpen(false); toggle.focus(); });
+  backdrop.addEventListener("click", function () { setOpen(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.body.classList.contains("panel-open")) { setOpen(false); toggle.focus(); }
+  });
+
+  // 戻る操作などでブラウザが入力欄を復元しても、検索語は引き継がない
+  q.value = "";
+  qAll.checked = false;
+  panel.tabIndex = -1;
+  panel.hidden = false;
+  toggle.hidden = false;
+  document.body.classList.add("has-panel");
+  apply();
+})();
+</script></body></html>
