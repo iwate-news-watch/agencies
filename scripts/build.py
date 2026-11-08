@@ -52,6 +52,11 @@ SITE_NAME = "GINGA 岩手県 国の機関・大学 新着情報"
 # docs/ に置くロゴのファイル名。空文字にするとロゴを表示しない
 LOGO_FILE = "ginga-logo-v2.svg"
 LOGO_ALT = "GINGA"
+# 兄弟サイトのナビ（ページ上部の帯）。sites.json は同じドメインの https://iwate-news-watch.github.io/sites.json
+SITE_ID = "ginga"            # sites.json の中でこのサイトを表す id（今見ているサイトとして強調する）
+SITES_JSON_URL = "/sites.json"
+NETWORK_HOME_URL = "/"
+NETWORK_NAME = "IWATE NEWS WATCH"
 
 
 # ---------------------------------------------------------------------------
@@ -564,6 +569,20 @@ border:0;background:var(--accent);color:var(--bg);cursor:pointer}
 .bar .rmsg{margin-top:8px;font-size:.88rem}
 .bar .rmsg:empty{display:none}
 [hidden]{display:none!important}
+.sitenav{display:flex;align-items:center;gap:10px;min-height:36px;padding:4px 12px;
+background:var(--card);border-bottom:1px solid var(--line);font-size:.78rem;line-height:1.3}
+.sitenav a{text-decoration:none}
+.sn-home{flex:none;font-weight:700;letter-spacing:.02em;color:var(--fg);white-space:nowrap}
+.sn-home:hover{color:var(--accent)}
+.sn-sites{display:flex;gap:6px;margin-left:auto;min-width:0;overflow-x:auto;scrollbar-width:none;
+-webkit-overflow-scrolling:touch;padding:2px 0}
+.sn-sites::-webkit-scrollbar{display:none}
+.sn-site{flex:none;display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px 0 4px;
+border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);white-space:nowrap}
+.sn-site:hover{border-color:var(--accent);text-decoration:none}
+.sn-site img{width:18px;height:18px;object-fit:contain;border-radius:3px}
+.sn-site.current{font-weight:700;border-color:var(--sn-color);background:var(--sn-color);color:var(--sn-fg)}
+@media (max-width:480px){.sitenav{flex-wrap:wrap;gap:2px 8px;padding:5px 10px 4px}.sn-sites{flex-basis:100%;margin-left:0}}
 .layout{max-width:760px;margin:0 auto}
 .ptoggle{font:inherit;font-size:.9rem;font-weight:600;padding:7px 16px;margin:0 0 16px;border-radius:999px;
 border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer}
@@ -616,8 +635,8 @@ ul.items li.first{border-top:0;padding-top:0}
 @media (min-width:1400px){
 .logo-sm{display:none}
 .logo-side{--gutter:calc((100vw - 1060px) / 2);--w:min(180px,calc(var(--gutter) - 48px));
-display:block;position:fixed;top:24px;right:calc((var(--gutter) - var(--w)) / 2);
-width:var(--w);height:auto;max-height:calc(100vh - 48px);object-fit:contain}
+display:block;position:fixed;top:64px;right:calc((var(--gutter) - var(--w)) / 2);
+width:var(--w);height:auto;max-height:calc(100vh - 88px);object-fit:contain}
 }
 @media (min-width:1000px){
 .has-panel .layout{max-width:1060px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:8px;align-items:start}
@@ -1215,6 +1234,86 @@ REFRESH_JS = """
 """
 
 
+def render_sitenav() -> str:
+    """兄弟サイトへのナビの帯。サイトのボタンは sites.json を読めたときだけ JavaScript で足す。"""
+    return (
+        f'<nav class="sitenav" aria-label="{esc(NETWORK_NAME)} のサイト">'
+        f'<a class="sn-home" href="{esc(NETWORK_HOME_URL)}">{esc(NETWORK_NAME)}<span class="sn-long"> トップへ</span></a>'
+        f'<div class="sn-sites" id="sn-sites" data-src="{esc(SITES_JSON_URL)}" data-current="{esc(SITE_ID)}" hidden></div>'
+        "</nav>"
+    )
+
+
+# 兄弟サイトのボタン。sites.json は外部のファイルなので、要素は textContent で作り、
+# URL は http(s) か同じサイト内のもの、色は形式を確かめたものだけを使う。読めなければ何も足さない
+SITENAV_JS = """
+(function () {
+  var box = document.getElementById("sn-sites");
+  if (!box || !window.fetch) return;
+  var src = box.getAttribute("data-src"), current = box.getAttribute("data-current");
+  function safeUrl(u, base) {
+    try {
+      var x = new URL(String(u || ""), base);
+      return (x.protocol === "https:" || x.protocol === "http:") ? x.href : null;
+    } catch (e) { return null; }
+  }
+  function safeColor(c) {
+    c = String(c || "").trim();
+    return /^(#[0-9a-fA-F]{3,8}|rgba?\\([0-9.,%\\s]+\\)|hsla?\\([0-9.,%\\sdeg]+\\)|[a-zA-Z]{3,20})$/.test(c) ? c : "";
+  }
+  function textOn(c) {  // 背景色に合わせて文字を白か黒に
+    var m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c);
+    if (!m) return "#fff";
+    var h = m[1].length === 3 ? m[1].replace(/./g, "$&$&") : m[1];
+    var r = parseInt(h.substr(0, 2), 16), g = parseInt(h.substr(2, 2), 16), b = parseInt(h.substr(4, 2), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 > 150 ? "#1d1d1f" : "#fff";
+  }
+  fetch(src, {cache: "no-cache"}).then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(function (data) {
+    var base = new URL(src, location.href).href;
+    var list = Array.isArray(data) ? data : (data && Array.isArray(data.sites) ? data.sites : []);
+    list.forEach(function (s) {
+      if (!s || typeof s !== "object") return;
+      var url = safeUrl(s.url, base), name = String(s.name || s.id || "").trim();
+      if (!url || !name) return;
+      var a = document.createElement("a");
+      a.className = "sn-site";
+      a.href = url;
+      a.title = name;
+      var logo = s.logo ? safeUrl(s.logo, base) : null;
+      if (logo) {
+        var img = document.createElement("img");
+        img.src = logo;
+        img.alt = "";
+        img.loading = "lazy";
+        img.onerror = function () { img.remove(); };
+        a.appendChild(img);
+      }
+      a.appendChild(document.createTextNode(name));
+      if (String(s.id || "") === current) {
+        a.classList.add("current");
+        a.setAttribute("aria-current", "page");
+        var color = safeColor(s.color) || "var(--accent)";
+        a.style.setProperty("--sn-color", color);
+        a.style.setProperty("--sn-fg", textOn(color));
+      }
+      box.appendChild(a);
+    });
+    if (box.children.length) {
+      box.hidden = false;
+      var cur = box.querySelector(".current");
+      if (cur && box.scrollWidth > box.clientWidth) {  // 今見ているサイトのボタンが見える位置へ
+        var bx = box.getBoundingClientRect(), cx = cur.getBoundingClientRect();
+        box.scrollLeft += (cx.left - bx.left) - (bx.width - cx.width) / 2;
+      }
+    }
+  }).catch(function () {});
+})();
+"""
+
+
 def render_bar() -> str:
     return (
         '<div class="bar">'
@@ -1281,13 +1380,14 @@ def render_page(day: dict, archive_dates: list[str], prefix: str, is_index: bool
         "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
         "<meta name=\"color-scheme\" content=\"light dark\">"
         f"<title>{esc(title)} | {esc(SITE_NAME)}</title>"
-        f"<style>{CSS}</style></head><body><div class=\"layout\">"
+        f"<style>{CSS}</style></head><body>" + render_sitenav() + "<div class=\"layout\">"
         + render_panel(day, prefix)
         + "<main>\n"
         + "\n".join(body)
         + "\n</main></div>"
         + (f'<img class="logo-side" src="{esc(logo)}" alt="" aria-hidden="true" onerror="this.hidden=true">'
            if logo else "")
+        + f"<script>{SITENAV_JS}</script>"
         + f"<script>{PANEL_JS}</script>"
         + (f"<script>{REFRESH_JS}</script>" if is_index else "")
         + "</body></html>\n"
@@ -1301,13 +1401,13 @@ def render_empty_page() -> str:
         "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
         "<meta name=\"color-scheme\" content=\"light dark\">"
         f"<title>{esc(SITE_NAME)}</title>"
-        f"<style>{CSS}</style></head><body><main>\n"
+        f"<style>{CSS}</style></head><body>" + render_sitenav() + "<main>\n"
         f'<header class="masthead"><div class="mtext"><h1>{esc(SITE_NAME)}</h1></div></header>\n'
         '<p class="sub">岩手県内の国の出先機関・大学の新着情報を日ごとにまとめます。</p>\n'
         + render_bar() +
         '\n<p class="notice">まだ取得していません。取得元を設定して取得すると、ここに新着の一覧が表示されます。</p>\n'
         "<footer>各記事の内容は各機関の公式サイトでご確認ください。</footer>\n"
-        f"</main><script>{REFRESH_JS}</script></body></html>\n"
+        f"</main><script>{SITENAV_JS}</script><script>{REFRESH_JS}</script></body></html>\n"
     )
 
 

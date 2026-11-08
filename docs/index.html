@@ -57,6 +57,20 @@ border:0;background:var(--accent);color:var(--bg);cursor:pointer}
 .bar .rmsg{margin-top:8px;font-size:.88rem}
 .bar .rmsg:empty{display:none}
 [hidden]{display:none!important}
+.sitenav{display:flex;align-items:center;gap:10px;min-height:36px;padding:4px 12px;
+background:var(--card);border-bottom:1px solid var(--line);font-size:.78rem;line-height:1.3}
+.sitenav a{text-decoration:none}
+.sn-home{flex:none;font-weight:700;letter-spacing:.02em;color:var(--fg);white-space:nowrap}
+.sn-home:hover{color:var(--accent)}
+.sn-sites{display:flex;gap:6px;margin-left:auto;min-width:0;overflow-x:auto;scrollbar-width:none;
+-webkit-overflow-scrolling:touch;padding:2px 0}
+.sn-sites::-webkit-scrollbar{display:none}
+.sn-site{flex:none;display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px 0 4px;
+border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);white-space:nowrap}
+.sn-site:hover{border-color:var(--accent);text-decoration:none}
+.sn-site img{width:18px;height:18px;object-fit:contain;border-radius:3px}
+.sn-site.current{font-weight:700;border-color:var(--sn-color);background:var(--sn-color);color:var(--sn-fg)}
+@media (max-width:480px){.sitenav{flex-wrap:wrap;gap:2px 8px;padding:5px 10px 4px}.sn-sites{flex-basis:100%;margin-left:0}}
 .layout{max-width:760px;margin:0 auto}
 .ptoggle{font:inherit;font-size:.9rem;font-weight:600;padding:7px 16px;margin:0 0 16px;border-radius:999px;
 border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer}
@@ -109,8 +123,8 @@ ul.items li.first{border-top:0;padding-top:0}
 @media (min-width:1400px){
 .logo-sm{display:none}
 .logo-side{--gutter:calc((100vw - 1060px) / 2);--w:min(180px,calc(var(--gutter) - 48px));
-display:block;position:fixed;top:24px;right:calc((var(--gutter) - var(--w)) / 2);
-width:var(--w);height:auto;max-height:calc(100vh - 48px);object-fit:contain}
+display:block;position:fixed;top:64px;right:calc((var(--gutter) - var(--w)) / 2);
+width:var(--w);height:auto;max-height:calc(100vh - 88px);object-fit:contain}
 }
 @media (min-width:1000px){
 .has-panel .layout{max-width:1060px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:8px;align-items:start}
@@ -118,7 +132,7 @@ width:var(--w);height:auto;max-height:calc(100vh - 48px);object-fit:contain}
 z-index:auto;border:0;border-right:1px solid var(--line);background:transparent;padding:20px 16px 24px}
 .ptoggle,.pclose,.backdrop{display:none!important}
 }
-</style></head><body><div class="layout"><aside class="panel" id="panel" aria-label="検索・並び替え・絞り込み" data-base="" hidden><div class="phead"><h2>検索・並び替え・絞り込み</h2><button type="button" class="pclose" id="panel-close">閉じる</button></div><div class="psearch" role="search"><label class="plabel" for="q">記事タイトルを検索</label><div class="qbox"><input type="search" id="q" autocomplete="off" enterkeyhint="search" placeholder="例：入札 募集"><button type="button" id="q-clear" aria-label="検索語を消す" hidden>×</button></div><label class="qall"><input type="checkbox" id="q-all"> 過去30日分も検索</label><p class="qcount" id="q-count" role="status" aria-live="polite"></p></div><fieldset class="psort"><legend>並び替え</legend><label><input type="radio" name="sort" value="region" checked> 分類順</label><label><input type="radio" name="sort" value="count"> 新着件数順</label><label><input type="radio" name="sort" value="kana"> 五十音順</label></fieldset><div class="pfilter"><p class="plabel">絞り込み</p><div class="pbtns pall" role="group" aria-label="全機関"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><fieldset class="pregion" data-region="国の機関"><legend>国の機関</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="盛岡地方気象台" data-order="0" data-kana="もりおかちほうきしょうだい" checked> 盛岡地方気象台</label><label><input type="checkbox" name="muni" value="岩手労働局" data-order="1" data-kana="いわてろうどうきょく" checked> 岩手労働局</label><label><input type="checkbox" name="muni" value="岩手河川国道事務所" data-order="2" data-kana="いわてかせんこくどうじむしょ" checked> 岩手河川国道事務所</label><label><input type="checkbox" name="muni" value="三陸国道事務所" data-order="3" data-kana="さんりくこくどうじむしょ" checked> 三陸国道事務所</label><label><input type="checkbox" name="muni" value="南三陸沿岸国道事務所" data-order="4" data-kana="みなみさんりくえんがんこくどうじむしょ" checked> 南三陸沿岸国道事務所</label><label><input type="checkbox" name="muni" value="北上川ダム統合管理事務所" data-order="5" data-kana="きたかみがわだむとうごうかんりじむしょ" checked> 北上川ダム統合管理事務所</label><label><input type="checkbox" name="muni" value="盛岡財務事務所" data-order="6" data-kana="もりおかざいむじむしょ" checked> 盛岡財務事務所</label><label><input type="checkbox" name="muni" value="日本銀行盛岡事務所" data-order="7" data-kana="にっぽんぎんこうもりおかじむしょ" checked> 日本銀行盛岡事務所</label><label><input type="checkbox" name="muni" value="東北農政局（東北6県）" data-order="8" data-kana="とうほくのうせいきょく" checked> 東北農政局（東北6県）</label></fieldset><fieldset class="pregion" data-region="大学・研究機関"><legend>大学・研究機関</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="岩手大学" data-order="9" data-kana="いわてだいがく" checked> 岩手大学</label><label><input type="checkbox" name="muni" value="岩手県立大学" data-order="10" data-kana="いわてけんりつだいがく" checked> 岩手県立大学</label><label><input type="checkbox" name="muni" value="岩手医科大学" data-order="11" data-kana="いわていかだいがく" checked> 岩手医科大学</label><label><input type="checkbox" name="muni" value="盛岡大学" data-order="12" data-kana="もりおかだいがく" checked> 盛岡大学</label><label><input type="checkbox" name="muni" value="いわて富士大学" data-order="13" data-kana="いわてふじだいがく" checked> いわて富士大学</label><label><input type="checkbox" name="muni" value="国立天文台 水沢VLBI観測所" data-order="14" data-kana="こくりつてんもんだい みずさわぶいえるびーあいかんそくじょ" checked> 国立天文台 水沢VLBI観測所</label><label><input type="checkbox" name="muni" value="東京大学 国際沿岸海洋研究センター" data-order="15" data-kana="とうきょうだいがく こくさいえんがんかいようけんきゅうせんたー" checked> 東京大学 国際沿岸海洋研究センター</label></fieldset></div></aside><div class="backdrop" id="panel-backdrop" hidden></div><main>
+</style></head><body><nav class="sitenav" aria-label="IWATE NEWS WATCH のサイト"><a class="sn-home" href="/">IWATE NEWS WATCH<span class="sn-long"> トップへ</span></a><div class="sn-sites" id="sn-sites" data-src="/sites.json" data-current="ginga" hidden></div></nav><div class="layout"><aside class="panel" id="panel" aria-label="検索・並び替え・絞り込み" data-base="" hidden><div class="phead"><h2>検索・並び替え・絞り込み</h2><button type="button" class="pclose" id="panel-close">閉じる</button></div><div class="psearch" role="search"><label class="plabel" for="q">記事タイトルを検索</label><div class="qbox"><input type="search" id="q" autocomplete="off" enterkeyhint="search" placeholder="例：入札 募集"><button type="button" id="q-clear" aria-label="検索語を消す" hidden>×</button></div><label class="qall"><input type="checkbox" id="q-all"> 過去30日分も検索</label><p class="qcount" id="q-count" role="status" aria-live="polite"></p></div><fieldset class="psort"><legend>並び替え</legend><label><input type="radio" name="sort" value="region" checked> 分類順</label><label><input type="radio" name="sort" value="count"> 新着件数順</label><label><input type="radio" name="sort" value="kana"> 五十音順</label></fieldset><div class="pfilter"><p class="plabel">絞り込み</p><div class="pbtns pall" role="group" aria-label="全機関"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><fieldset class="pregion" data-region="国の機関"><legend>国の機関</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="盛岡地方気象台" data-order="0" data-kana="もりおかちほうきしょうだい" checked> 盛岡地方気象台</label><label><input type="checkbox" name="muni" value="岩手労働局" data-order="1" data-kana="いわてろうどうきょく" checked> 岩手労働局</label><label><input type="checkbox" name="muni" value="岩手河川国道事務所" data-order="2" data-kana="いわてかせんこくどうじむしょ" checked> 岩手河川国道事務所</label><label><input type="checkbox" name="muni" value="三陸国道事務所" data-order="3" data-kana="さんりくこくどうじむしょ" checked> 三陸国道事務所</label><label><input type="checkbox" name="muni" value="南三陸沿岸国道事務所" data-order="4" data-kana="みなみさんりくえんがんこくどうじむしょ" checked> 南三陸沿岸国道事務所</label><label><input type="checkbox" name="muni" value="北上川ダム統合管理事務所" data-order="5" data-kana="きたかみがわだむとうごうかんりじむしょ" checked> 北上川ダム統合管理事務所</label><label><input type="checkbox" name="muni" value="盛岡財務事務所" data-order="6" data-kana="もりおかざいむじむしょ" checked> 盛岡財務事務所</label><label><input type="checkbox" name="muni" value="日本銀行盛岡事務所" data-order="7" data-kana="にっぽんぎんこうもりおかじむしょ" checked> 日本銀行盛岡事務所</label><label><input type="checkbox" name="muni" value="東北農政局（東北6県）" data-order="8" data-kana="とうほくのうせいきょく" checked> 東北農政局（東北6県）</label></fieldset><fieldset class="pregion" data-region="大学・研究機関"><legend>大学・研究機関</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="岩手大学" data-order="9" data-kana="いわてだいがく" checked> 岩手大学</label><label><input type="checkbox" name="muni" value="岩手県立大学" data-order="10" data-kana="いわてけんりつだいがく" checked> 岩手県立大学</label><label><input type="checkbox" name="muni" value="岩手医科大学" data-order="11" data-kana="いわていかだいがく" checked> 岩手医科大学</label><label><input type="checkbox" name="muni" value="盛岡大学" data-order="12" data-kana="もりおかだいがく" checked> 盛岡大学</label><label><input type="checkbox" name="muni" value="いわて富士大学" data-order="13" data-kana="いわてふじだいがく" checked> いわて富士大学</label><label><input type="checkbox" name="muni" value="国立天文台 水沢VLBI観測所" data-order="14" data-kana="こくりつてんもんだい みずさわぶいえるびーあいかんそくじょ" checked> 国立天文台 水沢VLBI観測所</label><label><input type="checkbox" name="muni" value="東京大学 国際沿岸海洋研究センター" data-order="15" data-kana="とうきょうだいがく こくさいえんがんかいようけんきゅうせんたー" checked> 東京大学 国際沿岸海洋研究センター</label></fieldset></div></aside><div class="backdrop" id="panel-backdrop" hidden></div><main>
 <header class="masthead"><div class="mtext"><p class="site">GINGA 岩手県 国の機関・大学 新着情報</p><h1>2026年11月8日の更新</h1></div><img class="logo-sm" src="ginga-logo-v2.svg" alt="GINGA" onerror="this.hidden=true"></header>
 <p class="sub">最終取得 15:15（日本時間） ・ 新着 0 件</p>
 
@@ -136,6 +150,71 @@ z-index:auto;border:0;border-right:1px solid var(--line);background:transparent;
 <ul class="archive"><li><a href="archive/2026-11-08.html">2026年11月8日</a></li></ul>
 <footer>各記事の内容は各機関の公式サイトでご確認ください。</footer>
 </main></div><img class="logo-side" src="ginga-logo-v2.svg" alt="" aria-hidden="true" onerror="this.hidden=true"><script>
+(function () {
+  var box = document.getElementById("sn-sites");
+  if (!box || !window.fetch) return;
+  var src = box.getAttribute("data-src"), current = box.getAttribute("data-current");
+  function safeUrl(u, base) {
+    try {
+      var x = new URL(String(u || ""), base);
+      return (x.protocol === "https:" || x.protocol === "http:") ? x.href : null;
+    } catch (e) { return null; }
+  }
+  function safeColor(c) {
+    c = String(c || "").trim();
+    return /^(#[0-9a-fA-F]{3,8}|rgba?\([0-9.,%\s]+\)|hsla?\([0-9.,%\sdeg]+\)|[a-zA-Z]{3,20})$/.test(c) ? c : "";
+  }
+  function textOn(c) {  // 背景色に合わせて文字を白か黒に
+    var m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c);
+    if (!m) return "#fff";
+    var h = m[1].length === 3 ? m[1].replace(/./g, "$&$&") : m[1];
+    var r = parseInt(h.substr(0, 2), 16), g = parseInt(h.substr(2, 2), 16), b = parseInt(h.substr(4, 2), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 > 150 ? "#1d1d1f" : "#fff";
+  }
+  fetch(src, {cache: "no-cache"}).then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(function (data) {
+    var base = new URL(src, location.href).href;
+    var list = Array.isArray(data) ? data : (data && Array.isArray(data.sites) ? data.sites : []);
+    list.forEach(function (s) {
+      if (!s || typeof s !== "object") return;
+      var url = safeUrl(s.url, base), name = String(s.name || s.id || "").trim();
+      if (!url || !name) return;
+      var a = document.createElement("a");
+      a.className = "sn-site";
+      a.href = url;
+      a.title = name;
+      var logo = s.logo ? safeUrl(s.logo, base) : null;
+      if (logo) {
+        var img = document.createElement("img");
+        img.src = logo;
+        img.alt = "";
+        img.loading = "lazy";
+        img.onerror = function () { img.remove(); };
+        a.appendChild(img);
+      }
+      a.appendChild(document.createTextNode(name));
+      if (String(s.id || "") === current) {
+        a.classList.add("current");
+        a.setAttribute("aria-current", "page");
+        var color = safeColor(s.color) || "var(--accent)";
+        a.style.setProperty("--sn-color", color);
+        a.style.setProperty("--sn-fg", textOn(color));
+      }
+      box.appendChild(a);
+    });
+    if (box.children.length) {
+      box.hidden = false;
+      var cur = box.querySelector(".current");
+      if (cur && box.scrollWidth > box.clientWidth) {  // 今見ているサイトのボタンが見える位置へ
+        var bx = box.getBoundingClientRect(), cx = cur.getBoundingClientRect();
+        box.scrollLeft += (cx.left - bx.left) - (bx.width - cx.width) / 2;
+      }
+    }
+  }).catch(function () {});
+})();
+</script><script>
 (function () {
   var KEY = "iwate-agencies-panel";  // 同じ github.io の別サイトと設定が混ざらないよう固有の名前にする
   var LIMIT = 200;

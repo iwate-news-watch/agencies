@@ -343,6 +343,16 @@ python scripts/build.py
 
 ボタンを外したいときは `trigger_url` を `""`（空）に戻します（`via_proxy` の取得元も使えなくなります）。完全に止めるときは、Cloudflare で Worker を削除し、GitHub でトークンを削除（Developer settings → Fine-grained tokens → 対象のトークン → Delete）してください。
 
+## 兄弟サイトへのナビ
+
+各ページ（トップページ・アーカイブ）の一番上に細い帯のナビがあります。
+
+- 左の「IWATE NEWS WATCH トップへ」は `https://iwate-news-watch.github.io/`（`/`）へのリンクです。
+- 右には、同じドメインの `/sites.json` に載っている兄弟サイトへのボタン（ロゴの縮小表示＋名前）が並びます。このサイトのボタンは、sites.json の `color` で強調します（このサイトの `id` は `ginga`。`scripts/build.py` の `SITE_ID`）。
+- sites.json は `[{...}, ...]` でも `{"sites": [{...}, ...]}` でも読めます。各サイトの項目は `id`・`name`・`url`・`logo`・`color` です。`url`・`logo` は `/test/` のような同じドメイン内のパスか http(s) の URL、`color` は `#1b2a6b` のような色の指定だけを使い、それ以外は無視します。
+- sites.json を読めないときは「トップへ」のリンクだけを表示します。
+- スマホ幅ではボタンの列が2段目に回り、入りきらない分は横にスクロールします（ページ全体は横にはみ出しません）。
+
 ## ロゴ
 
 ロゴは `docs/ginga-logo-v2.svg` です（`scripts/build.py` の `LOGO_FILE`）。幅の広い画面（1400px以上）では右の余白に固定表示し、狭い画面では見出しの横に小さく表示します。ファイルが読めないときは表示しません。ロゴを差し替えるときは `docs/` に置き、`LOGO_FILE` にファイル名を書いてください。空文字（`""`）にするとロゴを表示しません。
