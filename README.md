@@ -17,7 +17,7 @@
 1. ✅ **取得元を調査する** … 「Survey agencies」ワークフローを実行し、`reports/survey_agencies.csv` で各サイトのフィードと新着一覧ページを確認します（下記「取得元の調査」）。
 2. ✅ **取得元を設定する** … 調査結果をもとに `sources.yaml` に取得元を書きます（下記「取得元の追加・変更方法」）。
 3. **取得する** … 「Iwate agencies news」ワークフローを実行します。初回は記録のみで、2回目以降に増えた記事が新着として表示されます。
-4. （後で）更新ボタン用の中継サーバーを用意し、`docs/config.json` の `trigger_url` に設定します。
+4. ✅ 更新ボタン用の中継サーバー（`https://ginga-trigger.iwate-news.workers.dev`）を用意し、`docs/config.json` の `trigger_url` に設定しました。
 5. （後で）新しいロゴを用意し、`scripts/build.py` の `LOGO_FILE` に設定します。
 
 ## 対象の機関
@@ -63,7 +63,7 @@
 │   └── daily/YYYY-MM-DD.json  # 日ごとの一覧データ（直近30日分）
 ├── docs/
 │   ├── index.html             # 公開ページ（最新の日の一覧。未取得のあいだは案内のみ）
-│   ├── config.json            # 更新ボタンの設定（中継サーバーのURL。現在は空）
+│   ├── config.json            # 更新ボタンの設定（中継サーバーのURL）
 │   ├── search.json            # 過去30日分の記事タイトル検索用データ（自動生成）
 │   └── archive/YYYY-MM-DD.html  # 日別アーカイブ（直近30日分）
 ├── worker/worker.js           # 更新ボタン用の中継サーバー（Cloudflare Workers）
@@ -225,7 +225,7 @@ python scripts/build.py
 
 ## 公開ページの「今すぐ更新」ボタン
 
-公開ページの上部に、誰でもログインなしで押せる更新ボタンを付けられます。**現在は `docs/config.json` の `trigger_url` が空なので、ボタンは表示されていません**（中継サーバーは後で別に用意します）。ボタンを押すと、中継サーバー（Cloudflare Workers）が GitHub Actions のワークフローを実行します。GitHub のトークンは中継サーバーだけが持ち、公開ページには含まれません。
+公開ページの上部に、誰でもログインなしで押せる更新ボタンを付けられます。現在の中継サーバーは `https://ginga-trigger.iwate-news.workers.dev` です（`docs/config.json` の `trigger_url` に設定済み）。ボタンを押すと、中継サーバー（Cloudflare Workers）が GitHub Actions のワークフローを実行します。GitHub のトークンは中継サーバーだけが持ち、公開ページには含まれません。
 
 - 前回の実行開始から15分以内、または実行中・待機中は受け付けず、「次に更新できるのは◯時◯分です」と表示します。
 - 受け付けると「受け付けました。5分ほどで反映されます」と表示します。完了すると再読み込みを促す表示が出ます。
