@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """岩手県内の国の出先機関・大学の新着情報を取得し、GitHub Pages 用の HTML を生成する。
 
-    python scripts/build.py
+    python scripts/build.py                # 取得してページを作る
+    python scripts/build.py --render-only  # 取得せず、保存済みのデータからページだけ作り直す
 
 - sources.yaml の取得元を巡回し、記事URLを state/seen.json と照合して新着を判定
 - その日の結果を state/daily/YYYY-MM-DD.json に保存（同日の再実行は追記マージ）
@@ -47,10 +48,10 @@ RETRY_WAIT = 3
 SITE_INTERVAL = 1
 SEEN_RETENTION_DAYS = 90
 ARCHIVE_DAYS = 30
-SITE_NAME = "岩手県 国の機関・大学 新着情報"
-# docs/ に置くロゴのファイル名。空文字のあいだはロゴを表示しない
-# （新しいロゴを用意したら docs/ に置き、ここにファイル名を書く）
-LOGO_FILE = ""
+SITE_NAME = "GINGA 岩手県 国の機関・大学 新着情報"
+# docs/ に置くロゴのファイル名。空文字にするとロゴを表示しない
+LOGO_FILE = "ginga-logo-v2.svg"
+LOGO_ALT = "GINGA"
 
 
 # ---------------------------------------------------------------------------
@@ -381,6 +382,11 @@ def prune_seen(seen: dict, today: date) -> None:
 # 実行
 # ---------------------------------------------------------------------------
 
+def title_key(title: str) -> str:
+    """タイトルの重複判定用の鍵（全角半角・大文字小文字・空白の有無を無視）。"""
+    return "".join(unicodedata.normalize("NFKC", title or "").lower().split())
+
+
 def run(now: datetime) -> dict:
     config = yaml.safe_load(SOURCES_FILE.read_text(encoding="utf-8")) or {}
     seen = load_seen()
@@ -430,10 +436,14 @@ def run(now: datetime) -> dict:
             seen["sources"][url] = today
         result["record_only"] = bool(fresh_sources)
 
+        titles: set[str] = set()  # 同じ機関で同じタイトルの記事は、先に見つけたほうだけ載せる
         for url, item in items.items():
             record_only = item.pop("_record_only")
             if url not in seen["articles"] and not record_only:
-                result["new"].append(item)
+                key = title_key(item["title"])
+                if key not in titles:
+                    titles.add(key)
+                    result["new"].append(item)
             seen["articles"][url] = today
         result["new"].sort(key=lambda i: i["date"], reverse=True)
         results.append(result)
@@ -478,6 +488,9 @@ def add_fetch(daily: dict, fetch_result: dict) -> dict:
         prev = prev_by_name.pop(muni["name"], None)
         items = [{**i, "fetched_at": fetch_result["fetched_at"]} for i in muni["new"]]
         if prev:
+            # その日の一覧にすでに同じタイトルの記事があれば、先に見つけたほう（一覧にあるほう）を残す
+            prev_titles = {title_key(i["title"]) for i in prev["new"]}
+            items = [i for i in items if title_key(i["title"]) not in prev_titles]
             urls = {i["url"] for i in items}
             items += [i for i in prev["new"] if i["url"] not in urls]
         merged.append({**muni, "new": items})
@@ -1238,7 +1251,7 @@ def render_page(day: dict, archive_dates: list[str], prefix: str, is_index: bool
     # ファイルが読めないときは枠ごと隠す
     # LOGO_FILE が空ならロゴは出さない
     logo = f'{prefix}{LOGO_FILE}' if LOGO_FILE else ""
-    logo_sm = (f'<img class="logo-sm" src="{esc(logo)}" alt="{esc(SITE_NAME)}" onerror="this.hidden=true">'
+    logo_sm = (f'<img class="logo-sm" src="{esc(logo)}" alt="{esc(LOGO_ALT)}" onerror="this.hidden=true">'
                if logo else "")
     body = ['<header class="masthead"><div class="mtext">'
             f'<p class="site">{esc(SITE_NAME)}</p>'
@@ -1337,6 +1350,10 @@ def write_pages(today: date) -> None:
 
 def main() -> None:
     now = datetime.now(JST)
+    if "--render-only" in sys.argv[1:]:  # 取得せず、保存済みのデータからページだけ作り直す
+        write_pages(now.date())
+        print("ページを作り直しました（取得はしていません）", file=sys.stderr)
+        return
     result = run(now)
     today = now.date().isoformat()
     daily_path = DAILY_DIR / f"{today}.json"

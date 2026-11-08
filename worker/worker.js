@@ -1,5 +1,5 @@
 /**
- * 岩手県 国の機関・大学 新着情報 — 更新ボタン用の中継サーバー（Cloudflare Workers）
+ * GINGA 岩手県 国の機関・大学 新着情報 — 更新ボタン用の中継サーバー（Cloudflare Workers）
  *
  * このファイルをそのまま Cloudflare のダッシュボードの Worker エディタに貼り付けて使います。
  *
