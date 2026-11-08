@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -145,10 +146,27 @@ def decode_html(content: bytes, http_charset: str | None = None) -> str:
     return dammit.unicode_markup or content.decode("utf-8", "replace")
 
 
-def scrape_dated_links(content: bytes | str, base_url: str, date_format: str,
-                       selector: str | None = None) -> list[dict]:
-    """ページ内で日付パターンを見つけたら、その直後に出てくる最初のリンクを記事とする。
+TITLE_MAX = 120
+_TRAILING_NEW = re.compile(r"\s*(NEW|New|new|新着)!?$")
 
+
+def clean_title(text: str, pattern: re.Pattern) -> str:
+    """日付と末尾の「NEW」などの印を除き、空白をまとめる。"""
+    title = " ".join(pattern.sub("", text).split())
+    return _TRAILING_NEW.sub("", title).strip()
+
+
+def scrape_dated_links(content: bytes | str, base_url: str, date_format: str,
+                       selector: str | None = None, date_position: str = "before",
+                       title_from: str = "link") -> list[dict]:
+    """ページ内の日付とリンクを組にして記事とする。
+
+    - date_position: before … 日付の直後に出てくる最初のリンクを記事とする（既定）
+                     after  … リンクの直後に出てくる日付をそのリンクの日付とする（日付がタイトルの後ろにあるサイト）
+    - title_from: link … リンクの文字をタイトルにする（既定）
+                  text … 日付から次の日付までの文章をタイトルにし、その中の最初のリンクを記事のURLにする
+                         （「詳細はこちら」のように本文中にリンクがあるサイト）。リンクがなければ取得元のページを指す
+    - selector を指定すると、その範囲ごとに走査する（範囲をまたいで日付とリンクを組にしない）
     日付が実在しない値などで読めなくても、記事は日付空欄で拾う。
     """
     pattern = DATE_PATTERNS[date_format]
@@ -160,24 +178,80 @@ def scrape_dated_links(content: bytes | str, base_url: str, date_format: str,
     items: list[dict] = []
     seen: set[str] = set()
 
+    def add_item(url: str, title: str, day: str) -> None:
+        if url in seen:
+            return
+        seen.add(url)
+        if len(title) > TITLE_MAX:
+            title = title[:TITLE_MAX - 1] + "…"
+        items.append({"title": title or url, "url": url, "date": day})
+
     def add(a: Tag, day: str) -> None:
         href = _usable_link(a)
         if not href:
             return
-        url = normalize_url(urljoin(base_url, href))
-        if url in seen:
-            return
         text = unicodedata.normalize("NFKC", a.get_text(" ", strip=True))
-        title = " ".join(pattern.sub("", text).split()) or url
-        seen.add(url)
-        items.append({"title": title, "url": url, "date": day})
+        add_item(normalize_url(urljoin(base_url, href)), clean_title(text, pattern), day)
+
+    def dates_in(node: NavigableString) -> list[re.Match]:
+        return list(pattern.finditer(unicodedata.normalize("NFKC", str(node))))
 
     for root in roots:
+        if title_from == "text":
+            current: dict | None = None  # {"day", "parts", "link"}
+
+            def flush() -> None:
+                if not current:
+                    return
+                title = clean_title("".join(current["parts"]), pattern)
+                if current["link"]:
+                    url = current["link"]
+                else:  # リンクのない記事は取得元のページを指す（URLの重複を避けるため印を付ける）
+                    key = hashlib.sha1(f"{current['day']} {title}".encode()).hexdigest()[:10]
+                    url = f"{base_url}#{key}"
+                if title:
+                    add_item(url, title, current["day"])
+
+            for node in root.descendants:
+                if isinstance(node, NavigableString):
+                    matches = dates_in(node)
+                    if matches:
+                        flush()
+                        current = {"day": to_iso_date(date_format, matches[-1]), "parts": [], "link": None}
+                        rest = unicodedata.normalize("NFKC", str(node))[matches[-1].end():]
+                        if rest.strip():
+                            current["parts"].append(rest)
+                    elif current is not None:
+                        current["parts"].append(unicodedata.normalize("NFKC", str(node)))
+                elif isinstance(node, Tag) and node.name == "a" and current is not None and not current["link"]:
+                    href = _usable_link(node)
+                    if href:
+                        current["link"] = normalize_url(urljoin(base_url, href))
+            flush()
+            continue
+
+        if date_position == "after":
+            last_a: Tag | None = None  # 直前に見つけたリンク（日付未割り当て）
+            for node in root.descendants:
+                if isinstance(node, Tag) and node.name == "a" and _usable_link(node):
+                    if last_a is not None:
+                        add(last_a, "")  # 日付が見つからないまま次のリンクが来た
+                    last_a = node
+                elif isinstance(node, NavigableString) and last_a is not None:
+                    if node.find_parent("a") is last_a:
+                        continue
+                    matches = dates_in(node)
+                    if matches:
+                        add(last_a, to_iso_date(date_format, matches[0]))
+                        last_a = None
+            if last_a is not None:
+                add(last_a, "")
+            continue
+
         pending: str | None = None  # 直前に見つけた日付（未使用）
         for node in root.descendants:
             if isinstance(node, NavigableString):
-                text = unicodedata.normalize("NFKC", str(node))
-                matches = list(pattern.finditer(text))
+                matches = dates_in(node)
                 if not matches:
                     continue
                 day = to_iso_date(date_format, matches[-1])
@@ -208,7 +282,12 @@ def collect(source: dict) -> list[dict]:
         fmt = source.get("date_format", "dotted")
         if fmt not in DATE_PATTERNS:
             raise ValueError(f"不明な date_format: {fmt}（{', '.join(DATE_PATTERNS)} のいずれか）")
-        return scrape_dated_links(decode_html(resp.content, charset), url, fmt, source.get("selector"))
+        position = source.get("date_position", "before")
+        title_from = source.get("title_from", "link")
+        if position not in ("before", "after") or title_from not in ("link", "text"):
+            raise ValueError("date_position は before/after、title_from は link/text のいずれか")
+        return scrape_dated_links(decode_html(resp.content, charset), url, fmt, source.get("selector"),
+                                  position, title_from)
     raise ValueError(f"不明な type: {kind}")
 
 

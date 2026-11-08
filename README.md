@@ -54,8 +54,10 @@
 ├── survey_targets.yaml        # 調査用ワークフローの調査対象
 ├── scripts/build.py           # 取得・新着判定・HTML生成
 ├── scripts/survey.py          # 取得元の調査
+├── scripts/inspect_sources.py # 取得元ごとに拾える記事の確認
 ├── requirements.txt
 ├── reports/survey_agencies.csv  # 調査結果（調査用ワークフローが更新）
+├── reports/inspect_sources.csv  # 取得元の確認結果（確認用ワークフローが更新）
 ├── state/
 │   ├── seen.json              # 既出記事のURL（90日より古い記録は自動削除）
 │   └── daily/YYYY-MM-DD.json  # 日ごとの一覧データ（直近30日分）
@@ -67,7 +69,8 @@
 ├── worker/worker.js           # 更新ボタン用の中継サーバー（Cloudflare Workers）
 └── .github/workflows/
     ├── daily.yml              # 取得・ページ生成のワークフロー（手動実行のみ）
-    └── survey.yml             # 取得元の調査ワークフロー（手動実行のみ）
+    ├── survey.yml             # 取得元の調査ワークフロー（手動実行のみ）
+    └── inspect.yml            # 取得元の確認ワークフロー（手動実行のみ）
 ```
 
 ページ内のリンク（アーカイブ・前後の日・検索用データ・設定ファイル）はすべて相対パスなので、`/agencies/` 配下でもそのまま動きます。
@@ -145,7 +148,26 @@ CSV の主な列: `status`（ok/error）、`http_status`、`final_url`（転送�
 | `kanji` | 西暦を年月日で書く | `2026年11月5日`（空白入り・全角数字も可） |
 | `reiwa` | 令和（令和N年 = 西暦 2018+N 年） | `令和8年 10月15日`（空白入り・全角数字も可） |
 
-- メニューやバナーのリンクまで拾ってしまう場合は、`selector` で記事一覧の部分を指定してください。
+- メニューやバナーのリンクまで拾ってしまう場合は、`selector` で記事一覧の部分を指定してください。複数の範囲に当たる場合は範囲ごとに読み、範囲をまたいで日付とリンクを組にしません（1記事ずつの枠を指定すると確実です）。
+- 日付がタイトルの**後ろ**にあるサイトは `date_position: after` を付けます（リンクの後に出てくる日付をその記事の日付にします）。
+- 「詳細は**こちら**」のように本文の中にリンクがあるサイトは `title_from: text` を付けます。日付から次の日付までの文章をタイトルにし（120字まで）、その中の最初のリンクを記事のURLにします。リンクのない記事は取得元のページへのリンクになります。
+- タイトル末尾の「NEW」「新着」の印は自動で取り除きます。
+
+```yaml
+      - type: scrape
+        url: https://www.miz.nao.ac.jp/content/news/topics.html
+        date_format: dotted
+        selector: "div.views-row"   # 記事1件ずつの枠
+        date_position: after        # 日付がタイトルの後ろ
+```
+
+**設定を変えたら確認する（Inspect sources）**
+
+Actions の「**Inspect sources**」を実行すると、各取得元からいま拾える記事（タイトル・URL・日付・リンクのある場所）を `reports/inspect_sources.csv` に書き出し、実行結果画面に取得元ごとの件数とタイトルの例を表示します。新着の記録（`state/`）は変えません。「save_html」をオンにすると、scrape の取得元のページを `reports/html/` に保存します（`selector` を決める参考。確認が済んだら削除してください）。
+
+**読み方を変えたときの注意**
+
+`selector`・`date_position`・`title_from` を変えると、拾う記事のURLが変わることがあります。古い記事がまとめて新着扱いになるのを防ぐには、`state/seen.json` の `sources` からその取得元のURLの行を消してください。次回の取得でその取得元は「初回のため記録のみ」になります。
 - 日付が読めない記事も取りこぼさず、日付欄を空にして表示します。
 
 **取得元をやめる・一時的に止める場合**

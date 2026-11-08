@@ -8,6 +8,12 @@
 #     date_format: kanji   … 「2026年11月5日」形式
 #     date_format: reiwa   … 「令和8年 10月15日」形式
 #     selector: (任意) 記事一覧部分のCSSセレクタ。指定するとその範囲だけを走査
+#       （複数の範囲に当たる場合は範囲ごとに走査し、範囲をまたいで日付とリンクを組にしない）
+#     date_position: (任意) before … 日付の後のリンクを記事にする（既定）
+#                           after  … リンクの後の日付をその記事の日付にする（日付がタイトルの後ろにあるサイト）
+#     title_from: (任意) link … リンクの文字をタイトルにする（既定）
+#                        text … 日付から次の日付までの文章をタイトルにし、その中の最初のリンクを記事のURLにする
+#                               （「詳細はこちら」のように本文中にリンクがあるサイト）
 #
 # homepage: ページで機関名からリンクする公式ホームページのURL（各機関のトップ）。
 #   省略すると、最初の取得元URLのドメインのトップ（https://ドメイン/）にリンクします。
@@ -27,6 +33,7 @@ organizations:
       - type: scrape
         url: https://www.data.jma.go.jp/morioka/
         date_format: reiwa
+        selector: "section#press"  # 「報道発表・お知らせ」欄だけ（上のピックアップを除く）
   - name: 岩手労働局
     homepage: https://jsite.mhlw.go.jp/iwate-roudoukyoku/
     sources:
@@ -43,18 +50,21 @@ organizations:
       - type: scrape
         url: https://www.thr.mlit.go.jp/iwate/
         date_format: dotted
+        selector: "dl.dl_list"  # 新着情報の一覧だけ（「もっと見る」を除く）
   - name: 盛岡財務事務所
     homepage: https://lfb.mof.go.jp/tohoku/morioka/
     sources:
       - type: scrape
         url: https://lfb.mof.go.jp/tohoku/morioka/soumu/pagethkhp04500008.html
         date_format: reiwa
+        selector: "ul.newsList"
   - name: 日本銀行盛岡事務所
     homepage: https://www3.boj.or.jp/morioka/
     sources:
       - type: scrape
         url: https://www3.boj.or.jp/morioka/
         date_format: kanji
+        selector: "section#news"  # 新着情報の欄だけ（メニュー・ロゴを除く）
 
   # ---- 大学・研究機関 ----
   - name: 岩手大学
@@ -68,15 +78,18 @@ organizations:
       - type: scrape
         url: https://www.iwate-med.ac.jp/category/news/
         date_format: dotted
+        selector: "div.archive-index"
       - type: scrape
         url: https://www.iwate-med.ac.jp/category/topics/
         date_format: dotted
+        selector: "div.archive-index"
   - name: 盛岡大学
     homepage: https://morioka-u.ac.jp/
     sources:
       - type: scrape
         url: https://morioka-u.ac.jp/
         date_format: slash
+        selector: "div.information-contnt-block, div.notices-box"  # 「インフォメーション」と「お知らせ」欄
   - name: いわて富士大学
     homepage: https://www.fuji-u.ac.jp/
     sources:
@@ -88,15 +101,21 @@ organizations:
       - type: scrape
         url: https://www.miz.nao.ac.jp/content/news/topics.html
         date_format: dotted
+        selector: "div.views-row"  # 記事1件ずつ
+        date_position: after       # 日付がタイトルの後ろにある
       - type: scrape
         url: https://www.miz.nao.ac.jp/content/news/announce.1.html
         date_format: dotted
+        selector: "div.views-row"  # 記事1件ずつ
+        date_position: after       # 日付がタイトルの後ろにある
   - name: 東京大学 国際沿岸海洋研究センター
     homepage: https://www.icrc.aori.u-tokyo.ac.jp/
     sources:
       - type: scrape
         url: https://www.icrc.aori.u-tokyo.ac.jp/archive.html
         date_format: kanji
+        selector: "article.sub dl.topics"  # 本文のお知らせ一覧だけ（左メニューを除く）
+        title_from: text                   # 「詳細はこちら」形式なので本文をタイトルにする
 
   # ---- 準備中（取得せず、ページ下部にホームページへのリンクだけ表示） ----
   - name: 北上川ダム統合管理事務所
