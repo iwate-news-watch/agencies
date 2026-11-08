@@ -1,0 +1,126 @@
+{
+ "date": "2026-11-08",
+ "first_run": true,
+ "last_fetched": "13:13",
+ "organizations": [
+  {
+   "errors": [],
+   "name": "盛岡地方気象台",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手労働局",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手河川国道事務所",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡財務事務所",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "日本銀行盛岡事務所",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手大学",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手医科大学",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡大学",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわて富士大学",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "国立天文台 水沢VLBI観測所",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東京大学 国際沿岸海洋研究センター",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "北上川ダム統合管理事務所",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  },
+  {
+   "errors": [],
+   "name": "釜石海上保安部",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  },
+  {
+   "errors": [],
+   "name": "東北農政局",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  },
+  {
+   "errors": [],
+   "name": "岩手復興局",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  },
+  {
+   "errors": [],
+   "name": "三陸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  },
+  {
+   "errors": [],
+   "name": "岩手県立大学",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  }
+ ]
+}
