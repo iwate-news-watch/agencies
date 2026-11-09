@@ -1,0 +1,126 @@
+{
+ "date": "2026-11-09",
+ "first_run": false,
+ "last_fetched": "09:24",
+ "organizations": [
+  {
+   "errors": [],
+   "name": "盛岡地方気象台",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手労働局",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手河川国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡財務事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "北上川ダム統合管理事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "三陸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "南三陸沿岸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東北農政局（東北6県）",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "日本銀行盛岡事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手県立大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手医科大学",
+   "new": [
+    {
+     "date": "2026-11-09",
+     "fetched_at": "09:24",
+     "title": "エフエム岩手「いのちから」のお知らせ(11月15日、22日、29日放送分)",
+     "url": "https://www.iwate-med.ac.jp/news/n2-media/26110901-radio/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわて富士大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "国立天文台 水沢VLBI観測所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東京大学 国際沿岸海洋研究センター",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  }
+ ]
+}
