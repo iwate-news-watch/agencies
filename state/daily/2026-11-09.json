@@ -1,7 +1,7 @@
 {
  "date": "2026-11-09",
  "first_run": false,
- "last_fetched": "12:28",
+ "last_fetched": "14:38",
  "organizations": [
   {
    "errors": [],
@@ -55,7 +55,14 @@
   {
    "errors": [],
    "name": "南三陸沿岸国道事務所",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-09",
+     "fetched_at": "14:38",
+     "title": "国道45号、108号及び三陸沿岸道路除雪機械出動式を行います ~仙台河川国道と南三陸沿岸国道の合同開催~(11/16)",
+     "url": "https://www.thr.mlit.go.jp/minamisanriku/kisha/pdf/261109.pdf"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
@@ -77,6 +84,12 @@
    "errors": [],
    "name": "岩手大学",
    "new": [
+    {
+     "date": "2026-11-09",
+     "fetched_at": "14:38",
+     "title": "TATタンパク質膜透過反応の試験管内での完全再構成に成功！",
+     "url": "https://www.iwate-u.ac.jp/info/2026/11/008149.html"
+    },
     {
      "date": "2026-11-09",
      "fetched_at": "12:28",
@@ -125,7 +138,14 @@
   {
    "errors": [],
    "name": "いわて富士大学",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-09",
+     "fetched_at": "14:38",
+     "title": "比較文化論 第7回「ニュージーランドの文化と多様性」を開催",
+     "url": "https://www.fuji-u.ac.jp/cat01/5481/"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
