@@ -1,12 +1,19 @@
 {
  "date": "2026-11-09",
  "first_run": false,
- "last_fetched": "09:24",
+ "last_fetched": "12:28",
  "organizations": [
   {
    "errors": [],
    "name": "盛岡地方気象台",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-09",
+     "fetched_at": "12:28",
+     "title": "「初雪観測のお知らせ」(PDF:187KB)",
+     "url": "https://www.data.jma.go.jp/morioka/osirase/20261107_hatsuyuki.pdf"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
@@ -69,14 +76,28 @@
   {
    "errors": [],
    "name": "岩手大学",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-09",
+     "fetched_at": "12:28",
+     "title": "【開催案内】地域企業×岩手大学×奥州連携フォーラム2026",
+     "url": "https://www.iwate-u.ac.jp/info/event/2026/11/008151.html"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
   {
    "errors": [],
    "name": "岩手県立大学",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-05",
+     "fetched_at": "12:28",
+     "title": "看護学部・岡田みずほ教授が第30回日本看護管理学会学術集会で「優秀演題賞」を受賞しました",
+     "url": "https://www.iwate-pu.ac.jp/research/overview/achievements/pg-2404"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
