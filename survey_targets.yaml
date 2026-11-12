@@ -14,12 +14,19 @@
 #   reports/survey_agencies.csv   … 1回目（20サイト）
 #   reports/survey_agencies_2.csv … 2回目（準備中だった北上川ダム・三陸国道・南三陸沿岸国道・東北農政局・岩手県立大学）
 #   reports/survey_agencies_3.csv … 3回目（岩手県立大学を Worker 経由で）
+#   reports/survey_agencies_4.csv … 4回目（県の試験研究・普及機関の2機関）
 
-output: reports/survey_agencies_3.csv
+output: reports/survey_agencies_4.csv
 
 targets:
-  # 3回目: GitHub Actions から直接は HTTP 403（CloudFront で遮断）のため Worker 経由で調べる
-  - category: 大学・研究機関
-    name: 岩手県立大学
-    urls: ["https://www.iwate-pu.ac.jp/"]
-    via_proxy: true
+  # 4回目: 県の試験研究・普及機関
+  # GitHub Actions から 403 になったら、Worker の変数 PROXY_ALLOWED_HOSTS にホストを足し（README の「Worker の /proxy」）、
+  # その機関に via_proxy: true を付けて調査し直す
+  - category: 県の試験研究・普及機関
+    name: いわてアグリベンチャーネット
+    # ページ下部に「新着更新情報」と「RSSフィード」のリンクがある（どちらも自動で探す）
+    urls: ["https://www.pref.iwate.jp/agri/i-agri/"]
+  - category: 県の試験研究・普及機関
+    name: 岩手県水産技術センター
+    # WordPress のサイト。/feed/ はよくあるパスとして自動で試す
+    urls: ["https://www2.suigi.pref.iwate.jp/"]

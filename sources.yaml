@@ -162,3 +162,12 @@ organizations:
         date_format: kanji
         selector: "article.sub dl.topics"  # 本文のお知らせ一覧だけ（左メニューを除く）
         title_from: text                   # 「詳細はこちら」形式なので本文をタイトルにする
+
+  # ---- 県の試験研究・普及機関 ----
+  # 準備中（取得せず、ページ下部にホームページへのリンクだけ表示）。取得方法は調査中（reports/survey_agencies_4.csv）
+  - name: いわてアグリベンチャーネット
+    homepage: https://www.pref.iwate.jp/agri/i-agri/
+    preparing: true
+  - name: 岩手県水産技術センター
+    homepage: https://www2.suigi.pref.iwate.jp/
+    preparing: true
