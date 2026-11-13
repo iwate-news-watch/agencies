@@ -1,0 +1,185 @@
+{
+ "date": "2026-11-13",
+ "first_run": false,
+ "last_fetched": "09:57",
+ "organizations": [
+  {
+   "errors": [],
+   "name": "盛岡地方気象台",
+   "new": [
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "「岩手県月間地震概況2026年10月分(PDF:1204KB)」",
+     "url": "https://www.data.jma.go.jp/morioka/jishin/gekkangaikyo/2026/gekkangaikyo10.pdf"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手労働局",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手河川国道事務所",
+   "new": [
+    {
+     "date": "2026-11-13",
+     "fetched_at": "09:57",
+     "title": "入札公告(工事)を更新しました",
+     "url": "https://www.thr.mlit.go.jp/iwate/jimusho/nyuusatu/koukoku/kouji/index.htm"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡財務事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "北上川ダム統合管理事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "三陸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "南三陸沿岸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東北農政局（東北6県）",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "日本銀行盛岡事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手大学",
+   "new": [
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "岩手大学学生寮 令和9年度4月新規入居者募集について【一般選抜以外】",
+     "url": "https://www.iwate-u.ac.jp/info/news/2026/11/008158.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手県立大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手医科大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡大学",
+   "new": [
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "採用 【採用情報】専門分野「臨床栄養学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1704-5/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "採用 【採用情報】専門分野「公衆栄養学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1704-4/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "採用 【採用情報】専門分野「日本古典文学[中世又は近世]」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1704-3/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "採用 【採用情報】専門分野「イギリス文化・文学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1704-2/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "09:57",
+     "title": "採用 【採用情報】専門分野「アメリカ文化・文学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1704/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわて富士大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "国立天文台 水沢VLBI観測所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東京大学 国際沿岸海洋研究センター",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわてアグリベンチャーネット",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  },
+  {
+   "errors": [],
+   "name": "岩手県水産技術センター",
+   "new": [],
+   "record_only": false,
+   "status": "preparing"
+  }
+ ]
+}

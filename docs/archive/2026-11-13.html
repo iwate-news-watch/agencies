@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>2026年11月13日の更新 | GINGA 岩手県 国の機関・大学 新着情報</title><style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;
+--accent:#0a6bc2;--err-bg:#fdecec;--err-fg:#b3261e;--err-line:#f2b8b5;--chip:#eef4fb}
+@media (prefers-color-scheme:dark){:root{--bg:#121214;--card:#1c1c1f;--fg:#ececee;
+--muted:#9a9aa2;--line:#2e2e33;--accent:#6cb4ff;--err-bg:#3a1416;--err-fg:#ffb4ab;
+--err-line:#7a2a2a;--chip:#1f2a38}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:16px/1.65 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+-webkit-text-size-adjust:100%}
+main{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.35rem;line-height:1.4;margin:0 0 4px}
+.sub{color:var(--muted);font-size:.85rem;margin:0 0 20px}
+h1{font-size:1.25rem}
+.site{font-size:.85rem;color:var(--muted);margin:0 0 6px}
+.daynav{display:flex;justify-content:space-between;gap:8px;margin:0 0 16px;font-size:.88rem}
+.daynav a{display:inline-block;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.daynav .next{margin-left:auto}
+.card h3{font-size:1.05rem;margin:0 0 8px;display:flex;align-items:center;gap:8px;color:inherit}
+.count{font-size:.75rem;font-weight:600;background:var(--chip);color:var(--accent);
+padding:1px 8px;border-radius:999px}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:14px 16px;margin:0 0 12px}
+section.err{background:var(--err-bg);border-color:var(--err-line)}
+section.err h3,.err .msg{color:var(--err-fg)}
+ul.items{list-style:none;margin:0;padding:0}
+ul.items li{padding:8px 0;border-top:1px solid var(--line)}
+ul.items li:first-child{border-top:0;padding-top:0}
+.date{display:block;color:var(--muted);font-size:.78rem}
+a{color:var(--accent);text-decoration:none;word-break:break-word}
+a:hover{text-decoration:underline}
+.msg{margin:0;font-size:.9rem;color:var(--muted)}
+.errlist{margin:6px 0 0;padding-left:18px;font-size:.78rem;word-break:break-all}
+.latest{border:2px solid var(--accent);border-radius:14px;padding:12px 12px 2px;margin:0 0 24px}
+.latest .card{margin-bottom:10px}
+.latest .msg{margin:0 4px 12px}
+h2{font-size:1.05rem;margin:0 0 10px}
+h2 .meta{margin-left:8px;font-size:.8rem;font-weight:400;color:var(--muted)}
+.latest h2{margin:0 4px 10px}
+.notice{background:var(--chip);border-radius:12px;padding:12px 16px;margin:0 0 16px}
+h4{font-size:.95rem;margin:20px 0 6px;color:var(--muted)}
+h3.foot{font-size:.95rem;margin:36px 0 8px;color:var(--muted)}
+.names{margin:0;font-size:.9rem;color:var(--muted)}
+.archive{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
+.archive a{display:inline-block;padding:4px 10px;border:1px solid var(--line);
+border-radius:8px;background:var(--card);font-size:.85rem}
+footer{margin-top:32px;font-size:.78rem;color:var(--muted)}
+.bar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 20px}
+.bar p{margin:0;font-size:.9rem}
+.bar .state{color:var(--muted);font-size:.85rem}
+.bar .state.busy{color:var(--accent)}
+.bar .state.fail{color:var(--err-fg)}
+.bar button{margin-top:10px;font:inherit;font-weight:600;padding:8px 18px;border-radius:999px;
+border:0;background:var(--accent);color:var(--bg);cursor:pointer}
+.bar button:disabled{opacity:.5;cursor:default}
+.bar .rmsg{margin-top:8px;font-size:.88rem}
+.bar .rmsg:empty{display:none}
+[hidden]{display:none!important}
+.sitenav{display:flex;align-items:center;gap:10px;min-height:36px;padding:4px 12px;
+background:var(--card);border-bottom:1px solid var(--line);font-size:.78rem;line-height:1.3}
+.sitenav a{text-decoration:none}
+.sn-home{flex:none;font-weight:700;letter-spacing:.02em;color:var(--fg);white-space:nowrap}
+.sn-home:hover{color:var(--accent)}
+.sn-sites{display:flex;gap:6px;margin-left:auto;min-width:0;overflow-x:auto;scrollbar-width:none;
+-webkit-overflow-scrolling:touch;padding:2px 0}
+.sn-sites::-webkit-scrollbar{display:none}
+.sn-site{flex:none;display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px 0 4px;
+border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);white-space:nowrap}
+.sn-site:hover{border-color:var(--accent);text-decoration:none}
+.sn-site img{width:18px;height:18px;object-fit:contain;border-radius:3px}
+.sn-site.current{font-weight:700;border-color:var(--sn-color);background:var(--sn-color);color:var(--sn-fg)}
+@media (max-width:480px){.sitenav{flex-wrap:wrap;gap:2px 8px;padding:5px 10px 4px}.sn-sites{flex-basis:100%;margin-left:0}}
+.layout{max-width:760px;margin:0 auto}
+.ptoggle{font:inherit;font-size:.9rem;font-weight:600;padding:7px 16px;margin:0 0 16px;border-radius:999px;
+border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer}
+.panel{position:fixed;top:0;left:0;bottom:0;z-index:20;width:min(320px,86vw);overflow-y:auto;
+background:var(--card);border-right:1px solid var(--line);padding:16px 16px 32px;
+transform:translateX(-105%);transition:transform .2s;visibility:hidden}
+.panel-open .panel{transform:none;visibility:visible}
+.panel:focus{outline:none}
+.backdrop{position:fixed;inset:0;z-index:15;background:rgba(0,0,0,.4)}
+.phead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px}
+.phead h2{margin:0;font-size:1rem}
+.pclose,.pbtns button{font:inherit;font-size:.78rem;padding:3px 10px;border-radius:8px;
+border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.panel fieldset{border:0;margin:0 0 12px;padding:0}
+.panel legend,.plabel{font-size:.82rem;font-weight:600;color:var(--muted);padding:0;margin:0 0 4px}
+.psort{border-bottom:1px solid var(--line)!important;padding-bottom:10px!important}
+.panel label{display:flex;align-items:center;gap:6px;font-size:.9rem;padding:3px 0;cursor:pointer}
+.panel input[type=checkbox],.panel input[type=radio]{margin:0;accent-color:var(--accent);width:1.05em;height:1.05em}
+.pregion legend{color:var(--fg)}
+.pbtns{display:flex;gap:6px;margin:0 0 4px}
+.fmsg{margin:0 4px 12px}
+.card h3 a.mlink{color:inherit}
+.card h3 a.mlink::after{content:"↗";margin-left:3px;font-size:.75em;font-weight:400;color:var(--muted)}
+.card h3 a.mlink:hover{color:var(--accent)}
+.pbtns button{white-space:nowrap}
+.pall{margin:0 0 12px;padding:0 0 10px;border-bottom:1px dashed var(--line)}
+.pall button{font-weight:600}
+.psearch{margin:0 0 12px;padding:0 0 10px;border-bottom:1px solid var(--line)}
+.qbox{position:relative}
+.qbox input{width:100%;font:inherit;font-size:1rem;padding:7px 34px 7px 10px;border:1px solid var(--line);
+border-radius:8px;background:var(--bg);color:var(--fg)}
+.qbox input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.qbox input::-webkit-search-cancel-button{display:none}
+#q-clear{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;border:0;
+border-radius:50%;background:transparent;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer}
+#q-clear:hover{background:var(--line)}
+.panel label.qall{font-size:.85rem;margin-top:6px}
+.qcount{margin:4px 0 0;font-size:.85rem;font-weight:600;color:var(--accent)}
+.qcount:empty{display:none}
+mark{background:#ffe58a;color:inherit;border-radius:2px;padding:0 1px}
+@media (prefers-color-scheme:dark){mark{background:#7a5d00}}
+ul.items li.first{border-top:0;padding-top:0}
+.sresults{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 16px}
+.sresults .date a{color:inherit}
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 4px}
+.masthead .mtext{min-width:0}
+.masthead h1{margin:0}
+.logo-sm{flex:none;display:block;width:auto;height:auto;max-height:44px;max-width:96px}
+.logo-side{display:none}
+@media (min-width:1400px){
+.logo-sm{display:none}
+.logo-side{--gutter:calc((100vw - 1060px) / 2);--w:min(180px,calc(var(--gutter) - 48px));
+display:block;position:fixed;top:64px;right:calc((var(--gutter) - var(--w)) / 2);
+width:var(--w);height:auto;max-height:calc(100vh - 88px);object-fit:contain}
+}
+@media (min-width:1000px){
+.has-panel .layout{max-width:1060px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:8px;align-items:start}
+.has-panel .panel{position:sticky;top:0;bottom:auto;width:auto;max-height:100vh;transform:none;visibility:visible;
+z-index:auto;border:0;border-right:1px solid var(--line);background:transparent;padding:20px 16px 24px}
+.ptoggle,.pclose,.backdrop{display:none!important}
+}
+</style></head><body><nav class="sitenav" aria-label="IWATE NEWS WATCH のサイト"><a class="sn-home" href="/">IWATE NEWS WATCH<span class="sn-long"> トップへ</span></a><div class="sn-sites" id="sn-sites" data-src="/sites.json" data-current="ginga" hidden></div></nav><div class="layout"><aside class="panel" id="panel" aria-label="検索・並び替え・絞り込み" data-base="../" hidden><div class="phead"><h2>検索・並び替え・絞り込み</h2><button type="button" class="pclose" id="panel-close">閉じる</button></div><div class="psearch" role="search"><label class="plabel" for="q">記事タイトルを検索</label><div class="qbox"><input type="search" id="q" autocomplete="off" enterkeyhint="search" placeholder="例：入札 募集"><button type="button" id="q-clear" aria-label="検索語を消す" hidden>×</button></div><label class="qall"><input type="checkbox" id="q-all"> 過去30日分も検索</label><p class="qcount" id="q-count" role="status" aria-live="polite"></p></div><fieldset class="psort"><legend>並び替え</legend><label><input type="radio" name="sort" value="region" checked> 分類順</label><label><input type="radio" name="sort" value="count"> 新着件数順</label><label><input type="radio" name="sort" value="kana"> 五十音順</label></fieldset><div class="pfilter"><p class="plabel">絞り込み</p><div class="pbtns pall" role="group" aria-label="全機関"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><fieldset class="pregion" data-region="国の機関"><legend>国の機関</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="盛岡地方気象台" data-order="0" data-kana="もりおかちほうきしょうだい" checked> 盛岡地方気象台</label><label><input type="checkbox" name="muni" value="岩手労働局" data-order="1" data-kana="いわてろうどうきょく" checked> 岩手労働局</label><label><input type="checkbox" name="muni" value="岩手河川国道事務所" data-order="2" data-kana="いわてかせんこくどうじむしょ" checked> 岩手河川国道事務所</label><label><input type="checkbox" name="muni" value="三陸国道事務所" data-order="3" data-kana="さんりくこくどうじむしょ" checked> 三陸国道事務所</label><label><input type="checkbox" name="muni" value="南三陸沿岸国道事務所" data-order="4" data-kana="みなみさんりくえんがんこくどうじむしょ" checked> 南三陸沿岸国道事務所</label><label><input type="checkbox" name="muni" value="北上川ダム統合管理事務所" data-order="5" data-kana="きたかみがわだむとうごうかんりじむしょ" checked> 北上川ダム統合管理事務所</label><label><input type="checkbox" name="muni" value="盛岡財務事務所" data-order="6" data-kana="もりおかざいむじむしょ" checked> 盛岡財務事務所</label><label><input type="checkbox" name="muni" value="日本銀行盛岡事務所" data-order="7" data-kana="にっぽんぎんこうもりおかじむしょ" checked> 日本銀行盛岡事務所</label><label><input type="checkbox" name="muni" value="東北農政局（東北6県）" data-order="8" data-kana="とうほくのうせいきょく" checked> 東北農政局（東北6県）</label></fieldset><fieldset class="pregion" data-region="大学・研究機関"><legend>大学・研究機関</legend><div class="pbtns"><button type="button" data-act="on">すべて選択</button><button type="button" data-act="off">すべて解除</button></div><label><input type="checkbox" name="muni" value="岩手大学" data-order="9" data-kana="いわてだいがく" checked> 岩手大学</label><label><input type="checkbox" name="muni" value="岩手県立大学" data-order="10" data-kana="いわてけんりつだいがく" checked> 岩手県立大学</label><label><input type="checkbox" name="muni" value="岩手医科大学" data-order="11" data-kana="いわていかだいがく" checked> 岩手医科大学</label><label><input type="checkbox" name="muni" value="盛岡大学" data-order="12" data-kana="もりおかだいがく" checked> 盛岡大学</label><label><input type="checkbox" name="muni" value="いわて富士大学" data-order="13" data-kana="いわてふじだいがく" checked> いわて富士大学</label><label><input type="checkbox" name="muni" value="国立天文台 水沢VLBI観測所" data-order="14" data-kana="こくりつてんもんだい みずさわぶいえるびーあいかんそくじょ" checked> 国立天文台 水沢VLBI観測所</label><label><input type="checkbox" name="muni" value="東京大学 国際沿岸海洋研究センター" data-order="15" data-kana="とうきょうだいがく こくさいえんがんかいようけんきゅうせんたー" checked> 東京大学 国際沿岸海洋研究センター</label></fieldset></div></aside><div class="backdrop" id="panel-backdrop" hidden></div><main>
+<header class="masthead"><div class="mtext"><p class="site">GINGA 岩手県 国の機関・大学 新着情報</p><h1>2026年11月13日の更新</h1></div><img class="logo-sm" src="../ginga-logo-v2.svg" alt="GINGA" onerror="this.hidden=true"></header>
+<p class="sub">最終取得 09:57（日本時間） ・ 新着 8 件</p>
+<nav class="daynav"><a class="prev" href="../archive/2026-11-12.html">← 前の日（11月12日）</a></nav>
+<button type="button" class="ptoggle" id="panel-toggle" aria-controls="panel" aria-expanded="false" hidden>検索・並び替え・絞り込み</button>
+<section class="sresults" id="search-results" aria-live="polite" hidden></section>
+<div id="day-view">
+<div class="mlist"><section class="card" data-muni="盛岡地方気象台" data-region="国の機関" data-order="0" data-kana="もりおかちほうきしょうだい" data-count="1"><h3><a class="mlink" href="https://www.data.jma.go.jp/morioka/" target="_blank" rel="noopener" title="盛岡地方気象台の公式ホームページ（別タブで開きます）">盛岡地方気象台</a><span class="count">1件</span></h3><ul class="items"><li><span class="date">2026年11月12日</span><a href="https://www.data.jma.go.jp/morioka/jishin/gekkangaikyo/2026/gekkangaikyo10.pdf" target="_blank" rel="noopener">「岩手県月間地震概況2026年10月分(PDF:1204KB)」</a></li></ul></section>
+<section class="card" data-muni="岩手河川国道事務所" data-region="国の機関" data-order="2" data-kana="いわてかせんこくどうじむしょ" data-count="1"><h3><a class="mlink" href="https://www.thr.mlit.go.jp/iwate/" target="_blank" rel="noopener" title="岩手河川国道事務所の公式ホームページ（別タブで開きます）">岩手河川国道事務所</a><span class="count">1件</span></h3><ul class="items"><li><span class="date">2026年11月13日</span><a href="https://www.thr.mlit.go.jp/iwate/jimusho/nyuusatu/koukoku/kouji/index.htm" target="_blank" rel="noopener">入札公告(工事)を更新しました</a></li></ul></section>
+<section class="card" data-muni="岩手大学" data-region="大学・研究機関" data-order="9" data-kana="いわてだいがく" data-count="1"><h3><a class="mlink" href="https://www.iwate-u.ac.jp/" target="_blank" rel="noopener" title="岩手大学の公式ホームページ（別タブで開きます）">岩手大学</a><span class="count">1件</span></h3><ul class="items"><li><span class="date">2026年11月12日</span><a href="https://www.iwate-u.ac.jp/info/news/2026/11/008158.html" target="_blank" rel="noopener">岩手大学学生寮 令和9年度4月新規入居者募集について【一般選抜以外】</a></li></ul></section>
+<section class="card" data-muni="盛岡大学" data-region="大学・研究機関" data-order="12" data-kana="もりおかだいがく" data-count="5"><h3><a class="mlink" href="https://morioka-u.ac.jp/" target="_blank" rel="noopener" title="盛岡大学の公式ホームページ（別タブで開きます）">盛岡大学</a><span class="count">5件</span></h3><ul class="items"><li><span class="date">2026年11月12日</span><a href="https://morioka-u.ac.jp/information/info-1704-5/" target="_blank" rel="noopener">採用 【採用情報】専門分野「臨床栄養学」教員公募</a></li><li><span class="date">2026年11月12日</span><a href="https://morioka-u.ac.jp/information/info-1704-4/" target="_blank" rel="noopener">採用 【採用情報】専門分野「公衆栄養学」教員公募</a></li><li><span class="date">2026年11月12日</span><a href="https://morioka-u.ac.jp/information/info-1704-3/" target="_blank" rel="noopener">採用 【採用情報】専門分野「日本古典文学[中世又は近世]」教員公募</a></li><li><span class="date">2026年11月12日</span><a href="https://morioka-u.ac.jp/information/info-1704-2/" target="_blank" rel="noopener">採用 【採用情報】専門分野「イギリス文化・文学」教員公募</a></li><li><span class="date">2026年11月12日</span><a href="https://morioka-u.ac.jp/information/info-1704/" target="_blank" rel="noopener">採用 【採用情報】専門分野「アメリカ文化・文学」教員公募</a></li></ul></section></div><p class="msg fmsg" hidden>選択中の機関の記事はありません</p>
+<h4>更新なし</h4>
+<p class="names"><a class="mlink" href="https://jsite.mhlw.go.jp/iwate-roudoukyoku/" target="_blank" rel="noopener" title="岩手労働局の公式ホームページ（別タブで開きます）">岩手労働局</a>、<a class="mlink" href="https://www.thr.mlit.go.jp/sanriku/" target="_blank" rel="noopener" title="三陸国道事務所の公式ホームページ（別タブで開きます）">三陸国道事務所</a>、<a class="mlink" href="https://www.thr.mlit.go.jp/minamisanriku/" target="_blank" rel="noopener" title="南三陸沿岸国道事務所の公式ホームページ（別タブで開きます）">南三陸沿岸国道事務所</a>、<a class="mlink" href="https://www.thr.mlit.go.jp/kitakato/" target="_blank" rel="noopener" title="北上川ダム統合管理事務所の公式ホームページ（別タブで開きます）">北上川ダム統合管理事務所</a>、<a class="mlink" href="https://lfb.mof.go.jp/tohoku/morioka/" target="_blank" rel="noopener" title="盛岡財務事務所の公式ホームページ（別タブで開きます）">盛岡財務事務所</a>、<a class="mlink" href="https://www3.boj.or.jp/morioka/" target="_blank" rel="noopener" title="日本銀行盛岡事務所の公式ホームページ（別タブで開きます）">日本銀行盛岡事務所</a>、<a class="mlink" href="https://www.maff.go.jp/tohoku/" target="_blank" rel="noopener" title="東北農政局（東北6県）の公式ホームページ（別タブで開きます）">東北農政局（東北6県）</a>、<a class="mlink" href="https://www.iwate-pu.ac.jp/" target="_blank" rel="noopener" title="岩手県立大学の公式ホームページ（別タブで開きます）">岩手県立大学</a>、<a class="mlink" href="https://www.iwate-med.ac.jp/" target="_blank" rel="noopener" title="岩手医科大学の公式ホームページ（別タブで開きます）">岩手医科大学</a>、<a class="mlink" href="https://www.fuji-u.ac.jp/" target="_blank" rel="noopener" title="いわて富士大学の公式ホームページ（別タブで開きます）">いわて富士大学</a>、<a class="mlink" href="https://www.miz.nao.ac.jp/" target="_blank" rel="noopener" title="国立天文台 水沢VLBI観測所の公式ホームページ（別タブで開きます）">国立天文台 水沢VLBI観測所</a>、<a class="mlink" href="https://www.icrc.aori.u-tokyo.ac.jp/" target="_blank" rel="noopener" title="東京大学 国際沿岸海洋研究センターの公式ホームページ（別タブで開きます）">東京大学 国際沿岸海洋研究センター</a></p>
+<h4>準備中</h4>
+<p class="names"><a class="mlink" href="https://www.pref.iwate.jp/agri/i-agri/" target="_blank" rel="noopener" title="いわてアグリベンチャーネットの公式ホームページ（別タブで開きます）">いわてアグリベンチャーネット</a>、<a class="mlink" href="https://www2.suigi.pref.iwate.jp/" target="_blank" rel="noopener" title="岩手県水産技術センターの公式ホームページ（別タブで開きます）">岩手県水産技術センター</a></p></div>
+<h3 class="foot">過去30日のアーカイブ</h3>
+<p><a href="../index.html">← 最新の一覧へ</a></p>
+<ul class="archive"><li><a href="../archive/2026-11-13.html">2026年11月13日</a></li><li><a href="../archive/2026-11-12.html">2026年11月12日</a></li><li><a href="../archive/2026-11-10.html">2026年11月10日</a></li><li><a href="../archive/2026-11-09.html">2026年11月9日</a></li><li><a href="../archive/2026-11-08.html">2026年11月8日</a></li></ul>
+<footer>各記事の内容は各機関の公式サイトでご確認ください。</footer>
+</main></div><img class="logo-side" src="../ginga-logo-v2.svg" alt="" aria-hidden="true" onerror="this.hidden=true"><script>
+(function () {
+  var box = document.getElementById("sn-sites");
+  if (!box || !window.fetch) return;
+  var src = box.getAttribute("data-src"), current = box.getAttribute("data-current");
+  function safeUrl(u, base) {
+    try {
+      var x = new URL(String(u || ""), base);
+      return (x.protocol === "https:" || x.protocol === "http:") ? x.href : null;
+    } catch (e) { return null; }
+  }
+  function safeColor(c) {
+    c = String(c || "").trim();
+    return /^(#[0-9a-fA-F]{3,8}|rgba?\([0-9.,%\s]+\)|hsla?\([0-9.,%\sdeg]+\)|[a-zA-Z]{3,20})$/.test(c) ? c : "";
+  }
+  function textOn(c) {  // 背景色に合わせて文字を白か黒に
+    var m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c);
+    if (!m) return "#fff";
+    var h = m[1].length === 3 ? m[1].replace(/./g, "$&$&") : m[1];
+    var r = parseInt(h.substr(0, 2), 16), g = parseInt(h.substr(2, 2), 16), b = parseInt(h.substr(4, 2), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 > 150 ? "#1d1d1f" : "#fff";
+  }
+  fetch(src, {cache: "no-cache"}).then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(function (data) {
+    var base = new URL(src, location.href).href;
+    var list = Array.isArray(data) ? data : (data && Array.isArray(data.sites) ? data.sites : []);
+    list.forEach(function (s) {
+      if (!s || typeof s !== "object") return;
+      var url = safeUrl(s.url, base), name = String(s.name || s.id || "").trim();
+      if (!url || !name) return;
+      var a = document.createElement("a");
+      a.className = "sn-site";
+      a.href = url;
+      a.title = name;
+      var logo = s.logo ? safeUrl(s.logo, base) : null;
+      if (logo) {
+        var img = document.createElement("img");
+        img.src = logo;
+        img.alt = "";
+        img.loading = "lazy";
+        img.onerror = function () { img.remove(); };
+        a.appendChild(img);
+      }
+      a.appendChild(document.createTextNode(name));
+      if (String(s.id || "") === current) {
+        a.classList.add("current");
+        a.setAttribute("aria-current", "page");
+        var color = safeColor(s.color) || "var(--accent)";
+        a.style.setProperty("--sn-color", color);
+        a.style.setProperty("--sn-fg", textOn(color));
+      }
+      box.appendChild(a);
+    });
+    if (box.children.length) {
+      box.hidden = false;
+      var cur = box.querySelector(".current");
+      if (cur && box.scrollWidth > box.clientWidth) {  // 今見ているサイトのボタンが見える位置へ
+        var bx = box.getBoundingClientRect(), cx = cur.getBoundingClientRect();
+        box.scrollLeft += (cx.left - bx.left) - (bx.width - cx.width) / 2;
+      }
+    }
+  }).catch(function () {});
+})();
+</script><script>
+(function () {
+  var KEY = "iwate-agencies-panel";  // 同じ github.io の別サイトと設定が混ざらないよう固有の名前にする
+  var LIMIT = 200;
+  var panel = document.getElementById("panel");
+  var toggle = document.getElementById("panel-toggle");
+  var backdrop = document.getElementById("panel-backdrop");
+  if (!panel || !toggle) return;
+  var q = document.getElementById("q");
+  var qClear = document.getElementById("q-clear");
+  var qAll = document.getElementById("q-all");
+  var qCount = document.getElementById("q-count");
+  var dayView = document.getElementById("day-view");
+  var results = document.getElementById("search-results");
+  var base = panel.getAttribute("data-base") || "";
+  var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
+  var boxes = Array.prototype.slice.call(panel.querySelectorAll('input[name="muni"]'));
+  var radios = Array.prototype.slice.call(panel.querySelectorAll('input[name="sort"]'));
+  var muniMeta = {};
+  boxes.forEach(function (b) { muniMeta[b.value] = {order: Number(b.dataset.order), kana: b.dataset.kana}; });
+
+  // 保存するのは並び替えと機関の絞り込みだけ（検索語は保存しない）
+  var state = {sort: "region", off: []};
+  try {
+    var saved = JSON.parse(window.localStorage.getItem(KEY) || "null");
+    if (saved && typeof saved === "object") {
+      if (["region", "count", "kana"].indexOf(saved.sort) >= 0) state.sort = saved.sort;
+      if (Array.isArray(saved.off)) state.off = saved.off.filter(function (x) { return typeof x === "string"; });
+    }
+  } catch (e) {}
+  function save() {
+    try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  // 全角半角・大文字小文字を同一視する。元の文字位置への対応表も作り、ハイライトに使う
+  function norm(s) {
+    var text = "", map = [];
+    for (var i = 0; i < s.length; i++) {
+      var c = s.charAt(i);
+      var code = s.charCodeAt(i);
+      if (code >= 0xD800 && code <= 0xDBFF && i + 1 < s.length) c += s.charAt(i + 1);
+      var n = c.normalize("NFKC").toLowerCase();
+      if (/^[\u3099\u309a]/.test(n) && map.length) {  // 半角の濁点・半濁点は前の文字と合成
+        var last = text.charAt(text.length - 1), merged = (last + n).normalize("NFC");
+        if (merged.length === 1) {
+          text = text.slice(0, -1) + merged;
+          map[map.length - 1][1] = i + c.length;
+          i += c.length - 1;
+          continue;
+        }
+      }
+      for (var k = 0; k < n.length; k++) map.push([i, i + c.length]);
+      text += n;
+      i += c.length - 1;
+    }
+    return {text: text, map: map};
+  }
+  function terms() {
+    return norm(q.value).text.split(/\s+/).filter(Boolean);
+  }
+  // すべての語を含めば一致。一致した元の文字範囲を返す（不一致は null）
+  function match(n, ts) {
+    var ranges = [];
+    for (var j = 0; j < ts.length; j++) {
+      var t = ts[j], at = n.text.indexOf(t);
+      if (at < 0) return null;
+      while (at >= 0) {
+        ranges.push([n.map[at][0], n.map[at + t.length - 1][1]]);
+        at = n.text.indexOf(t, at + t.length);
+      }
+    }
+    ranges.sort(function (a, b) { return a[0] - b[0]; });
+    var out = [];
+    ranges.forEach(function (r) {
+      var prev = out[out.length - 1];
+      if (prev && r[0] <= prev[1]) prev[1] = Math.max(prev[1], r[1]);
+      else out.push([r[0], r[1]]);
+    });
+    return out;
+  }
+  function highlight(el, title, ranges) {
+    el.textContent = "";
+    var pos = 0;
+    ranges.forEach(function (r) {
+      if (r[0] > pos) el.appendChild(document.createTextNode(title.slice(pos, r[0])));
+      var m = document.createElement("mark");
+      m.textContent = title.slice(r[0], r[1]);
+      el.appendChild(m);
+      pos = r[1];
+    });
+    if (pos < title.length) el.appendChild(document.createTextNode(title.slice(pos)));
+  }
+
+  // このページの記事
+  var cards = [];
+  each(document.querySelectorAll(".mlist .card"), function (card) {
+    var items = [];
+    each(card.querySelectorAll("ul.items li"), function (li) {
+      var a = li.querySelector("a");
+      if (a) items.push({li: li, a: a, title: a.textContent, n: norm(a.textContent), marked: false});
+    });
+    cards.push({el: card, items: items, badge: card.querySelector(".count")});
+  });
+
+  // 過去30日分（search.json）は必要になったときに1回だけ読み込む
+  var arch = null, archState = "idle";
+  function loadArchive() {
+    if (archState !== "idle") return;
+    archState = "loading";
+    fetch(base + "search.json", {cache: "no-cache"}).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function (data) {
+      arch = (data.items || []).map(function (e) { return {d: e.d, m: e.m, t: e.t, u: e.u, n: norm(e.t)}; });
+      archState = "ok";
+      apply();
+    }).catch(function () { archState = "error"; apply(); });
+  }
+
+  function muniCmp(a, b) {
+    var x = muniMeta[a] || {order: 9999, kana: a}, y = muniMeta[b] || {order: 9999, kana: b};
+    if (state.sort === "kana") return x.kana.localeCompare(y.kana, "ja") || x.order - y.order;
+    return x.order - y.order;
+  }
+  function cardCmp(a, b) {
+    var d = 0;
+    if (state.sort === "count") d = Number(b.dataset.count) - Number(a.dataset.count);
+    else if (state.sort === "kana") d = a.dataset.kana.localeCompare(b.dataset.kana, "ja");
+    return d || Number(a.dataset.order) - Number(b.dataset.order);
+  }
+  function mdText(iso) {
+    var p = iso.split("-");
+    return Number(p[1]) + "月" + Number(p[2]) + "日";
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function applyDay(ts) {
+    var hits = 0;
+    each(document.querySelectorAll(".mlist"), function (list) {
+      var listCards = cards.filter(function (c) { return c.el.parentNode === list; });
+      var shown = 0, count = 0;
+      listCards.sort(function (a, b) { return cardCmp(a.el, b.el); }).forEach(function (c) {
+        var on = state.off.indexOf(c.el.dataset.muni) < 0, matched = 0, first = true;
+        c.items.forEach(function (it) {
+          var r = ts.length ? match(it.n, ts) : [];
+          it.li.hidden = !r;
+          if (r && (r.length || it.marked)) { highlight(it.a, it.title, r); it.marked = r.length > 0; }
+          it.li.classList.toggle("first", !!r && first);
+          if (r) { matched++; first = false; }
+        });
+        c.el.hidden = !on || (ts.length > 0 && matched === 0);
+        if (c.badge) c.badge.textContent = ts.length ? matched + "/" + c.items.length + "件" : c.items.length + "件";
+        if (!c.el.hidden) { shown++; count += matched; }
+        list.appendChild(c.el);
+      });
+      hits += count;
+      var msg = list.nextElementSibling;
+      if (msg && msg.classList.contains("fmsg")) {
+        msg.hidden = shown > 0;
+        msg.textContent = ts.length ? "検索語に一致する記事はありません" : "選択中の機関の記事はありません";
+      }
+      var meta = list.parentNode.querySelector(".shown");
+      if (meta) meta.textContent = state.off.length || ts.length ? "（表示中 " + count + "件）" : "";
+    });
+    return hits;
+  }
+
+  function applyArchive(ts) {
+    results.textContent = "";
+    if (archState !== "ok") {
+      results.appendChild(el("p", "msg", archState === "error"
+        ? "過去30日分のデータを読み込めませんでした。時間をおいてもう一度お試しください"
+        : "過去30日分のデータを読み込んでいます…"));
+      return null;
+    }
+    var found = [];
+    arch.forEach(function (e) {
+      if (state.off.indexOf(e.m) >= 0) return;
+      var r = match(e.n, ts);
+      if (r) found.push({e: e, r: r});
+    });
+    found.sort(function (a, b) {
+      return a.e.d < b.e.d ? 1 : a.e.d > b.e.d ? -1 : muniCmp(a.e.m, b.e.m);
+    });
+    var head = el("h2", null, "過去30日分の検索結果");
+    head.appendChild(el("span", "meta", found.length + "件" +
+      (found.length > LIMIT ? "（新しい順に" + LIMIT + "件を表示）" : "")));
+    results.appendChild(head);
+    if (!found.length) {
+      results.appendChild(el("p", "msg", "検索語に一致する記事はありません"));
+      return 0;
+    }
+    var ul = el("ul", "items");
+    found.slice(0, LIMIT).forEach(function (f) {
+      var li = el("li"), meta = el("span", "date"), day = el("a", null, mdText(f.e.d));
+      day.href = base + "archive/" + f.e.d + ".html";
+      meta.appendChild(day);
+      meta.appendChild(document.createTextNode(" ・ " + f.e.m));
+      var a = el("a");
+      a.href = f.e.u;
+      a.target = "_blank";
+      a.rel = "noopener";
+      highlight(a, f.e.t, f.r);
+      li.appendChild(meta);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    results.appendChild(ul);
+    return found.length;
+  }
+
+  function apply() {
+    radios.forEach(function (r) { r.checked = r.value === state.sort; });
+    boxes.forEach(function (b) { b.checked = state.off.indexOf(b.value) < 0; });
+    var ts = terms();
+    var dayHits = applyDay(ts);
+    var archive = qAll.checked && ts.length > 0;
+    if (archive) loadArchive();
+    var hits = archive ? applyArchive(ts) : dayHits;
+    results.hidden = !archive;
+    dayView.hidden = archive;
+    qClear.hidden = !q.value;
+    qCount.textContent = !ts.length ? "" : hits == null ? "検索中…"
+      : (archive ? "過去30日分の検索結果 " : "検索結果 ") + hits + "件";
+    var total = boxes.length, on = boxes.filter(function (b) { return b.checked; }).length;
+    toggle.textContent = "検索・並び替え・絞り込み" +
+      (on < total ? "（" + on + "/" + total + "）" : "") + (ts.length ? "（検索中）" : "");
+  }
+  function setOpen(open) {
+    document.body.classList.toggle("panel-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    backdrop.hidden = !open;
+    if (open) panel.focus();
+  }
+
+  q.addEventListener("input", apply);
+  q.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") q.blur();  // スマホでキーボードを閉じる
+  });
+  qClear.addEventListener("click", function () { q.value = ""; apply(); q.focus(); });
+  qAll.addEventListener("change", apply);
+  radios.forEach(function (r) {
+    r.addEventListener("change", function () { state.sort = r.value; save(); apply(); });
+  });
+  boxes.forEach(function (b) {
+    b.addEventListener("change", function () {
+      state.off = state.off.filter(function (x) { return x !== b.value; });
+      if (!b.checked) state.off.push(b.value);
+      save(); apply();
+    });
+  });
+  // 「すべて選択／解除」。分類のボタンはその分類、絞り込み欄の先頭のボタンは全機関が対象
+  each(panel.querySelectorAll("button[data-act]"), function (btn) {
+    btn.addEventListener("click", function () {
+      var scope = btn.closest(".pregion") || panel;
+      var names = Array.prototype.map.call(scope.querySelectorAll('input[name="muni"]'), function (b) { return b.value; });
+      state.off = state.off.filter(function (x) { return names.indexOf(x) < 0; });
+      if (btn.dataset.act === "off") state.off = state.off.concat(names);
+      save(); apply();
+    });
+  });
+  toggle.addEventListener("click", function () { setOpen(!document.body.classList.contains("panel-open")); });
+  document.getElementById("panel-close").addEventListener("click", function () { setOpen(false); toggle.focus(); });
+  backdrop.addEventListener("click", function () { setOpen(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.body.classList.contains("panel-open")) { setOpen(false); toggle.focus(); }
+  });
+
+  // 戻る操作などでブラウザが入力欄を復元しても、検索語は引き継がない
+  q.value = "";
+  qAll.checked = false;
+  panel.tabIndex = -1;
+  panel.hidden = false;
+  toggle.hidden = false;
+  document.body.classList.add("has-panel");
+  apply();
+})();
+</script></body></html>
