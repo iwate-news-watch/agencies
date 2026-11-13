@@ -164,10 +164,19 @@ organizations:
         title_from: text                   # 「詳細はこちら」形式なので本文をタイトルにする
 
   # ---- 県の試験研究・普及機関 ----
-  # 準備中（取得せず、ページ下部にホームページへのリンクだけ表示）。取得方法は調査中（reports/survey_agencies_4.csv）
   - name: いわてアグリベンチャーネット
     homepage: https://www.pref.iwate.jp/agri/i-agri/
-    preparing: true
+    sources:
+      # 「新着更新情報」（newslist.html）と同じ記事の RSS
+      - type: rss
+        url: https://www.pref.iwate.jp/agri/i-agri/feed
   - name: 岩手県水産技術センター
     homepage: https://www2.suigi.pref.iwate.jp/
-    preparing: true
+    sources:
+      # WordPress のカテゴリ別フィード。サイト全体の /feed はトップニュースしか入らないため、
+      # お知らせ全体（/info/feed）とトップニュース（/category/top_news/feed）を組み合わせる。
+      # 両方に載る記事は同じタイトルとして1件にまとめる（先に読む /info 側を残す）
+      - type: rss
+        url: https://www2.suigi.pref.iwate.jp/info/feed
+      - type: rss
+        url: https://www2.suigi.pref.iwate.jp/category/top_news/feed

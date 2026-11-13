@@ -17,6 +17,6 @@
 | https://www.pref.iwate.jp/agri/i-agri/feed | 本番のUser-Agent | ✅ 200 | openresty | 10234 バイト | reiwa:6, monthday:10 |  |
 | https://www.pref.iwate.jp/agri/i-agri/feed | ブラウザ風User-Agent | ✅ 200 | openresty | 10234 バイト | reiwa:6, monthday:10 |  |
 
-失敗したときのヘッダーと本文は `reports/diagnose/*.txt`、取得できたページは `reports/diagnose/*.html` にあります。
+失敗したときのヘッダーと本文は `reports/diagnose/*.txt`にあります（取得できたページの保存分は確認後に削除しました）。
 
 判定の目安: ブラウザ風だけ成功 → User-Agent で判定するボット対策 ／ どちらも 403 で本文に海外・国外の文言 → 海外 IP の遮断 ／ Cloudflare などのヘッダーや captcha・challenge の文言 → WAF のボット対策
