@@ -1,0 +1,183 @@
+{
+ "date": "2026-11-16",
+ "first_run": false,
+ "last_fetched": "20:25",
+ "organizations": [
+  {
+   "errors": [],
+   "name": "盛岡地方気象台",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手労働局",
+   "new": [
+    {
+     "date": "2026-11-16",
+     "fetched_at": "20:25",
+     "title": "岩手労働局長が「ベストプラクティス企業」の経営トップと意見交換を行います!",
+     "url": "https://jsite.mhlw.go.jp/iwate-roudoukyoku/news_topics/houdou/kantokukabestpractice_r081116_00005.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手河川国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡財務事務所",
+   "new": [
+    {
+     "date": "2026-11-13",
+     "fetched_at": "20:25",
+     "title": "システム障害に伴うメール受信不具合のお知らせ",
+     "url": "https://lfb.mof.go.jp/tohoku/koho/pageth_cnt_20261113001.html"
+    },
+    {
+     "date": "2026-11-13",
+     "fetched_at": "20:25",
+     "title": "租税教室×財P(in 岩手県立大船渡高等学校定時制)の開催について",
+     "url": "https://lfb.mof.go.jp/tohoku/morioka/soumu/morizaip-ofunatokoukouteijisei.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "北上川ダム統合管理事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "三陸国道事務所",
+   "new": [
+    {
+     "date": "2026-11-16",
+     "fetched_at": "20:25",
+     "title": "冬タイヤ装着率調査(1回目)を実施しました 昨シーズンに比べ装着率が横ばい(全体の装着率50%)",
+     "url": "https://www.thr.mlit.go.jp/sanriku/01_press/pdf/2026/261116_1.pdf"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "南三陸沿岸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東北農政局（東北6県）",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "日本銀行盛岡事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手県立大学",
+   "new": [
+    {
+     "date": "2026-11-13",
+     "fetched_at": "20:25",
+     "title": "総合政策学部・鈴木正貴准教授が第62回岩手県発明くふう展で「岩手県知事賞」を受賞しました",
+     "url": "https://www.iwate-pu.ac.jp/research/overview/achievements/pg-2403"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手医科大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわて富士大学",
+   "new": [
+    {
+     "date": "2026-11-16",
+     "fetched_at": "20:25",
+     "title": "「2026ワン・ワールド・フェスタinいわて」に出展しました",
+     "url": "https://www.fuji-u.ac.jp/uncategorized/5543/"
+    },
+    {
+     "date": "2026-11-13",
+     "fetched_at": "20:25",
+     "title": "富士大学から2選手が大学野球日本代表候補強化合宿メンバーに選出",
+     "url": "https://www.fuji-u.ac.jp/%e3%82%b5%e3%83%bc%e3%82%af%e3%83%ab/5529/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [
+    "https://www.miz.nao.ac.jp/content/news/topics.html: ConnectTimeout: HTTPSConnectionPool(host='www.miz.nao.ac.jp', port=443): Max retries exceeded with url: /content/news/topics.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.miz.nao.ac.jp', port=443) at 0x7236697d6300>, 'Connection to",
+    "https://www.miz.nao.ac.jp/content/news/announce.1.html: ConnectTimeout: HTTPSConnectionPool(host='www.miz.nao.ac.jp', port=443): Max retries exceeded with url: /content/news/announce.1.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.miz.nao.ac.jp', port=443) at 0x7236697fb830>, 'Conne"
+   ],
+   "name": "国立天文台 水沢VLBI観測所",
+   "new": [],
+   "record_only": false,
+   "status": "error"
+  },
+  {
+   "errors": [],
+   "name": "東京大学 国際沿岸海洋研究センター",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわてアグリベンチャーネット",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手県水産技術センター",
+   "new": [],
+   "record_only": true,
+   "status": "ok"
+  }
+ ]
+}
