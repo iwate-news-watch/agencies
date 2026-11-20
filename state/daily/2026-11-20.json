@@ -1,0 +1,280 @@
+{
+ "date": "2026-11-20",
+ "first_run": false,
+ "last_fetched": "10:28",
+ "organizations": [
+  {
+   "errors": [],
+   "name": "盛岡地方気象台",
+   "new": [
+    {
+     "date": "2026-11-18",
+     "fetched_at": "10:28",
+     "title": "11 月 19 日から 22 日頃にかけての降雪に対する呼びかけについて(東北地方整備局、仙台管区気象台、東北運輸局、東日本高速道路株式会社東北支社)",
+     "url": "https://www.data.jma.go.jp/sendai/topic_old/26/20261118_kousetsu.pdf"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手労働局",
+   "new": [
+    {
+     "date": "2026-11-18",
+     "fetched_at": "10:28",
+     "title": "「令和8年度 いわて年末年始無災害運動」 開始セレモニーを行います",
+     "url": "https://jsite.mhlw.go.jp/iwate-roudoukyoku/news_topics/houdou/newpage_00046.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手河川国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡財務事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "北上川ダム統合管理事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "三陸国道事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "南三陸沿岸国道事務所",
+   "new": [
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "冬タイヤ装着率は58% ~第2回冬タイヤ装着率調査~",
+     "url": "https://www.thr.mlit.go.jp/minamisanriku/kisha/pdf/261117.pdf"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東北農政局（東北6県）",
+   "new": [
+    {
+     "date": "2026-11-19",
+     "fetched_at": "10:28",
+     "title": "「農業の生産性の向上のためのスマート農業技術の活用の促進に関する法律」に基づく生産方式革新実施計画の認定について",
+     "url": "https://www.maff.go.jp/tohoku/press/kankyo/261119.html"
+    },
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "「令和8年度農村RMO推進フォーラム(東北農政局)」の開催について",
+     "url": "https://www.maff.go.jp/tohoku/press/nouson/nousonsinkou/261117.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "日本銀行盛岡事務所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手大学",
+   "new": [
+    {
+     "date": "2026-11-18",
+     "fetched_at": "10:28",
+     "title": "岩手大学ダイバーシティ推進セミナー「ジェンダード・イノベーションとは～性差分析と交差性分析が拓く科学技術の発展～」",
+     "url": "https://www.iwate-u.ac.jp/info/event/2026/11/008176.html"
+    },
+    {
+     "date": "2026-11-18",
+     "fetched_at": "10:28",
+     "title": "女性大学院生・若手女性研究者のためのキャリア形成・ウェルネス支援プログラム第1回「マンダラチャートで描く『理想の未来ステップ』」",
+     "url": "https://www.iwate-u.ac.jp/info/event/2026/11/008165.html"
+    },
+    {
+     "date": "2026-11-18",
+     "fetched_at": "10:28",
+     "title": "【開催案内】令和8年度JR東日本寄附講義 特別企画「若者が地域とつながり、いわての未来を構想する1日」",
+     "url": "https://www.iwate-u.ac.jp/info/event/2026/11/008174.html"
+    },
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "【プレスリリース】ミトコンドリアの酵素が炎症関連タンパク質MAVSを切断―脳の炎症を調節する新たな仕組みの可能性―",
+     "url": "https://www.iwate-u.ac.jp/cat-research/2026/11/008163.html"
+    },
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "大学院総合科学研究科の佐藤稜さんが「2026年度グッドデザイン・ニューホープ賞」に入選",
+     "url": "https://www.iwate-u.ac.jp/info/news/2026/11/008169.html"
+    },
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "【開催案内】公開講座「公開実験教室『遺伝子をすげ替えてみよう！』」",
+     "url": "https://www.iwate-u.ac.jp/info/event/2026/11/008168.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手県立大学",
+   "new": [
+    {
+     "date": "2026-11-19",
+     "fetched_at": "10:28",
+     "title": "岩手県立大学盛岡短期大学部 国際文化学科 若名咲香准教授の業績紹介",
+     "url": "https://www.iwate-pu.ac.jp/jc/news/pg-2412"
+    },
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "【第四報】安否確認システムANPIC(アンピック)登録情報の漏えいについて",
+     "url": "https://www.iwate-pu.ac.jp/news/pl-school/pg-2411"
+    },
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "第6回イノベCaféを開催します",
+     "url": "https://www.iwate-pu.ac.jp/research/partnership/business/InnovationCafe_6"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手医科大学",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "盛岡大学",
+   "new": [
+    {
+     "date": "2026-11-20",
+     "fetched_at": "10:28",
+     "title": "お知らせ 学校推薦型選抜に伴う立ち入り禁止のお知らせ",
+     "url": "https://morioka-u.ac.jp/information/info-1714/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "10:28",
+     "title": "採用 【採用情報】専門分野「臨床栄養学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1713/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "10:28",
+     "title": "採用 【採用情報】専門分野「公衆栄養学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1712/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "10:28",
+     "title": "採用 【採用情報】専門分野「日本古典文学[中世又は近世]」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1711/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "10:28",
+     "title": "採用 【採用情報】専門分野「イギリス文化・文学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1710/"
+    },
+    {
+     "date": "2026-11-12",
+     "fetched_at": "10:28",
+     "title": "採用 【採用情報】専門分野「アメリカ文化・文学」教員公募",
+     "url": "https://morioka-u.ac.jp/information/info-1709/"
+    },
+    {
+     "date": "2026-10-30",
+     "fetched_at": "10:28",
+     "title": "入試情報 総合型選抜(専願制)第二次選考の合否情報照会について",
+     "url": "https://morioka-u.ac.jp/information/info-1708/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわて富士大学",
+   "new": [
+    {
+     "date": "2026-11-17",
+     "fetched_at": "10:28",
+     "title": "JICA隊員の体験から学ぶ 環境問題とビジネスの可能性",
+     "url": "https://www.fuji-u.ac.jp/cat01/5560/"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "国立天文台 水沢VLBI観測所",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "東京大学 国際沿岸海洋研究センター",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "いわてアグリベンチャーネット",
+   "new": [
+    {
+     "date": "2026-11-19",
+     "fetched_at": "10:28",
+     "title": "《普及だより 中部》「中部農業改良普及センターだより」第23号（令和8年11月）",
+     "url": "https://www.pref.iwate.jp/agri/i-agri/local/chubu/2010956/2013111.html"
+    }
+   ],
+   "record_only": false,
+   "status": "ok"
+  },
+  {
+   "errors": [],
+   "name": "岩手県水産技術センター",
+   "new": [],
+   "record_only": false,
+   "status": "ok"
+  }
+ ]
+}
