@@ -1,7 +1,7 @@
 {
  "date": "2026-11-24",
  "first_run": false,
- "last_fetched": "14:05",
+ "last_fetched": "17:37",
  "organizations": [
   {
    "errors": [],
@@ -13,7 +13,20 @@
   {
    "errors": [],
    "name": "岩手労働局",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-24",
+     "fetched_at": "17:37",
+     "title": "「12月4日(金)岩手労働局長が安全パトロールを実施します」東北6労働局長が建設工事現場を一斉パトロール",
+     "url": "https://jsite.mhlw.go.jp/iwate-roudoukyoku/news_topics/houdou/newpage_00047.html"
+    },
+    {
+     "date": "2026-11-24",
+     "fetched_at": "17:37",
+     "title": "令和8年10月分の労働災害発生状況(速報値)を公表します",
+     "url": "https://jsite.mhlw.go.jp/iwate-roudoukyoku/news_topics/houdou/newpage_00045.html"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
@@ -141,6 +154,12 @@
    "new": [
     {
      "date": "2026-11-24",
+     "fetched_at": "17:37",
+     "title": "角田楓斗選手が花巻市の保育園を訪問！園児たちと野球で交流",
+     "url": "https://www.fuji-u.ac.jp/%e3%82%b5%e3%83%bc%e3%82%af%e3%83%ab/5581/"
+    },
+    {
+     "date": "2026-11-24",
      "fetched_at": "11:53",
      "title": "高校柔道の熱戦が花巻で展開！第49回富士大学旗争奪高校柔道大会を開催",
      "url": "https://www.fuji-u.ac.jp/%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/5568/"
@@ -166,7 +185,14 @@
   {
    "errors": [],
    "name": "いわてアグリベンチャーネット",
-   "new": [],
+   "new": [
+    {
+     "date": "2026-11-24",
+     "fetched_at": "17:37",
+     "title": "《八幡平》次年度に向け「白銀のひかり」新規栽培説明会が開催 されました！",
+     "url": "https://www.pref.iwate.jp/agri/i-agri/local/hachimantai/genchi/2013118.html"
+    }
+   ],
    "record_only": false,
    "status": "ok"
   },
